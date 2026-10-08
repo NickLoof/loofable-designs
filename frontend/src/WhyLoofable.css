@@ -1,0 +1,50 @@
+.why-loofable{
+    display: flex;
+    flex-direction: column;
+    background: radial-gradient(
+    ellipse at center,
+    #143a1e 5%,
+    #113322 25%,
+    #0a1710 60%,
+    #090e0b 100%);
+    color: white;
+    font-family: "Chillax", sans-serif;
+    padding-top: 40px;
+}
+.why-loofable-header{
+    padding: 50px;
+}
+.why-loofable-columns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;
+}
+.why-loofable-browser-mockup{
+    border: 2px solid green;
+    width: 400px;
+    height: 400px;
+}
+.why-loofable-reasons{
+    display: flex;
+    flex-direction: column;
+}
+.why-loofable-reason{
+    display: flex;
+}
+.why-loofable-reason-text{
+    padding-left: 10px;
+    border: solid;
+    
+}
+.why-loofable-icon{
+    margin-left: 20px;
+    align-self: center;
+    border: 2px solid #0e4221;
+    border-radius: 10px;
+    background-color: #0e4221;
+    color: #1d8042;
+    width: 45px;
+    height: auto;
+    padding: 5px;
+}
