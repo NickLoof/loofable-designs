@@ -1,3 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
 .why-loofable{
     display: flex;
     flex-direction: column;
@@ -10,20 +21,23 @@
     color: white;
     font-family: "Chillax", sans-serif;
     padding-top: 40px;
+    padding-bottom: 50px;
 }
 .why-loofable-header{
-    padding: 50px;
+    padding: 30px;
+    padding-top: 50px;
 }
 .why-loofable-columns{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-inline: auto;
+    margin-bottom: 60px;
 }
 .why-loofable-browser-mockup{
-    border: 2px solid green;
-    width: 400px;
+    width: auto;
     height: 400px;
+    border-radius: 70px 10px 70px 10px;
 }
 .why-loofable-reasons{
     display: flex;
@@ -31,11 +45,13 @@
 }
 .why-loofable-reason{
     display: flex;
+    margin-bottom: 20px;
 }
 .why-loofable-reason-text{
     padding-left: 10px;
-    border: solid;
-    
+} 
+.why-loofable-reason-text p{
+    max-width: 1000px;
 }
 .why-loofable-icon{
     margin-left: 20px;
@@ -47,4 +63,5 @@
     width: 45px;
     height: auto;
     padding: 5px;
+    border: 1px solid rgba(29, 216, 66, 0.2);
 }

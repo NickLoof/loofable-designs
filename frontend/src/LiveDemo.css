@@ -1,0 +1,112 @@
+* {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+.live-demo{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(1, 1, 19);
+    color: white;
+    font-family: "Chillax", sans-serif;
+}
+.live-demo-header{
+    text-align: center;
+    padding-bottom: 40px;
+    margin-top: 60px;
+    
+}
+.live-demo p{
+    font-size: 22px;
+}
+.live-demo h1{
+    font-size: 38px;
+}
+.live-demo-selectors{
+    display: flex;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 15px;
+    background: radial-gradient(
+    ellipse at center,
+    #143a1e 5%,
+    #113322 25%,
+    #0a1710 60%,
+    #090e0b 100%);
+    width: 80%;
+    margin-inline: auto;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+.live-demo-website-selector{
+display: flex;
+gap: 10px;
+align-items: center;
+}
+.live-demo-website{
+    background-color: rgb(1, 1, 19);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 12px;
+    padding: 10px 20px 10px 20px;
+    color: white;
+
+    &:hover{
+        background-color: #266d39;
+    }
+}
+.live-demo-website-active{
+    background-color: #02741e;
+    border-color: #20e952;
+}
+.live-demo-screen-selector{
+    background-color: rgb(1, 1, 19);
+    margin-left: auto;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 12px;
+    padding: 15px 20px 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.tablet{
+    transform: rotate(-90deg);
+}
+.live-demo-screen-icon{
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 5px;
+    padding: 3px;
+    scale: 1.5;
+    background-color: #14381d;
+
+    &:hover{
+        background-color: #266d39;
+    }
+}
+.live-demo-screen-icon-active{
+    background-color: #02741e;
+    border-color: #20e952;
+}
+.live-demo-demo-screen{
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 30px;
+    margin-inline: auto;
+    width: 95%;
+    height: 650px; 
+    overflow-y: auto;
+    transition: width 0.4s ease, max-width 0.4s ease;
+    margin-bottom: 50px;
+}
+.demo-desktop{
+    max-width: 1600px;
+}
+.demo-tablet{
+    max-width: 1000px;
+}
+.demo-smartphone{
+    max-width: 390px;
+}
