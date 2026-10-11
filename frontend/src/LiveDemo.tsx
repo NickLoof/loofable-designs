@@ -40,10 +40,13 @@ function LiveDemo() {
                     </button>
                 </div>
             </div>
+            <div className="live-demo-screen-container">
             <div className={`live-demo-demo-screen demo-${selectedScreen}`}>
                 {selectedDemo === "restaurant"&&<RestaurantDemo/>}
                 {selectedDemo === "handwerk"&&<HandwerkDemo/>}
                 {selectedDemo === "online-shop"&&<OnlineShopDemo/>}
+            </div>
+            <p className="live-demo-disclaimer"><strong>Hinweis:</strong> Die dargestellten Unternehmen, Inhalte und Bilder in den Live-Demos dienen ausschließlich zu Demonstrationszwecken. Teilweise wurden KI-generierte Bilder verwendet.</p>
             </div>
         </section>
     )

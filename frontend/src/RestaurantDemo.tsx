@@ -74,7 +74,7 @@ function RestaurantDemo() {
     }, [currentImage])
 
     return (
-        <>
+        <div className="restaurant-demo">
             <nav id="restaurant-home" className="restaurant-navbar">
                 <div className="restaurant-navbar-container">
                     <img className="restaurant-navbar-logo" src={logo} alt="Antica Tavola"/>
@@ -195,36 +195,38 @@ function RestaurantDemo() {
                 </div>
             </section>
             <section className="restaurant-footer">
-                <div className="restaurant-footer-info">
+                <div className="restaurant-footer-logo-info-container">
                     <div className="restaurant-footer-logo-container">
                         <img className="restaurant-footer-logo" src={logo} alt="Antica Tavola"/>
                     </div>
-                    <div className="restaurant-footer-navigation">
-                        <ul> 
-                            <h3>Navigation</h3>
-                            <li><a href="#unsere-kueche">Unsere Küche</a></li>
-                            <li><a href="#über-uns">Über uns</a></li>  
-                            <li><a href="#reservieren">Reservieren</a></li>  
-                        </ul>
-                    </div>
-                    <div className="restaurant-footer-contact">
-                        <h2>Kontakt</h2>
-                        <p>Musterstraße 12</p>
-                        <p>24103 Kiel</p>
-                        <p>0431 ...</p>
-                        <a href="mailto:info@anticatavolo.de">info@anticatavola.de</a>
-                    </div>
-                    <div className="restaurant-footer-legal-info">
-                        <h3>Rechtliches</h3>
-                        <a>Impressum</a>
-                        <a>Datenschutz</a>
+                    <div className="restaurant-footer-info">
+                        <div className="restaurant-footer-navigation">
+                            <ul> 
+                                <h3>Navigation</h3>
+                                <li><a href="#unsere-kueche">Unsere Küche</a></li>
+                                <li><a href="#über-uns">Über uns</a></li>  
+                                <li><a href="#reservieren">Reservieren</a></li>  
+                            </ul>
+                        </div>
+                        <div className="restaurant-footer-contact">
+                            <h3>Kontakt</h3>
+                            <p>Musterstraße 12</p>
+                            <p>24103 Kiel</p>
+                            <p>0431 ...</p>
+                            <a href="mailto:info@anticatavolo.de">info@anticatavola.de</a>
+                        </div>
+                        <div className="restaurant-footer-legal-info">
+                            <h3>Rechtliches</h3>
+                            <a>Impressum</a>
+                            <a>Datenschutz</a>
+                        </div>
                     </div>
                 </div>
                 <div className="restaurant-footer-bottom-line">
                     <p>© 2026 Antica Tavola. Alle Rechte vorbehalten.</p>
                 </div>
             </section>
-        </>
+        </div>
     )
 }
 

@@ -22,10 +22,10 @@ p {
     margin-top: 60px;
     
 }
-.live-demo p{
+.live-demo-header p{
     font-size: 22px;
 }
-.live-demo h1{
+.live-demo-header h1{
     font-size: 38px;
 }
 .live-demo-selectors{
@@ -99,7 +99,6 @@ align-items: center;
     height: 650px; 
     overflow-y: auto;
     transition: width 0.4s ease, max-width 0.4s ease;
-    margin-bottom: 50px;
 }
 .demo-desktop{
     max-width: 1600px;
@@ -109,4 +108,16 @@ align-items: center;
 }
 .demo-smartphone{
     max-width: 390px;
+}
+.live-demo-screen-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+.live-demo-disclaimer {
+     text-align: center;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 12px 20px 0;
 }
