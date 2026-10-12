@@ -7,9 +7,10 @@
 .trade-topbar{
     display: flex;
     width: 100%;
-    height: 125px;
+    height: 60px;
     padding: 20px; 
     background-color: rgb(34, 33, 33);
+    overflow: visible;
    
     
 }
@@ -62,6 +63,7 @@
     z-index: 100;
     width: 100%;
     padding: 20px 30px;
+    padding-right: 300px;
     padding-bottom: 20px;
     background-color: rgb(34, 33, 33);
     border-bottom: 1px solid black;
@@ -84,7 +86,6 @@
     background-color: rgb(46, 45, 44);
     padding: 7px;
     border-radius: 8px;
-    margin-left: auto;
     font-size: 24px;
     transition: 0.3s;
     color: rgb(236, 137, 8);
@@ -97,6 +98,8 @@
 }
 .trade-topbar-logo {
     margin-left: auto;
+    position: relative;
+    z-index: 101;
 }
 
 .trade-topbar-logo img {
@@ -184,7 +187,7 @@
     flex-direction: column;
     background-color: rgb(211, 191, 166);
     align-items: center; 
-    padding-top: 40px;
+    padding-top: 80px;
     padding-bottom: 80px;
     border-bottom: 1px solid black;
 }
@@ -265,6 +268,7 @@
     bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
+    transition: 0.2s;
 }
 .trade-services-card-dots .active {
     background-color: rgb(236, 137, 8);
@@ -320,7 +324,7 @@
     flex-direction: column;
     gap: 30px;
     align-items: center;
-    padding-top: 50px;
+    padding-top: 70px;
     background-color: rgb(34, 33, 33);
     border-bottom: 1px solid black;
     padding-bottom: 70px;
@@ -384,7 +388,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 60px 20px 60px 20px;
+    padding: 70px 20px 60px 20px;
     background-color: rgb(211, 191, 166);
     color: black;
 }
@@ -425,20 +429,220 @@
 .trade-contact{
     display: flex;
     width: 100%;
+    padding: 70px 20px 40px 20px;
+    background-color: rgb(34, 33, 33);
 }
 .trade-contact-left{
     width: 50%;
+    flex: 0.9;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 700px;
+    padding: 15px;
+}
+.trade-contact-left,
+.trade-contact-right {
+    min-width: 0;
 }
 .trade-contact-inquiry-heading{
-
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 .trade-contact-inquiry-contact-info{
-
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 30px;
 }
 .trade-contact-right{
     width: 50%;
+    flex: 1.1;
+    display: flex;
+    padding: 15px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 15px;
+    align-items: center;
 }
 .trade-contact-form{
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+.trade-contact-form-inputs{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+.trade-contact-inquiry-heading-p1{
+    font-size: 30px;
+}
+.trade-contact-inquiry-heading-h2{
+    font-size: 25px;
+    color: rgb(236, 137, 8);
+}
+.trade-contact-inquiry-heading-p2{
+    font-size: 20px;
+}
+.trade-contact-inquiry-contact-info-phone-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgb(236, 137, 8);
+    transition: 0.3s;
+
+    &:hover{
+        color: rgb(255, 203, 136);
+    }
+
+}
+.trade-contact-inquiry-contact-info-email-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgb(236, 137, 8);
+    transition: 0.3s;
+
+     &:hover{
+        color: rgb(255, 203, 136);
+    }
+}
+.trade-contact-inquiry-contact-info-a1{
+    font-size: 20px;
+    color: inherit;
+}
+.trade-contact-inquiry-contact-info-a2{
+    font-size: 20px;
+    color: inherit;
+}
+.trade-contact-inquiry-contact-info-p{
+    font-size: 20px;
+}
+.trade-contact-form-h3{
+    font-size: 35px;
+    color: rgb(236, 137, 8);
+}
+.trade-contact-form-select,
+.trade-contact-form-input{
+    display: flex;
+    background-color: rgb(211, 191, 166);
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+}
+.trade-contact-form-message {
+    width: 100%;
+}
+.trade-contact-form-message label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.trade-contact-form-texarea{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 150px;
+    background-color: rgb(211, 191, 166);
+    border-radius: 5px;
+}
+.trade-contact-form-button{
+    margin-inline: auto;
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: rgb(236, 137, 8);
+    border: 2px solid black;
+    margin-top: 30px;
+    transition: 0.2s;
+    font-size: 25px;
+    margin-bottom: 20px;
+
+    &:hover{
+        background-color: rgb(255, 183, 89);
+        transform: translateY(-3px);
+        box-shadow: 1px 1px 1px 1px black;
+    }
+}
+.trade-footer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 20px;
+    padding-top: 50px;
+    background-color: rgb(211, 191, 166);
+    color: black;
+    align-items: center;
+}
+.trade-footer-top{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+
+}
+.trade-footer-logo{
+    width: 300px;
+    height: auto;
+}
+.trade-footer-header{
+    padding: 0 20px 20px 0;
+}
+.trade-footer-header p{
+    font-size: 20px;
+}
+.trade-footer-links{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.trade-footer-links-navigation{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.trade-footer-links-legalities-h3,
+.trade-footer-links-contact-h3,
+.trade-footer-links-navigation-h3{
+    font-size: 25px;
+}
+.trade-footer-links-legalities-a,
+.trade-footer-a,
+.trade-footer-links-navigation-a{
+    font-size: 18px;
+    color: inherit;
+
+    &:hover{
+        cursor: pointer;
+        scale:1.05;
+    }
+}
+.trade-footer-links-contact{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.trade-footer-email-container,
+.trade-footer-phone-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgb(236, 137, 8);
+    transition: 0.2s;
+
+    &:hover{
+        color: rgb(68, 39, 0);
+    }
+}
+.trade-footer-links-legalities{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.trade-footer-bottom{
+    border-top: 1px solid black;
+    width: 98%;
+    margin-top: 20px;
+    padding-bottom:30px;
 }

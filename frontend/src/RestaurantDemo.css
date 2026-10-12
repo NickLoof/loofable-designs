@@ -81,6 +81,7 @@
     display: flex;
     gap: 50px;
     font-size: 25px;
+    align-items: center;
 }
 .restaurant-hero-primary,
 .restaurant-hero-secondary{

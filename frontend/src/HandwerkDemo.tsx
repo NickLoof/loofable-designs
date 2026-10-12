@@ -1,5 +1,5 @@
 import "./HandwerkDemo.css";
-import { Phone, Dot, ArrowRight, ArrowLeft, ArrowBigRight } from "lucide-react";
+import { Phone, Dot, ArrowRight, ArrowLeft, ArrowBigRight, Mail } from "lucide-react";
 import logo from "./assets/handwerk img/nordwerk-logo.svg";
 import heroBackground from "./assets/handwerk img/hero-background.png";
 import { useState } from "react";
@@ -161,7 +161,7 @@ function HandwerkDemo() {
                     </div>
                 </div>
             </section>
-            <section className="trade-about-us">
+            <section className="trade-about-us" id="about-us">
                 <div className="trade-about-us-content-container">
                     <p className="trade-about-us-content-p1">ÜBER UNS</p>
                     <h2 className="trade-about-us-content-h2">Handwerk mit Verantwortung.</h2>
@@ -186,45 +186,92 @@ function HandwerkDemo() {
                     <img className="trade-about-us-image" src={team} alt="Renovierungsteam prüft die Pläne"/>
                 </div>
             </section>
-            <section className="trade-contact">
+            <section className="trade-contact" id="contact">
                 <div className="trade-contact-left">
                     <div className="trade-contact-inquiry-heading">
-                        <p>PROJEKT ANFRAGEN</p>
-                        <h2>Lass uns über dein Projekt sprechen</h2>
-                        <p>Du planst eine Renovierung, Sanierung oder einen Innenausbau? Beschreibe uns kurz dein Vorhaben und wir melden uns persönlich bei dir.</p>
+                        <p className="trade-contact-inquiry-heading-p1">PROJEKT ANFRAGEN</p>
+                        <h2 className="trade-contact-inquiry-heading-h2">Lass uns über dein Projekt sprechen</h2>
+                        <p className="trade-contact-inquiry-heading-p2">Du planst eine Renovierung, Sanierung oder einen Innenausbau? Beschreibe uns kurz dein Vorhaben und wir melden uns persönlich bei dir.</p>
                     </div>
                     <div className="trade-contact-inquiry-contact-info">
-                        <a href="tel:+49431123456">0431 123456</a>
-                        <a href="mailto:info@nordwerk-kiel.de">info@nordwerk-kiel.de</a>
-                        <p>Kiel +50 km</p>
+                        <div className="trade-contact-inquiry-contact-info-phone-container">
+                        <Phone/>
+                        <a className="trade-contact-inquiry-contact-info-a1" href="tel:+49431123456">0431 123456</a>
+                        </div>
+                        <div className="trade-contact-inquiry-contact-info-email-container">
+                        <Mail/>
+                        <a className="trade-contact-inquiry-contact-info-a2" href="mailto:info@nordwerk-kiel.de">info@nordwerk-kiel.de</a>
+                        </div>
+                        <p className="trade-contact-inquiry-contact-info-p">Kiel +50 km</p>
                     </div>
                 </div>
                 <div className="trade-contact-right">
                     <form className="trade-contact-form">
-                        <h3>Kontakt aufnehmen</h3>
-                        <label>Name:
-                            <input type="text" placeholder="Name eingeben"/>
-                        </label>
-                        <label>E-Mail:
-                            <input type="email" placeholder="E-Mail eingeben"/>
-                        </label>
-                        <label>Telefon <em>(optional)</em>:
-                            <input type="tel" placeholder="+49 431 123456"/>
-                        </label>
-                        <label>Art des Projekts:
-                            <select defaultValue="">
-                                <option value="" disabled>Bitte auswählen</option>
-                                <option>Sanierung</option>
-                                <option>Renovierung</option>
-                                <option>Innenausbau</option>
-                                <option>Sonstiges</option>
-                            </select>
-                        </label>
-                            <label>Nachricht: 
-                            <textarea placeholder="Nachricht schreiben..."/>
+                        <h3 className="trade-contact-form-h3">Kontakt aufnehmen</h3>
+                        <div className="trade-contact-form-inputs">
+                            <label>Name:
+                                <input className="trade-contact-form-input" type="text" placeholder="Name eingeben"/>
                             </label>
-                        <button>Anfrage senden</button>
+                            <label>E-Mail:
+                                <input className="trade-contact-form-input" type="email" placeholder="E-Mail eingeben"/>
+                            </label>
+                            <label>Telefon <em>(optional)</em>:
+                                <input className="trade-contact-form-input" type="tel" placeholder="+49 431 123456"/>
+                            </label>
+                            <label>Art des Projekts:
+                                <select className="trade-contact-form-select" defaultValue="">
+                                    <option value="" disabled>Bitte auswählen</option>
+                                    <option>Sanierung</option>
+                                    <option>Renovierung</option>
+                                    <option>Innenausbau</option>
+                                    <option>Sonstiges</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div className="trade-contact-form-message">
+                            <label>Nachricht: 
+                                <textarea className="trade-contact-form-texarea" placeholder="Nachricht schreiben..."/>
+                            </label>
+                        </div>
+                        <button className="trade-contact-form-button">Anfrage senden</button>
                     </form>
+                </div>
+            </section>
+            <section className="trade-footer">
+                <div className="trade-footer-links">
+                    <div className="trade-footer-logo-container">
+                        <img className="trade-footer-logo" src={logo}/>
+                    <div className="trade-footer-header">
+                        <p>Sanierung · Renovierung · Innenausbau</p>
+                        <p>in Kiel und Umgebung</p>
+                    </div>
+                    </div>
+                    <div className="trade-footer-links-navigation">
+                        <h3 className="trade-footer-links-navigation-h3">Navigation</h3>
+                        <a className="trade-footer-links-navigation-a" href="#trade-services">Leistungen</a>
+                        <a className="trade-footer-links-navigation-a" href="#projects">Projekte</a>
+                        <a className="trade-footer-links-navigation-a" href="#about-us">Über uns</a>
+                        <a className="trade-footer-links-navigation-a" href="#contact">Kontakt</a>
+                    </div>
+                    <div className="trade-footer-links-contact">
+                        <h3 className="trade-footer-links-contact-h3">Kontakt</h3>
+                    <div className="trade-footer-phone-container">
+                        <Phone/>
+                        <a className="trade-footer-a" href="tel:+49431123456">0431 123456</a>
+                    </div>
+                    <div className="trade-footer-email-container">
+                        <Mail/>
+                        <a className="trade-footer-a" href="mailto:info@nordwerk-kiel.de">info@nordwerk-kiel.de</a>
+                    </div>
+                    </div>
+                    <div className="trade-footer-links-legalities">
+                        <h3 className="trade-footer-links-legalities-h3">Rechtliches</h3>
+                        <a className="trade-footer-links-legalities-a">Impressum</a>
+                        <a className="trade-footer-links-legalities-a">Datenschutz</a>
+                    </div>
+                </div>
+                <div className="trade-footer-bottom">
+                    <p>© 2026 Nordwerk</p>
                 </div>
             </section>
         </div>
