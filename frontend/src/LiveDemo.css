@@ -57,6 +57,7 @@ align-items: center;
 
     &:hover{
         background-color: #266d39;
+        cursor: pointer;
     }
 }
 .live-demo-website-active{
@@ -85,6 +86,7 @@ align-items: center;
 
     &:hover{
         background-color: #266d39;
+        cursor: pointer;
     }
 }
 .live-demo-screen-icon-active{
