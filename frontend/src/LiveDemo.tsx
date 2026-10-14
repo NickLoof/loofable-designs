@@ -1,6 +1,6 @@
 import "./LiveDemo.css";
 import { Monitor, Tablet, Smartphone } from "lucide-react";
-import {useState} from "react";
+import {useState, useRef} from "react";
 import RestaurantDemo from "./RestaurantDemo";
 import HandwerkDemo from "./HandwerkDemo";
 import OnlineShopDemo from "./OnlineShopDemo";
@@ -8,6 +8,7 @@ import OnlineShopDemo from "./OnlineShopDemo";
 function LiveDemo() {
     const [selectedDemo, setSelectedDemo] = useState("restaurant");
     const [selectedScreen, setSelectedScreen] = useState("desktop");
+    const demoScreenRef = useRef<HTMLDivElement>(null);
 
     return (
         <section className="live-demo" id="live-demo">
@@ -41,12 +42,14 @@ function LiveDemo() {
                 </div>
             </div>
             <div className="live-demo-screen-container">
-            <div className={`live-demo-demo-screen demo-${selectedScreen}`}>
-                {selectedDemo === "restaurant"&&<RestaurantDemo/>}
-                {selectedDemo === "handwerk"&&<HandwerkDemo/>}
-                {selectedDemo === "online-shop"&&<OnlineShopDemo/>}
-            </div>
-            <p className="live-demo-disclaimer"><strong>Hinweis:</strong> Die dargestellten Unternehmen, Inhalte und Bilder in den Live-Demos dienen ausschließlich zu Demonstrationszwecken. Teilweise wurden KI-generierte Bilder verwendet.</p>
+                <div ref={demoScreenRef} className={`live-demo-viewport demo-${selectedScreen}`}>
+                    <div className="live-demo-demo-screen">
+                        {selectedDemo === "restaurant"&&<RestaurantDemo/>}
+                        {selectedDemo === "handwerk"&&<HandwerkDemo/>}
+                        {selectedDemo === "online-shop"&&<OnlineShopDemo demoScreenRef={demoScreenRef}/>}
+                    </div>
+                </div>
+                <p className="live-demo-disclaimer"><strong>Hinweis:</strong> Die dargestellten Unternehmen, Inhalte und Bilder in den Live-Demos dienen ausschließlich zu Demonstrationszwecken. Teilweise wurden KI-generierte Bilder verwendet.</p>
             </div>
         </section>
     )

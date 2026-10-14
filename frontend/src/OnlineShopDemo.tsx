@@ -12,17 +12,23 @@ import explorerTee from "./assets/shop img/explorerTee.png";
 import summitThermos from "./assets/shop img/summitThermos.png";
 import trailOrganizer from "./assets/shop img/trailOrganizer.png";
 import weekendDuffel from "./assets/shop img/weekendDuffel.png";
-import { Search, ChevronDown, Heart, User, ShoppingCart, ArrowBigRight, Star, Truck, RotateCcw, ShieldCheck, Mountain, } from "lucide-react";
+import { Search, ChevronDown, Heart, User, ShoppingCart, ArrowBigRight, Star, Truck, RotateCcw, ShieldCheck, Mountain, CircleX } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type RefObject } from "react";
 import hero from "./assets/shop img/hero.png";
 import backpacks from "./assets/shop img/category-backpacks.png";
 import bottles from "./assets/shop img/category-bottles.png";
 import outdoorCamping from "./assets/shop img/category-outdoor-camping.png";
 import accessories from "./assets/shop img/category-accessories.png";
 import promoImage from "./assets/shop img/promo-image.png";
+import { createPortal } from "react-dom";
 
-function OnlineShopDemo() {
+
+    type OnlineShopDemoProps = {
+        demoScreenRef: RefObject<HTMLDivElement | null>
+    }
+
+function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
     type Product = {
         id: number;
         name: string;
@@ -62,7 +68,7 @@ function OnlineShopDemo() {
             description: "Doppelwandige Edelstahlflasche für heiße und kalte Getränke unterwegs.",
             rating: 4.7,
             reviews: 86,
-            stock: 34,
+            stock: 0,
             featured: true,
             colors: ["Sage", "Black", "Stone"]
         },
@@ -207,13 +213,31 @@ function OnlineShopDemo() {
             colors: ["Forest", "Sand"]
         }
     ];
+    type PriceFilter =
+    | "Unter 30€"
+    | "30€ - 60€"
+    | "60€ - 100€"
+    | "Über 100€";
+
 
     const [inputValue, setInputValue] = useState("");
     const [isSearching, setIsSearching] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [shopOpen, setShopOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
+    const [selectedPrice, setSelectedPrice] = useState<PriceFilter | null>(null);
+    const [availability, setAvailability] = useState(false);
+    const [storyOpen, setStoryOpen] = useState(false);
+    const [loginOpen, setLoginOpen] = useState(false);
+    const [cartOpen, setCartOpen] = useState(false);
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+    const [signupOpen, setSignupOpen] = useState(false);
+    const [signupFirstName, setSignupFirstName] = useState("");
+    const [signupLastName, setSignupLastName] = useState("");
+    const [signupEmail, setSignupEmail] = useState("");
+    const [signupPassword, setSignupPassword] = useState("");
+    const [signupPasswordConfirm, setSignupPasswordConfirm] = useState("");
 
     type TrustItem = {
         title: string,
@@ -248,6 +272,10 @@ function OnlineShopDemo() {
 
     const searchRef = useRef<HTMLDivElement>(null);
     const shopRef = useRef<HTMLDivElement>(null);
+    const storyRef = useRef<HTMLDivElement>(null);
+    const loginRef = useRef<HTMLDivElement>(null);
+    const cartRef = useRef<HTMLDivElement>(null);
+    const signupRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -269,6 +297,30 @@ function OnlineShopDemo() {
             ) {
                 setDropdownOpen(false);
             }
+            if (
+                storyRef.current &&
+                !storyRef.current.contains(event.target as Node)
+            ){
+                setStoryOpen(false);
+            }
+            if (
+                loginRef.current &&
+                !loginRef.current.contains(event.target as Node)
+            ){
+                setLoginOpen(false);
+            }
+            if (
+                cartRef.current &&
+                !cartRef.current.contains(event.target as Node)
+            ){
+                setCartOpen(false);
+            }
+            if (
+                signupRef.current &&
+                !signupRef.current.contains(event.target as Node)
+            ){
+                setSignupOpen(false);
+            }
         }
 
         document.addEventListener("mousedown", handleClickOutside);
@@ -278,11 +330,30 @@ function OnlineShopDemo() {
         };
     }, []);
 
+    
     const categories = [...new Set(products.map(product => product.category))];
     const shopProducts = selectedCategory === null ? products : products.filter(product => product.category === selectedCategory);
+    const filteredPriceShopProducts = shopProducts.filter((product) => {if(selectedPrice === "Unter 30€"){
+                                        return product.price < 30;
+                                        }else if(selectedPrice === "30€ - 60€"){
+                                            return product.price >= 30 && product.price < 60;
+                                        }else if(selectedPrice === "60€ - 100€"){
+                                            return product.price >= 60 && product.price < 100;
+                                        }else if(selectedPrice === "Über 100€"){
+                                            return product.price >= 100;
+                                        }else{
+                                            return true;
+                                        }
+                                    })
+    const productsToDisplay = filteredPriceShopProducts.filter((product => {if (availability){
+                                                                                return product.stock > 0;
+                                                                            }else{
+                                                                                return true;
+                                                                            }
+                                                                            }));
 
     return (
-        <div className="online-shop-demo">
+        <div className="online-shop-demo" id="home">
             <div className="online-shop-topbar">
                 <div className="online-shop-topbar-top">
                     <div className="online-shop-topbar-logo-container">
@@ -308,6 +379,7 @@ function OnlineShopDemo() {
                         </div>
                     </div>
                 </div>
+            </div>
                 <div className="online-shop-topbar-bottom">
                     <div className="online-shop-navbar">
                         <div className="online-shop-navbar-left">
@@ -330,19 +402,81 @@ function OnlineShopDemo() {
                                         </div>
                                     </div>}
                             </div>
-                            <button className="online-shop-navbar-button">Rucksäcke</button>
-                            <button className="online-shop-navbar-button">Trinkflaschen</button>
-                            <button className="online-shop-navbar-button">Outdoor & Camping</button>
-                            <button className="online-shop-navbar-button">Zubehör</button>
+                            <a onClick={() => setShopOpen(false)} className="online-shop-navbar-button" href="#home">Home</a>
+                            <a onClick={() => setShopOpen(false)} className="online-shop-navbar-button" href="#popular">Beliebte Kategorien</a>
+                            <a onClick={() => setShopOpen(false)} className="online-shop-navbar-button" href="#bestseller">Bestseller</a>
+                            <a onClick={() => setShopOpen(false)} className="online-shop-navbar-button" href="#promo">Northbound</a>
                         </div>
                         <div className="online-shop-navbar-right">
                             <Heart className="online-shop-navbar-right-icon" />
-                            <User className="online-shop-navbar-right-icon" />
-                            <ShoppingCart className="online-shop-navbar-right-icon" />
+                            <User className="online-shop-navbar-right-icon" onClick={() => setLoginOpen(true)} />
+                            <ShoppingCart className="online-shop-navbar-right-icon" onClick={() => setCartOpen(true)} />
+                            {loginOpen&& demoScreenRef.current && createPortal(
+                                <div className="online-shop-overlay">
+                                    <div ref={loginRef} className="online-shop-login-window">
+                                        <h2>Willkommen zurück!</h2>
+                                        <h3>Melde dich bei deinem Konto an.</h3>
+                                        <form className="online-shop-login-form">
+                                            <fieldset>
+                                                <legend>Login</legend>
+                                                <label htmlFor="login-email-input">E-Mail</label>
+                                                <input id="login-email-input" type="email" placeholder="E-Mail eingeben" value={loginEmail} onChange={(event) => 
+                                                    setLoginEmail(event.target.value)}/>
+                                                <label htmlFor="login-password-input">Passwort</label>
+                                                <input id="login-password-input" type="password" placeholder="Passwort eingeben" value={loginPassword} 
+                                                onChange={(event) => setLoginPassword(event.target.value)}/>
+                                                <a>Passwort vergessen?</a>
+                                                <button type="submit" className="online-shop-login-button">Einloggen</button>
+                                            </fieldset>
+                                        </form>
+                                        <div className="online-shop-login-outside-form">
+                                        <h3>Noch kein Konto?</h3>
+                                        <button className="online-shop-to-signup-button" onClick={() => {setLoginOpen(false); setSignupOpen(true); }}>Konto erstellen</button>
+                                        </div>
+                                        <button className="online-shop-close-login-button" onClick={() => setLoginOpen(false)}><CircleX/></button>
+                                    </div>
+                                </div>, demoScreenRef.current)}
+                                {signupOpen&& demoScreenRef.current && createPortal(
+                                    <div className="online-shop-overlay"> 
+                                        <div ref={signupRef} className="online-shop-signup-window">
+                                            <form className="online-shop-signup-form">
+                                                <fieldset>
+                                                    <legend>Konto erstellen</legend>
+                                                    <label htmlFor="firstname-input">Vorname</label>
+                                                    <input id="firstname-input" type="text" value={signupFirstName} placeholder="Vorname" onChange={(event) => 
+                                                        setSignupFirstName(event.target.value)}/>
+                                                    <label htmlFor="lastname-input">Nachname</label> 
+                                                    <input id="lastname-input" type="text" value={signupLastName} placeholder="Nachname" onChange={(event) => 
+                                                        setSignupLastName(event.target.value)}/>
+                                                    <label htmlFor="signup-email-input">Email</label>
+                                                    <input id="signup-email-input" type="email" value={signupEmail} placeholder="Email eingeben" onChange={(event) => 
+                                                        setSignupEmail(event.target.value)}/>
+                                                    <label htmlFor="signup-password-input">Passwort</label>
+                                                    <input id="signup-password-input" type="password" value={signupPassword} placeholder="Passwort eingeben" onChange={(event) => 
+                                                        setSignupPassword(event.target.value)}/>
+                                                    <label htmlFor="signup-password-confirm">Passwort bestätigen</label>
+                                                    <input id="signup-password-confirm" type="password" value={signupPasswordConfirm} placeholder="Passwort erneut eingeben" 
+                                                        onChange={(event) => setSignupPasswordConfirm(event.target.value)}/>
+                                                    <button type="submit" className="online-shop-signup-button">Konto erstellen</button>
+                                                    <button type="button" className="online-shop-signup-close-button" onClick={() => setSignupOpen(false)}><CircleX/></button>
+                                                </fieldset>
+                                            </form>
+                                            <div className="online-shop-signup-outside-form">
+                                            <p>Bereits ein Konto?</p>
+                                            <button type="button" className="online-shop-to-login-button" onClick={() => {setSignupOpen(false); setLoginOpen(true)}}>Zur Anmeldung</button>
+                                            </div>
+                                        </div>
+                                    </div>, demoScreenRef.current
+                                )}
+                            {cartOpen&& demoScreenRef.current && createPortal(
+                                <div className="online-shop-overlay">
+                                    <div ref={cartRef} className="online-shop-cart-window">
+
+                                    </div>
+                                </div>, demoScreenRef.current)}
                         </div>
                     </div>
                 </div>
-            </div>
             {shopOpen?
             <div className="online-shop-shop">
                 <div className="online-shop-shop-header">
@@ -361,28 +495,47 @@ function OnlineShopDemo() {
                                     <button className={selectedCategory === category
                                     ?"online-shop-shop-content-filtered-category-active online-shop-shop-content-filtered-category"
                                     :"online-shop-shop-content-filtered-category"}
-                                    onClick={() => setSelectedCategory(category)}>{category}</button></li>))}
+                                    onClick={() => setSelectedCategory(selectedCategory === category
+                                        ? null : category)}>{category}</button></li>))}
                             </ul>
                         </div>
                         <div className="online-shop-shop-content-filters">
                             <h2>Preis</h2>
                             <ul>
-                                <li><button>Unter 30 €</button></li>
-                                <li><button>30 € - 60 €</button></li>
-                                <li><button>60 € - 100 €</button></li>
-                                <li><button>Über 100 €</button></li>
+                                <li><button onClick={() => setSelectedPrice(selectedPrice === "Unter 30€"
+                                ? null : "Unter 30€")} className={selectedPrice === "Unter 30€"
+                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
+                                :"online-shop-shop-content-filtered-price"}>Unter 30€</button></li>
+                                <li><button onClick={() => setSelectedPrice(selectedPrice === "30€ - 60€"
+                                ? null : "30€ - 60€")} className={selectedPrice === "30€ - 60€"
+                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
+                                :"online-shop-shop-content-filtered-price"}>30€ - 60€</button></li>
+                                <li><button onClick={() => setSelectedPrice(selectedPrice === "60€ - 100€"
+                                ? null : "60€ - 100€")} className={selectedPrice === "60€ - 100€"
+                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
+                                :"online-shop-shop-content-filtered-price"}>60€ - 100€</button></li>
+                                <li><button onClick={() => setSelectedPrice(selectedPrice === "Über 100€"
+                                ? null : "Über 100€")} className={selectedPrice === "Über 100€"
+                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
+                                :"online-shop-shop-content-filtered-price"}>Über 100€</button></li>
                             </ul>
                         </div>
                         <div className="online-shop-shop-content-filters">
                             <h2>Verfügbarkeit</h2>
                             <ul>
-                                <li><button>Auf Lager</button></li>
+                                <li><button onClick={() => setAvailability(!availability)} className={availability
+                                ?"online-shop-shop-content-filtered-availability-active online-shop-shop-content-filtered-availability"
+                                :"online-shop-shop-content-filtered-availability"}>Auf Lager</button></li>
                             </ul>
                         </div>
-                        <button>Filter zurücksetzen</button>
+                        <button className="online-shop-shop-content-clear-filter-button" 
+                        onClick={() => {setAvailability(false); setSelectedPrice(null); setSelectedCategory(null)}}>Filter zurücksetzen</button>
                     </div>
                     <div className="online-shop-shop-content-catalog">
-                        {shopProducts.map((product) => (<div key={product.id} className="online-shop-catalog-product">
+                        {productsToDisplay.length === 0
+                        ?(<div className="online-shop-shop-no-content"><h2>Keine Produkte gefunden</h2>
+                         <p>Passe deine Filter an oder setze sie zurück.</p></div>)
+                        :productsToDisplay.map((product) => (<div key={product.id} className="online-shop-catalog-product">
                                 <img className="online-shop-catalog-product-image" src={product.image} alt={product.name} />
                                 <div className="online-shop-catalog-product-info">
                                     <p className="online-shop-catalog-product-name">{product.name}</p>
@@ -412,7 +565,7 @@ function OnlineShopDemo() {
                         </div>
                     </div>
                 </section>
-                <section className="online-shop-popular">
+                <section className="online-shop-popular" id="popular">
                     <div className="online-shop-popular-header">
                         <h1>Beliebte Kategorien</h1>
                         <p>Finde die richtige Ausrüstung für dein nächstes Abenteuer.</p>
@@ -444,7 +597,7 @@ function OnlineShopDemo() {
                         </div>
                     </div>
                 </section>
-                <section className="online-shop-bestseller">
+                <section className="online-shop-bestseller" id="bestseller">
                     <div className="online-shop-bestseller-header">
                         <h1>Unsere Favoriten</h1>
                         <p>Bestseller für dein nächstes Abenteuer.</p>
@@ -479,7 +632,7 @@ function OnlineShopDemo() {
                             </div>)
                     })}
                 </section>
-                <section className="online-shop-promo">
+                <section className="online-shop-promo" id="promo">
                     <div className="online-shop-promo-left">
                         <img className="online-shop-promo-left-image" src={promoImage} alt="Man sitting and watching sunset" />
                     </div>
@@ -488,7 +641,19 @@ function OnlineShopDemo() {
                         <p className="online-shop-promo-right-p">NORTHBOUND steht für unkomplizierte Ausrüstung für Wochenenden, Wanderungen und spontane Abenteuer.
                             Funktional, langlebig und gemacht für alle, die lieber draußen unterwegs sind.
                         </p>
-                        <button className="online-shop-promo-right-button">Unsere Geschichte</button>
+                        <button className="online-shop-promo-right-button" onClick={() => setStoryOpen(true)}>Unsere Geschichte</button>
+                        {storyOpen&& demoScreenRef.current && createPortal(
+                            <div className="online-shop-overlay">
+                                <div ref={storyRef} className="online-shop-our-story-window">
+                                    <h2>Aus Liebe zum Draußensein.</h2>
+                                    <p><span><strong>NORTHBOUND</strong></span> entstand aus der Idee, dass gute Outdoor-Ausrüstung nicht kompliziert sein muss.</p>
+                                    <p>Wir entwickeln Produkte für Menschen, die ihre Zeit lieber draußen verbringen – egal ob auf einer mehrtägigen Wanderung, 
+                                        beim Camping am Wochenende oder bei einem spontanen Ausflug ins Grüne.</p> 
+                                        <p>Unser Fokus liegt auf funktionalem Design, langlebigen Materialien und Ausrüstung, auf die du dich unterwegs verlassen kannst.</p>
+                                        <p>Denn am Ende geht es nicht darum, wie weit du gehst – sondern darum, überhaupt loszugehen.</p>
+                                    <button className="online-shop-our-story-window-close-button" onClick={() => setStoryOpen(false)}><CircleX/></button>
+                                </div>
+                            </div>, demoScreenRef.current)}
                     </div>
                 </section>
             </div>}

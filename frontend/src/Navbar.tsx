@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import logo from "./assets/branding/loofable-logo-light-version-dark-stroke.svg";
+import logo from "./assets/branding/loofable-designs-logo-3d.svg";
 
 function Navbar () {
     return (
