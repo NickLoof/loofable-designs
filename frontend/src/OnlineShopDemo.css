@@ -193,8 +193,27 @@
         cursor: pointer;
         background-color: rgb(255, 116, 3);
         border: 1px solid black;
-        scale: 1.5;
+        z-index: 5;
+        scale: 1.6;
     }
+}
+.online-shop-cart-icon-wrapper{
+    position: relative;
+}
+.online-shop-cart-badge{
+    margin-left: 7px;
+    position: absolute;
+    border: 1px solid black;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 115, 0);
+    color: black;
+    bottom: 6px;
+    right: -20px;
 }
 .online-shop-overlay{
     position: absolute;
@@ -207,6 +226,19 @@
     overflow: hidden;
     overscroll-behavior: contain;
 }
+.online-shop-cart-overlay{
+    position: absolute;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+    background-color: rgb(0 0 0 / 40%);
+    overflow: hidden;
+    overscroll-behavior: contain;
+    width: 100%;
+}
+.online-shop-signup-confirmation-window,
 .online-shop-signup-window,
 .online-shop-login-window{
     background-color: rgb(116, 54, 3);
@@ -217,6 +249,154 @@
     z-index: 2;
     position: relative;
     margin-top: 0;
+}
+.online-shop-cart-window h2{
+    padding-left: 20px;
+}
+.online-shop-cart-quantity-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+@keyframes slideInCart {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+.online-shop-cart-window{
+    background-color: rgb(116, 54, 3);
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px 20px 0 0;
+    width: min(550px, 100%);
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 2;
+    position: relative;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    animation: slideInCart 0.25s ease-out;
+}
+.online-shop-x-button{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    scale: 1.4;
+    transition: 0.2s;
+    &:hover{
+        scale: 1.6;
+        color: rgb(197, 87, 14);
+    }
+}
+.online-shop-cart-trash-button{
+    background-color: transparent;
+    border: none;
+    width: fit-content;
+    height: fit-content;
+    transition: 0.2s;
+    &:hover{
+        cursor: pointer;
+        scale: 1.2;
+        color: rgb(131, 5, 5);
+    }
+}
+.online-shop-cart-grid{
+    flex: 1;
+    overflow-y: auto;
+}
+.online-shop-cart-item{
+    display: flex;
+    padding: 20px;
+    gap: 15px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.online-shop-cart-bottom{
+    width: 100%;
+    border-top: 1px solid black;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.online-shop-cart-quantity{
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+.online-shop-cart-checkout-button{
+    border-radius: 20px;
+    background-color: rgb(182, 88, 11);
+    border: 1px solid black;
+    transition: 0.2s;
+
+    &:hover{
+        background-color: rgb(219, 105, 12);
+        transform: translateY(-3px);
+        cursor: pointer;
+    }
+
+}
+.online-shop-cart-item p{
+    width: fit-content;
+    padding-right: 5px;
+    display: flex;
+    align-items: center;
+}
+.online-shop-cart-item img{
+    width: 100px;
+    height: auto;
+}
+.online-shop-signup-confirmation-window h2{
+    font-size: 30px;
+    color: black;
+}
+.online-shop-signup-confirmation-window p{
+    font-size: 18px;
+}
+.online-shop-signup-confirmation-window button{
+    border-radius: 15px;
+    font-size: 18px;
+    margin: 15px;
+    width: 200px;
+    height: 35px;
+    background-color: rgb(177, 85, 10);
+    transition: 0.2s;
+    &:hover{
+        background-color: rgb(223, 106, 10);
+        transform: translateY(-2px);
+    }
+}
+.online-shop-login-password{
+    width: 100%;
+}
+.online-shop-login-password-container,
+.online-shop-signup-confirm-password-container,
+.online-shop-signup-password-container{
+    position: relative;
+    width: 250px;
+}
+.online-shop-signup-confirm-eye-button,
+.online-shop-signup-confirm-closedeye-button,
+.online-shop-signup-eye-button,
+.online-shop-signup-closedeye-button,
+.online-shop-login-eye-button,
+.online-shop-login-closedeye-button{
+position: absolute;
+right: 5px;
+top: 50%;
+transform: translateY(-50%);
+background-color: transparent;
+border: none;
 }
 .online-shop-signup-form fieldset,
 .online-shop-login-form fieldset{
@@ -232,7 +412,7 @@
 .online-shop-signup-form input,
 .online-shop-login-form input{
     height: 30px;
-    width: 50%;
+    width: 250px;
     border-radius: 10px;
     background-color: rgb(194, 156, 86);
 }
@@ -759,7 +939,7 @@ font-size: 20px;
     position: relative;
 
     &:hover{
-        scale: 1.03;
+        scale: 1.01;
         border-color: rgb(252, 249, 249);
         cursor: pointer;
     }
@@ -804,3 +984,27 @@ font-size: 20px;
     font-weight: bold;
     padding-right: 5px;
 }
+.online-shop-catalog-addToCart-container{
+    display: flex;
+    justify-content: center;
+}
+.online-shop-catalog-addToCart-button{
+    
+    background-color: rgb(109, 122, 57);
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    height: 30px;
+    width: fit-content;
+    margin-inline: auto;
+    transition: 0.2s;
+    font-weight: 600;
+    &:hover{
+    cursor: pointer;
+    transform: translateY(-3px);
+    background: rgb(133, 153, 54);
+    }
+}   

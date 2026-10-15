@@ -12,7 +12,7 @@ import explorerTee from "./assets/shop img/explorerTee.png";
 import summitThermos from "./assets/shop img/summitThermos.png";
 import trailOrganizer from "./assets/shop img/trailOrganizer.png";
 import weekendDuffel from "./assets/shop img/weekendDuffel.png";
-import { Search, ChevronDown, Heart, User, ShoppingCart, ArrowBigRight, Star, Truck, RotateCcw, ShieldCheck, Mountain, CircleX } from "lucide-react";
+import { Search, ChevronDown, Heart, User, ShoppingCart, ArrowBigRight, Star, Truck, RotateCcw, ShieldCheck, Mountain, CircleX, Eye, EyeClosed, Trash } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useState, useRef, useEffect, type RefObject } from "react";
 import hero from "./assets/shop img/hero.png";
@@ -238,12 +238,76 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
     const [signupEmail, setSignupEmail] = useState("");
     const [signupPassword, setSignupPassword] = useState("");
     const [signupPasswordConfirm, setSignupPasswordConfirm] = useState("");
+    const [showLoginPassword, setShowLoginPassword] = useState(false);
+    const [showSignupPassword, setShowSignupPassword] = useState(false);
+    const [showSignupConfirmPassword, setShowSignupConfirmPassword] = useState(false);
+    const [signupPasswordError, setSignupPasswordError] = useState("");
+    const [signupEmptyFieldError, setSignupEmptyFieldError] = useState("");
+    const [signupSuccessOpen, setSignupSuccessOpen] = useState(false);
+    const [cart, setCart] = useState<CartItem[]>([]);
 
     type TrustItem = {
         title: string,
         description: string,
         icon: LucideIcon
     }
+
+    interface CartItem extends Product{quantity: number;}
+
+    function addToCart(product: Product){
+        const itemInCart = cart.some((item) => item.id === product.id)
+
+            if(itemInCart){
+            setCart(cart.map((item) => {
+                if(item.id === product.id){
+                    return {...item, quantity: item.quantity + 1}; 
+                }
+                return item;
+            })
+        );
+        }else{
+            setCart([...cart, {...product, quantity: 1}]);
+        }
+    }
+
+    const subTotal = cart.reduce((total, item) => {
+        return total + (item.price * item.quantity)
+    }, 0);
+
+    function increaseQuantity(id: number){
+        setCart(cart.map((item) => {
+                if(item.id === id){
+                    return {...item, quantity: item.quantity + 1}; 
+                }
+                return item;
+            })
+        );
+    }
+    function decreaseQuantity(id: number) {
+
+    const itemToDecrease = cart.find((item) => item.id === id);
+
+    if (itemToDecrease?.quantity === 1) {
+        setCart(cart.filter((item) => item.id !== id));
+    } else {
+        setCart(
+            cart.map((item) => {
+                if (item.id === id) {
+                    return {...item, quantity: item.quantity - 1};
+                }
+                return item;
+            })
+        );
+    }
+}
+
+    function removeFromCart(id: number){
+        setCart(cart.filter((item) => item.id !== id))
+    }
+
+    const cartCount = cart.reduce((total, item) => {
+        return total + item.quantity;
+    }, 0)
 
     const trustItems: TrustItem[] = [
         {
@@ -279,11 +343,6 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            console.log("clicked:", event.target);
-            console.log(
-                "inside shop:",
-                shopRef.current?.contains(event.target as Node)
-            );
 
             if (
                 searchRef.current &&
@@ -308,6 +367,7 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
                 !loginRef.current.contains(event.target as Node)
             ){
                 setLoginOpen(false);
+                resetLoginForm();
             }
             if (
                 cartRef.current &&
@@ -320,10 +380,13 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
                 !signupRef.current.contains(event.target as Node)
             ){
                 setSignupOpen(false);
+                resetSignupForm();
+                
             }
         }
 
         document.addEventListener("mousedown", handleClickOutside);
+        
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
@@ -351,6 +414,47 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
                                                                                 return true;
                                                                             }
                                                                             }));
+
+function resetSignupForm() {
+    setSignupFirstName("");
+    setSignupLastName("");
+    setSignupEmail("");
+    setSignupPassword("");
+    setSignupPasswordConfirm("");
+
+    setSignupEmptyFieldError("");
+    setSignupPasswordError("");
+    
+}
+function resetLoginForm() {
+    setLoginEmail("");
+    setLoginPassword("");
+}
+
+    function handleSignupSubmit(event: React.SubmitEvent<HTMLFormElement>){
+        event.preventDefault();
+
+        setSignupEmptyFieldError("");
+        setSignupPasswordError("");
+
+        if(signupFirstName === "" || signupLastName === "" || signupEmail === "" || signupPassword === "" || signupPasswordConfirm === ""){
+            setSignupEmptyFieldError("Bitte alle Felder ausfüllen");
+            return;
+        }
+        if(signupPassword !== signupPasswordConfirm){
+            setSignupPasswordError("Die Passwörter stimmen nicht überein.")
+            return;
+        }
+        
+
+        setSignupOpen(false);
+        setSignupSuccessOpen(true);
+        resetSignupForm();
+    }
+    
+
+    
+
 
     return (
         <div className="online-shop-demo" id="home">
@@ -410,7 +514,10 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
                         <div className="online-shop-navbar-right">
                             <Heart className="online-shop-navbar-right-icon" />
                             <User className="online-shop-navbar-right-icon" onClick={() => setLoginOpen(true)} />
-                            <ShoppingCart className="online-shop-navbar-right-icon" onClick={() => setCartOpen(true)} />
+                                <div className="online-shop-cart-icon-wrapper">
+                                    <ShoppingCart className="online-shop-navbar-right-icon" onClick={() => setCartOpen(true)} />
+                                    {cartCount > 0 && (<span className="online-shop-cart-badge">{cartCount}</span>)}
+                                </div>
                             {loginOpen&& demoScreenRef.current && createPortal(
                                 <div className="online-shop-overlay">
                                     <div ref={loginRef} className="online-shop-login-window">
@@ -423,23 +530,29 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
                                                 <input id="login-email-input" type="email" placeholder="E-Mail eingeben" value={loginEmail} onChange={(event) => 
                                                     setLoginEmail(event.target.value)}/>
                                                 <label htmlFor="login-password-input">Passwort</label>
-                                                <input id="login-password-input" type="password" placeholder="Passwort eingeben" value={loginPassword} 
-                                                onChange={(event) => setLoginPassword(event.target.value)}/>
+                                                <div className="online-shop-login-password-container">
+                                                    <input className="online-shop-login-password" id="login-password-input" 
+                                                    type={showLoginPassword?"Text":"password"} placeholder="Passwort eingeben" value={loginPassword} 
+                                                    onChange={(event) => setLoginPassword(event.target.value)}/>
+                                                    {!showLoginPassword?(<button className="online-shop-login-closedeye-button" onClick={() => 
+                                                    setShowLoginPassword(!showLoginPassword)}><EyeClosed/></button>)
+                                                    :(<button className="online-shop-login-eye-button" onClick={() => setShowLoginPassword(!showLoginPassword)}><Eye/></button>)}
+                                                </div>
                                                 <a>Passwort vergessen?</a>
-                                                <button type="submit" className="online-shop-login-button">Einloggen</button>
+                                                <button type="submit" className="online-shop-login-button" onClick={() => resetLoginForm()}>Einloggen</button>
                                             </fieldset>
                                         </form>
                                         <div className="online-shop-login-outside-form">
                                         <h3>Noch kein Konto?</h3>
-                                        <button className="online-shop-to-signup-button" onClick={() => {setLoginOpen(false); setSignupOpen(true); }}>Konto erstellen</button>
+                                        <button className="online-shop-to-signup-button" onClick={() => {setLoginOpen(false); setSignupOpen(true); resetLoginForm()}}>Konto erstellen</button>
                                         </div>
-                                        <button className="online-shop-close-login-button" onClick={() => setLoginOpen(false)}><CircleX/></button>
+                                        <button className="online-shop-close-login-button" onClick={() => {setLoginOpen(false); resetSignupForm(); resetLoginForm();}}><CircleX/></button>
                                     </div>
                                 </div>, demoScreenRef.current)}
                                 {signupOpen&& demoScreenRef.current && createPortal(
                                     <div className="online-shop-overlay"> 
                                         <div ref={signupRef} className="online-shop-signup-window">
-                                            <form className="online-shop-signup-form">
+                                            <form className="online-shop-signup-form" onSubmit={handleSignupSubmit}>
                                                 <fieldset>
                                                     <legend>Konto erstellen</legend>
                                                     <label htmlFor="firstname-input">Vorname</label>
@@ -452,26 +565,78 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
                                                     <input id="signup-email-input" type="email" value={signupEmail} placeholder="Email eingeben" onChange={(event) => 
                                                         setSignupEmail(event.target.value)}/>
                                                     <label htmlFor="signup-password-input">Passwort</label>
-                                                    <input id="signup-password-input" type="password" value={signupPassword} placeholder="Passwort eingeben" onChange={(event) => 
+                                                    <div className="online-shop-signup-password-container">
+                                                        <input id="signup-password-input" type={showSignupPassword?"Text":"password"} value={signupPassword} placeholder="Passwort eingeben" onChange={(event) => 
                                                         setSignupPassword(event.target.value)}/>
+                                                        {!showSignupPassword?(<button className="online-shop-signup-closedeye-button" onClick={() => 
+                                                        setShowSignupPassword(!showSignupPassword)}><EyeClosed/></button>)
+                                                        :(<button className="online-shop-signup-eye-button" onClick={() => setShowSignupPassword(!showSignupPassword)}><Eye/></button>)}
+                                                    </div>
                                                     <label htmlFor="signup-password-confirm">Passwort bestätigen</label>
-                                                    <input id="signup-password-confirm" type="password" value={signupPasswordConfirm} placeholder="Passwort erneut eingeben" 
+                                                    <div className="online-shop-signup-confirm-password-container">
+                                                        <input id="signup-password-confirm" type={showSignupConfirmPassword?"Text":"password"} 
+                                                        value={signupPasswordConfirm} placeholder="Passwort erneut eingeben" 
                                                         onChange={(event) => setSignupPasswordConfirm(event.target.value)}/>
+                                                        {!showSignupConfirmPassword?(<button className="online-shop-signup-confirm-closedeye-button" onClick={() => 
+                                                        setShowSignupConfirmPassword(!showSignupConfirmPassword)}><EyeClosed/></button>)
+                                                        :(<button className="online-shop-signup-confirm-eye-button" onClick={() => 
+                                                        setShowSignupConfirmPassword(!showSignupConfirmPassword)}><Eye/></button>)}
+                                                    </div>
+                                                    {signupPasswordError && <p>{signupPasswordError}</p>}
+                                                    {signupEmptyFieldError && <p>{signupEmptyFieldError}</p>}
                                                     <button type="submit" className="online-shop-signup-button">Konto erstellen</button>
-                                                    <button type="button" className="online-shop-signup-close-button" onClick={() => setSignupOpen(false)}><CircleX/></button>
+                                                    <button type="button" className="online-shop-signup-close-button" onClick={() => 
+                                                        {setSignupOpen(false); resetSignupForm();}}><CircleX/></button>
                                                 </fieldset>
                                             </form>
                                             <div className="online-shop-signup-outside-form">
                                             <p>Bereits ein Konto?</p>
-                                            <button type="button" className="online-shop-to-login-button" onClick={() => {setSignupOpen(false); setLoginOpen(true)}}>Zur Anmeldung</button>
+                                            <button type="button" className="online-shop-to-login-button" onClick={() => 
+                                                {setSignupOpen(false); setLoginOpen(true); resetSignupForm();}}>Zur Anmeldung</button>
                                             </div>
                                         </div>
                                     </div>, demoScreenRef.current
                                 )}
+                                {signupSuccessOpen && demoScreenRef.current && createPortal(
+                                                <div className="online-shop-overlay">
+                                                    <div className="online-shop-signup-confirmation-window">
+                                                        <h2>Konto erstellt!</h2>
+                                                        <p>Dein NORTHBOUND-Konto wurde erfolgreich erstellt.</p>
+                                                        <p>Demo-Hinweis: Es wurden keine echten Kontodaten gespeichert.</p>
+                                                        <button onClick={() => {setSignupSuccessOpen(false); resetSignupForm();}}>Weiter einkaufen</button>
+                                                    </div>
+                                                </div>, demoScreenRef.current)}
                             {cartOpen&& demoScreenRef.current && createPortal(
-                                <div className="online-shop-overlay">
+                                <div className="online-shop-cart-overlay">
                                     <div ref={cartRef} className="online-shop-cart-window">
-
+                                        <h2>Warenkorb</h2>
+                                        {cart.length > 0?
+                                        <div className="online-shop-cart-grid">
+                                            {cart.map((item) => (
+                                                <div key={item.id} className="online-shop-cart-item">
+                                                    <img src={item.image} alt={item.name}/>
+                                                    <p>{item.name}</p>
+                                                    <p>{item.price.toFixed(2)}€</p>
+                                                    <div className="online-shop-cart-quantity-container">
+                                                        <p>Menge:</p>
+                                                        <p className="online-shop-cart-quantity">
+                                                            <button onClick={() => decreaseQuantity(item.id)}>-</button>{item.quantity}<button onClick={() => 
+                                                                increaseQuantity(item.id)}>+</button></p>
+                                                    </div>         
+                                                    <button className="online-shop-cart-trash-button" onClick={() => removeFromCart(item.id)}><Trash/></button>
+                                                </div>))} 
+                                        </div>
+                                        :<div>
+                                            <h3>Noch nichts hier!</h3>    
+                                        </div>}
+                                        <div className="online-shop-cart-bottom">
+                                        <div className="online-shop-cart-subtotal">
+                                            <h3>Zwischensumme: </h3>
+                                            <p>{subTotal.toFixed(2)}€</p>
+                                        </div>
+                                        <button className="online-shop-cart-checkout-button">Zur Kasse</button>
+                                        </div>
+                                        <button className="online-shop-x-button" onClick={() => setCartOpen(false)}><CircleX/></button>
                                     </div>
                                 </div>, demoScreenRef.current)}
                         </div>
@@ -542,8 +707,11 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
                                     <p className="online-shop-catalog-product-category">{product.category}</p>
                                     <p className="online-shop-catalog-product-rating">{Array(5).fill(null).map((_, index) =>
                                         (<Star key={index} fill={index < Math.round(product.rating) ? "orange" : "none"} />))}<span>{product.rating}</span>({product.reviews})</p>
-                                    <p className="online-shop-catalog-product-price">{product.oldPrice !== null && (<span className="online-shop-catalog-product-oldPrice">{product.oldPrice.toFixed(2)}€</span>)}
-                                        {product.price.toFixed(2)}€</p>
+                                        <p className="online-shop-catalog-product-price">{product.oldPrice !== null && (<span className="online-shop-catalog-product-oldPrice">{product.oldPrice.toFixed(2)}€</span>)}
+                                            {product.price.toFixed(2)}€</p>
+                                    <div className="online-shop-catalog-addToCart-container">
+                                        <button className="online-shop-catalog-addToCart-button" onClick={() => addToCart(product)}><ShoppingCart/>In den Warenkorb</button>
+                                    </div>
                                     <Heart className="online-shop-catalog-product-icon" />
                                 </div>
                             </div>))}
