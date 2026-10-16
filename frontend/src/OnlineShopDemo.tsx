@@ -12,7 +12,7 @@ import explorerTee from "./assets/shop img/explorerTee.png";
 import summitThermos from "./assets/shop img/summitThermos.png";
 import trailOrganizer from "./assets/shop img/trailOrganizer.png";
 import weekendDuffel from "./assets/shop img/weekendDuffel.png";
-import { Search, ChevronDown, Heart, User, ShoppingCart, ArrowBigRight, Star, Truck, RotateCcw, ShieldCheck, Mountain, CircleX, Eye, EyeClosed, Trash } from "lucide-react";
+import { Search, ChevronDown, Heart, User, ShoppingCart, ArrowBigRight, Star, Truck, RotateCcw, ShieldCheck, Mountain, CircleX, Eye, EyeClosed, Trash, CircleCheck, Menu } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useState, useRef, useEffect, type RefObject } from "react";
 import hero from "./assets/shop img/hero.png";
@@ -245,6 +245,40 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
     const [signupEmptyFieldError, setSignupEmptyFieldError] = useState("");
     const [signupSuccessOpen, setSignupSuccessOpen] = useState(false);
     const [cart, setCart] = useState<CartItem[]>([]);
+    const [checkoutOpen, setCheckoutOpen] = useState(false);
+    const [checkoutError, setCheckoutError] = useState("");
+    const [checkoutSuccessOpen, setCheckoutSuccessOpen] = useState(false);
+    const [checkoutForm, setCheckoutForm] = useState({
+        email: "",
+        firstName: "",
+        lastName: "",
+        street: "",
+        houseNumber: "",
+        postalCode: "",
+        city: "",
+        country: "",
+    });
+    const [shippingMethod, setShippingMethod] = useState("standard");
+    const [paymentMethod, setPaymentMethod] = useState("");
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [filtersOpen, setFiltersOpen] = useState(false);
+
+    const countries = [
+        "Deutschland",
+        "Österreich",
+        "Schweiz",
+        "Niederlande",
+        "Belgien",
+        "Frankreich",
+        "Dänemark",
+        "Polen",
+        "Italien",
+        "Spanien"
+    ]
+    const shippingCost = shippingMethod === "standard" ? 4.90 : 9.90;
+    
+
+    
 
     type TrustItem = {
         title: string,
@@ -300,6 +334,8 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
         );
     }
 }
+    
+    
 
     function removeFromCart(id: number){
         setCart(cart.filter((item) => item.id !== id))
@@ -340,6 +376,9 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
     const loginRef = useRef<HTMLDivElement>(null);
     const cartRef = useRef<HTMLDivElement>(null);
     const signupRef = useRef<HTMLDivElement>(null);
+    const checkoutRef = useRef<HTMLDivElement>(null);
+    const checkoutSuccessRef = useRef<HTMLDivElement>(null);
+    const filtersOpenRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -382,6 +421,23 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
                 setSignupOpen(false);
                 resetSignupForm();
                 
+            }if(
+                checkoutRef.current &&
+                !checkoutRef.current.contains(event.target as Node)
+            ){
+                setCheckoutOpen(false);
+            }
+            if(
+                checkoutSuccessRef.current &&
+                !checkoutSuccessRef.current.contains(event.target as Node)
+            ){
+                setCheckoutSuccessOpen(false);
+            }
+            if(
+                filtersOpenRef.current &&
+                !filtersOpenRef.current.contains(event.target as Node)
+            ){
+                setFiltersOpen(false);
             }
         }
 
@@ -451,9 +507,88 @@ function resetLoginForm() {
         setSignupSuccessOpen(true);
         resetSignupForm();
     }
+
+    function handleCheckoutSubmit(event: React.SubmitEvent<HTMLFormElement>){
+        event.preventDefault();
+        
+
+        if(checkoutForm.email === "" || checkoutForm.firstName === "" || checkoutForm.lastName === "" || checkoutForm.street === "" || checkoutForm.houseNumber === "" || 
+            checkoutForm.postalCode === "" || checkoutForm.city === "" || checkoutForm.country === "" || shippingMethod === "" || paymentMethod === ""){
+                setCheckoutError("Bitte alle Felder ausfüllen");
+                return;
+            }
+            setCheckoutOpen(false);
+            setCheckoutSuccessOpen(true);
+            setCheckoutForm({
+            email: "",
+            firstName: "",
+            lastName: "",
+            street: "",
+            houseNumber: "",
+            postalCode: "",
+            city: "",
+            country: "",
+            });
+            setShippingMethod("standard");
+            setPaymentMethod("");
+            setCart([]);
+    }
     
 
-    
+    const total = (subTotal + shippingCost).toFixed(2);
+
+    function ShopFilters() {
+        return (
+            <div className="online-shop-shop-content-filter-container">
+                        <div className="online-shop-shop-content-filters">
+                            <h2>Kategorie</h2>
+                            <ul className="online-shop-shop-content-filters-list">
+                                <li><button className={selectedCategory === null
+                                    ?"online-shop-shop-content-filtered-category-active online-shop-shop-content-filtered-category"
+                                    :"online-shop-shop-content-filtered-category"}
+                                    onClick={() => setSelectedCategory(null)}>Alle Produkte</button></li>
+                                {categories.map((category) => (<li key={category}>
+                                    <button className={selectedCategory === category
+                                    ?"online-shop-shop-content-filtered-category-active online-shop-shop-content-filtered-category"
+                                    :"online-shop-shop-content-filtered-category"}
+                                    onClick={() => setSelectedCategory(selectedCategory === category
+                                        ? null : category)}>{category}</button></li>))}
+                            </ul>
+                        </div>
+                        <div className="online-shop-shop-content-filters">
+                            <h2>Preis</h2>
+                            <ul>
+                                <li><button onClick={() => setSelectedPrice(selectedPrice === "Unter 30€"
+                                ? null : "Unter 30€")} className={selectedPrice === "Unter 30€"
+                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
+                                :"online-shop-shop-content-filtered-price"}>Unter 30€</button></li>
+                                <li><button onClick={() => setSelectedPrice(selectedPrice === "30€ - 60€"
+                                ? null : "30€ - 60€")} className={selectedPrice === "30€ - 60€"
+                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
+                                :"online-shop-shop-content-filtered-price"}>30€ - 60€</button></li>
+                                <li><button onClick={() => setSelectedPrice(selectedPrice === "60€ - 100€"
+                                ? null : "60€ - 100€")} className={selectedPrice === "60€ - 100€"
+                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
+                                :"online-shop-shop-content-filtered-price"}>60€ - 100€</button></li>
+                                <li><button onClick={() => setSelectedPrice(selectedPrice === "Über 100€"
+                                ? null : "Über 100€")} className={selectedPrice === "Über 100€"
+                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
+                                :"online-shop-shop-content-filtered-price"}>Über 100€</button></li>
+                            </ul>
+                        </div>
+                        <div className="online-shop-shop-content-filters">
+                            <h2>Verfügbarkeit</h2>
+                            <ul>
+                                <li><button onClick={() => setAvailability(!availability)} className={availability
+                                ?"online-shop-shop-content-filtered-availability-active online-shop-shop-content-filtered-availability"
+                                :"online-shop-shop-content-filtered-availability"}>Auf Lager</button></li>
+                            </ul>
+                        </div>
+                        <button className="online-shop-shop-content-clear-filter-button" 
+                        onClick={() => {setAvailability(false); setSelectedPrice(null); setSelectedCategory(null)}}>Filter zurücksetzen</button>
+                    </div>
+        )
+    }
 
 
     return (
@@ -514,10 +649,28 @@ function resetLoginForm() {
                         <div className="online-shop-navbar-right">
                             <Heart className="online-shop-navbar-right-icon" />
                             <User className="online-shop-navbar-right-icon" onClick={() => setLoginOpen(true)} />
-                                <div className="online-shop-cart-icon-wrapper">
-                                    <ShoppingCart className="online-shop-navbar-right-icon" onClick={() => setCartOpen(true)} />
-                                    {cartCount > 0 && (<span className="online-shop-cart-badge">{cartCount}</span>)}
+                            <div className="online-shop-cart-icon-wrapper">
+                                <ShoppingCart className="online-shop-navbar-right-icon" onClick={() => setCartOpen(true)} />
+                                {cartCount > 0 && (<span className="online-shop-cart-badge">{cartCount}</span>)}
+                            </div>
+                            <button className="online-shop-mobile-menu-button" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}><Menu /></button>
+                            {mobileMenuOpen && demoScreenRef.current && createPortal(
+                                <div className="online-shop-overlay">
+                                    <div className="online-shop-menu-window">
+                                        <div className="online-shop-menu-logo-wrapper">
+                                            <img className="online-shop-topbar-logo" src={logo} alt="Northbound Logo" />
+                                        </div>
+                                        <div className="online-shop-menu-links">
+                                            <button className="online-shop-menu-shop-button" onClick={() => {setShopOpen(true); setMobileMenuOpen(false)}}>Shop</button>
+                                            <a onClick={() => {setShopOpen(false); setMobileMenuOpen(false)}} className="online-shop-menu-button" href="#home">Home</a>
+                                            <a onClick={() => {setShopOpen(false); setMobileMenuOpen(false)}} className="online-shop-menu-button" href="#popular">Beliebte Kategorien</a>
+                                            <a onClick={() => {setShopOpen(false); setMobileMenuOpen(false)}} className="online-shop-menu-button" href="#bestseller">Bestseller</a>
+                                            <a onClick={() => {setShopOpen(false); setMobileMenuOpen(false)}} className="online-shop-menu-button" href="#promo">Northbound</a>
+                                        </div>
+                                        <button className="online-shop-close-menu-button" onClick={() => setMobileMenuOpen(false)}><CircleX/></button>
+                                    </div>
                                 </div>
+                                , demoScreenRef.current)}
                             {loginOpen&& demoScreenRef.current && createPortal(
                                 <div className="online-shop-overlay">
                                     <div ref={loginRef} className="online-shop-login-window">
@@ -615,6 +768,7 @@ function resetLoginForm() {
                                             {cart.map((item) => (
                                                 <div key={item.id} className="online-shop-cart-item">
                                                     <img src={item.image} alt={item.name}/>
+                                                    <div className="online-shop-cart-mobile-right">
                                                     <p>{item.name}</p>
                                                     <p>{item.price.toFixed(2)}€</p>
                                                     <div className="online-shop-cart-quantity-container">
@@ -622,11 +776,12 @@ function resetLoginForm() {
                                                         <p className="online-shop-cart-quantity">
                                                             <button onClick={() => decreaseQuantity(item.id)}>-</button>{item.quantity}<button onClick={() => 
                                                                 increaseQuantity(item.id)}>+</button></p>
-                                                    </div>         
+                                                    </div>  
+                                                    </div>       
                                                     <button className="online-shop-cart-trash-button" onClick={() => removeFromCart(item.id)}><Trash/></button>
                                                 </div>))} 
                                         </div>
-                                        :<div>
+                                        :<div className="online-shop-cart-empty">
                                             <h3>Noch nichts hier!</h3>    
                                         </div>}
                                         <div className="online-shop-cart-bottom">
@@ -634,12 +789,141 @@ function resetLoginForm() {
                                             <h3>Zwischensumme: </h3>
                                             <p>{subTotal.toFixed(2)}€</p>
                                         </div>
-                                        <button className="online-shop-cart-checkout-button">Zur Kasse</button>
+                                        <button className="online-shop-cart-checkout-button" onClick={() => setCheckoutOpen(true)}>Zur Kasse</button>
                                         </div>
                                         <button className="online-shop-x-button" onClick={() => setCartOpen(false)}><CircleX/></button>
                                     </div>
                                 </div>, demoScreenRef.current)}
                         </div>
+                        {checkoutOpen && demoScreenRef.current && createPortal( 
+                            <div className="online-shop-overlay">
+                                <div ref={checkoutRef} className="online-shop-checkout-window">
+                                    <form onSubmit={handleCheckoutSubmit}>
+                                    <div className="online-shop-checkout-header">
+                                        <h2>Kasse</h2>
+                                    </div>
+                                    <div className="online-shop-middle-content">
+                                        <div className="online-shop-checkout-details">
+                                            <div className="online-shop-contact-info">
+                                                <h3>Kontaktdaten</h3>
+                                                <label htmlFor="checkout-email">Email: </label>
+                                                <input id="checkout-email" placeholder="E-Mail" type="email" value={checkoutForm.email} onChange={(event) => 
+                                                setCheckoutForm({...checkoutForm, email: event.target.value})}/>
+                                            </div>
+                                            <div className="online-shop-checkout-address">
+                                                <h3>Lieferadresse</h3>
+                                                <div className="online-shop-checkout-input-fields">
+                                                    <label htmlFor="checkout-firstname">Vorname:</label>
+                                                    <input id="checkout-firstname" placeholder="Vorname" value={checkoutForm.firstName} onChange={(event) => 
+                                                    setCheckoutForm({...checkoutForm, firstName: event.target.value})}/>
+                                                </div>
+                                                <div className="online-shop-checkout-input-fields">
+                                                    <label htmlFor="checkout-lastname">Nachname:</label>
+                                                    <input id="checkout-lastname" placeholder="Nachname" value={checkoutForm.lastName} onChange={(event) => 
+                                                    setCheckoutForm({...checkoutForm, lastName: event.target.value})}/>
+                                                </div>
+                                                <div className="online-shop-checkout-input-fields">
+                                                    <label htmlFor="checkout-street">Straße:</label>
+                                                    <input id="checkout-street" placeholder="Straße" value={checkoutForm.street} onChange={(event) => 
+                                                    setCheckoutForm({...checkoutForm, street: event.target.value})}/>
+                                                </div>
+                                                <div className="online-shop-checkout-input-fields">
+                                                    <label htmlFor="checkout-housenumber">Hausnummer:</label>
+                                                    <input id="checkout-housenumber" placeholder="Hausnummer" value={checkoutForm.houseNumber} onChange={(event) => 
+                                                    setCheckoutForm({...checkoutForm, houseNumber: event.target.value})}/>
+                                                </div>
+                                                <div className="online-shop-checkout-input-fields">
+                                                    <label htmlFor="checkout-postalcode">PLZ:</label>
+                                                    <input id="checkout-postalcode" placeholder="PLZ" value={checkoutForm.postalCode} onChange={(event) => 
+                                                    setCheckoutForm({...checkoutForm, postalCode: event.target.value})}/>
+                                                </div>
+                                                <div className="online-shop-checkout-input-fields">
+                                                    <label htmlFor="checkout-city">Ort:</label>
+                                                    <input id="checkout-city" placeholder="Ort" value={checkoutForm.city} onChange={(event) => 
+                                                    setCheckoutForm({...checkoutForm, city: event.target.value})}/>
+                                                </div>
+                                                <div className="online-shop-checkout-input-fields">
+                                                    <label htmlFor="checkout-country">Land:</label>
+                                                    <select id="checkout-country" value={checkoutForm.country} onChange={(event) => 
+                                                    setCheckoutForm({...checkoutForm, country: event.target.value})}>
+                                                        <option value={""} disabled>Land auswählen</option>
+                                                        {countries.map((country) => (<option key={country} value={country}>{country}</option>))}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="online-shop-checkout-shipping">
+                                                <h3>Versand</h3>
+                                                <label>
+                                                <input type="radio" name="shipping" checked={shippingMethod === "standard"} value="standard" onChange={() => 
+                                                    setShippingMethod("standard")}/>Standardversand — 4,90 €
+                                                </label>
+                                                <label>
+                                                <input type="radio" name="shipping" checked={shippingMethod === "express"} value="express" onChange={() => 
+                                                    setShippingMethod("express")}/>Expressversand — 9,90 €
+                                                </label>
+                                            </div>
+                                            <div className="online-shop-checkout-payment">
+                                                <h3>Zahlungsmethode</h3>
+                                                <label>
+                                                <input type="radio" name="payment" checked={paymentMethod === "card"} value="card" onChange={() => 
+                                                    setPaymentMethod("card")
+                                                }/>Karte
+                                                </label>
+                                                <label>
+                                                <input type="radio" name="payment" checked={paymentMethod === "paypal"} value="paypal" onChange={() => 
+                                                    setPaymentMethod("paypal")
+                                                }/>Paypal
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="online-shop-checkout-summary">
+                                            <div className="online-shop-checkout-summary-header">
+                                            <h3>Bestellübersicht</h3>
+                                            </div>
+                                            <div className="online-shop-checkout-summary-product-grid">
+                                                {cart.map((item) => (
+                                                <div key={item.id} className="online-shop-checkout-summary-item">
+                                                    <img src={item.image} alt={item.name}/>
+                                                    <div className="online-shop-checkout-quantity-container">
+                                                        <p>{item.name}</p>
+                                                        <p>Menge:</p>
+                                                        <p className="online-shop-checkout-quantity">{item.quantity}</p>
+                                                    </div>
+                                                    <p>{(item.price*item.quantity).toFixed(2)}€</p>
+                                                    
+                                                </div>))} 
+                                            </div>
+                                            <div className="online-shop-checkout-summary-wrapper">
+                                                <h3>Zwischensumme: {subTotal.toFixed(2)}€</h3>
+                                                <h3>Versand: {shippingCost.toFixed(2)}€</h3>
+                                                <div className="online-shop-checkout-total">
+                                                    <h3>Summe: {total}€</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="online-shop-checkout-sumbit-button-container">
+                                        <p>{checkoutError}</p>
+                                        <button type="submit" className="online-shop-checkout-submit-button">Bestellung abschließen</button>
+                                    </div>
+                                    <button className="online-shop-checkout-x-button" onClick={() => setCheckoutOpen(false)}><CircleX/></button>
+                                    </form>
+                                </div>
+                                
+                            </div>,demoScreenRef.current)}
+                            {checkoutSuccessOpen && demoScreenRef.current && createPortal(
+                                <div className="online-shop-overlay">
+                                    <div ref={checkoutSuccessRef} className="online-shop-checkout-success-window">
+                                        
+                                        <h2>Vielen Dank! <CircleCheck className="online-shop-checkout-success-icon"/></h2>
+                                        <p>Deine Bestellung wurde erfolgreich übermittelt.</p>
+                                        <p>In einem echten Shop würdest du jetzt eine Bestellbestätigung per E-Mail erhalten.</p>
+                                        <p className="online-shop-checkout-demo-note">
+                                             **Demo-Shop – Es wurde keine echte Bestellung aufgegeben oder Zahlung durchgeführt.</p>
+                                        <button onClick={() => setCheckoutSuccessOpen(false)}>Weiter einkaufen</button>
+                                    </div>
+                                </div>, demoScreenRef.current)}
                     </div>
                 </div>
             {shopOpen?
@@ -647,55 +931,16 @@ function resetLoginForm() {
                 <div className="online-shop-shop-header">
                     <h1>{selectedCategory === null ? "Alle Produkte": selectedCategory}</h1>
                 </div>
-                <div className="online-shop-shop-content">
-                    <div className="online-shop-shop-content-filter-container">
-                        <div className="online-shop-shop-content-filters">
-                            <h2>Kategorie</h2>
-                            <ul>
-                                <li><button className={selectedCategory === null
-                                    ?"online-shop-shop-content-filtered-category-active online-shop-shop-content-filtered-category"
-                                    :"online-shop-shop-content-filtered-category"}
-                                    onClick={() => setSelectedCategory(null)}>Alle Produkte</button></li>
-                                {categories.map((category) => (<li key={category}>
-                                    <button className={selectedCategory === category
-                                    ?"online-shop-shop-content-filtered-category-active online-shop-shop-content-filtered-category"
-                                    :"online-shop-shop-content-filtered-category"}
-                                    onClick={() => setSelectedCategory(selectedCategory === category
-                                        ? null : category)}>{category}</button></li>))}
-                            </ul>
-                        </div>
-                        <div className="online-shop-shop-content-filters">
-                            <h2>Preis</h2>
-                            <ul>
-                                <li><button onClick={() => setSelectedPrice(selectedPrice === "Unter 30€"
-                                ? null : "Unter 30€")} className={selectedPrice === "Unter 30€"
-                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
-                                :"online-shop-shop-content-filtered-price"}>Unter 30€</button></li>
-                                <li><button onClick={() => setSelectedPrice(selectedPrice === "30€ - 60€"
-                                ? null : "30€ - 60€")} className={selectedPrice === "30€ - 60€"
-                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
-                                :"online-shop-shop-content-filtered-price"}>30€ - 60€</button></li>
-                                <li><button onClick={() => setSelectedPrice(selectedPrice === "60€ - 100€"
-                                ? null : "60€ - 100€")} className={selectedPrice === "60€ - 100€"
-                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
-                                :"online-shop-shop-content-filtered-price"}>60€ - 100€</button></li>
-                                <li><button onClick={() => setSelectedPrice(selectedPrice === "Über 100€"
-                                ? null : "Über 100€")} className={selectedPrice === "Über 100€"
-                                ?"online-shop-shop-content-filtered-price-active online-shop-shop-content-filtered-price"
-                                :"online-shop-shop-content-filtered-price"}>Über 100€</button></li>
-                            </ul>
-                        </div>
-                        <div className="online-shop-shop-content-filters">
-                            <h2>Verfügbarkeit</h2>
-                            <ul>
-                                <li><button onClick={() => setAvailability(!availability)} className={availability
-                                ?"online-shop-shop-content-filtered-availability-active online-shop-shop-content-filtered-availability"
-                                :"online-shop-shop-content-filtered-availability"}>Auf Lager</button></li>
-                            </ul>
-                        </div>
-                        <button className="online-shop-shop-content-clear-filter-button" 
-                        onClick={() => {setAvailability(false); setSelectedPrice(null); setSelectedCategory(null)}}>Filter zurücksetzen</button>
-                    </div>
+                    <ShopFilters/>
+                    {filtersOpen && demoScreenRef.current && createPortal(
+                        <div className="online-shop-overlay">
+                            <div  ref={filtersOpenRef} className="online-shop-shop-filter-window">
+                                 <button type="button" className="online-shop-shop-filter-close-button" onClick={() => setFiltersOpen(false)}><CircleX /></button>
+                                <ShopFilters/>
+                            </div>
+                        </div>, demoScreenRef.current)}
+                    <div className="online-shop-shop-content">
+                    <button className="online-shop-mobile-filter-button" onClick={() => setFiltersOpen(true)}>Filter</button>
                     <div className="online-shop-shop-content-catalog">
                         {productsToDisplay.length === 0
                         ?(<div className="online-shop-shop-no-content"><h2>Keine Produkte gefunden</h2>
@@ -780,7 +1025,7 @@ function resetLoginForm() {
                                     <p className="online-shop-bestseller-product-category">{product.category}</p>
                                     <p className="online-shop-bestseller-product-rating">{Array(5).fill(null).map((_, index) =>
                                         (<Star key={index} fill={index < Math.round(product.rating) ? "orange" : "none"} />))}<span>{product.rating}</span>({product.reviews})</p>
-                                    <p className="online-shop-bestseller-product-price">{product.oldPrice !== null && (<span className="online-shop-bestseller-product-oldPrice">{product.oldPrice.toFixed(2)}€</span>)}
+                                        <p className="online-shop-bestseller-product-price">{product.oldPrice !== null && (<span className="online-shop-bestseller-product-oldPrice">{product.oldPrice.toFixed(2)}€</span>)}
                                         {product.price.toFixed(2)}€</p>
                                     <Heart className="online-shop-bestseller-product-icon" />
                                 </div>
@@ -811,7 +1056,7 @@ function resetLoginForm() {
                         </p>
                         <button className="online-shop-promo-right-button" onClick={() => setStoryOpen(true)}>Unsere Geschichte</button>
                         {storyOpen&& demoScreenRef.current && createPortal(
-                            <div className="online-shop-overlay">
+                            <div className="online-shop-overlay online-shop-story-overlay">
                                 <div ref={storyRef} className="online-shop-our-story-window">
                                     <h2>Aus Liebe zum Draußensein.</h2>
                                     <p><span><strong>NORTHBOUND</strong></span> entstand aus der Idee, dass gute Outdoor-Ausrüstung nicht kompliziert sein muss.</p>

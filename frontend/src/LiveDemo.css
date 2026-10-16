@@ -106,6 +106,7 @@ align-items: center;
     height: 650px;
     margin-inline: auto;
     transition: width 0.4s ease, max-width 0.4s ease;
+    container-type: inline-size;
 }
 .demo-desktop{
     max-width: 1600px;

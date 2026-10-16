@@ -646,3 +646,10 @@
     margin-top: 20px;
     padding-bottom:30px;
 }
+@container (max-width: 1000px) {
+    /* tablet layout */
+}
+
+@container (max-width: 600px) {
+    /* phone layout */
+}

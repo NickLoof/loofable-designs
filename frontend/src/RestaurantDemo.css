@@ -390,3 +390,10 @@ transition: transform 0.25s ease,
         cursor: pointer;
     }
 }
+@container (max-width: 1000px) {
+    /* tablet layout */
+}
+
+@container (max-width: 600px) {
+    /* phone layout */
+}
