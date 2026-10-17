@@ -1,8 +1,8 @@
 import "./HandwerkDemo.css";
-import { Phone, Dot, ArrowRight, ArrowLeft, ArrowBigRight, Mail } from "lucide-react";
+import { Phone, Dot, ArrowRight, ArrowLeft, ArrowBigRight, Mail, Menu, CircleX } from "lucide-react";
 import logo from "./assets/handwerk img/nordwerk-logo.svg";
 import heroBackground from "./assets/handwerk img/hero-background.png";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import sanierungImage from "./assets/handwerk img/sanierung.png";
 import renovierungImage from "./assets/handwerk img/renovierung.png";
 import innenausbauImage from "./assets/handwerk img/innenausbau.png";
@@ -16,6 +16,8 @@ import team from "./assets/handwerk img/team.png";
 
 function HandwerkDemo() {
     const [currentService, setCurrentService] = useState(0);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     type Service = {
         number: number,
@@ -46,34 +48,71 @@ function HandwerkDemo() {
         }
     }
 
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node)
+            ) {
+                setMenuOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return(
         <div className="trade-demo">
             <div className="trade-topbar">
                 <div className="trade-topbar-left-container">
-                    <div className="trade-topbar-left">
                         <div className="trade-topbar-phone-container">
                             <Phone className="trade-topbar-phone-icon"/>
                             <a className="trade-topbar-phone-number" href="tel:+49431123456 ">0431 123456</a>
                         </div>|
                         <p>Mo-Fr 07:00-17:00</p>|
                         <p>Kiel +50 km</p>
-                    </div>
                 </div>
                 <div className="trade-topbar-logo">
                     <img src={logo}/>
                 </div>
             </div>
-            <nav className="trade-navbar">
+                <nav className="trade-navbar">
                         <div className="trade-navbar-links">
+                            <div className="trade-navbar-mobile-hidden-links">
                             <a href="#trade-services">Leistungen</a>|
                             <a href="#projects">Projekte</a>|
                             <a href="#about-us">Über uns</a>|
-                            <a href="#contact">Kontakt</a>
+                            </div>
+                            <a className="trade-navbar-offer-button" href="#contact">Angebot anfragen</a>
+                            <button className="trade-navbar-menu-button-container" onClick={() => setMenuOpen(true)}><Menu/></button>
                         </div>
-                        <div >
-                            <a className="trade-navbar-offer-button">Angebot anfragen</a>
+                </nav>
+                {menuOpen &&(
+                    <div className="trade-menu-overlay">
+                        <div ref={menuRef} className="trade-menu-window">
+                            <div className="trade-topbar-menu-logo">
+                                <img src={logo}/>
+                            </div>
+                            <div className="trade-navbar-mobile-menu-links">
+                                <a href="#trade-services" onClick={() => setMenuOpen(false)}>Leistungen</a>
+                                <a href="#projects" onClick={() => setMenuOpen(false)}>Projekte</a>
+                                <a href="#about-us" onClick={() => setMenuOpen(false)}>Über uns</a>
+                            </div>
+                            <div className="trade-menu-bottom-info-container">
+                                <div className="trade-menu-phone-container">
+                                    <Phone className="trade-menu-phone-icon"/>
+                                    <a className="trade-menu-phone-number" href="tel:+49431123456 ">0431 123456</a>
+                                </div>
+                                <p>Mo-Fr 07:00-17:00</p>
+                                <p>Kiel +50 km</p>
+                            </div>
+                            <button className="trade-menu-x-button-container"><CircleX/></button>
                         </div>
-                    </nav>
+                    </div>
+                )}
             <section className="trade-hero">
                 <img className="trade-hero-background" src={heroBackground}/>
                 <div className="trade-hero-content">
@@ -233,7 +272,7 @@ function HandwerkDemo() {
                                 <textarea className="trade-contact-form-texarea" placeholder="Nachricht schreiben..."/>
                             </label>
                         </div>
-                        <button className="trade-contact-form-button">Anfrage senden</button>
+                        <button type="button" className="trade-contact-form-button">Anfrage senden</button>
                     </form>
                 </div>
             </section>
@@ -246,28 +285,30 @@ function HandwerkDemo() {
                         <p>in Kiel und Umgebung</p>
                     </div>
                     </div>
-                    <div className="trade-footer-links-navigation">
-                        <h3 className="trade-footer-links-navigation-h3">Navigation</h3>
-                        <a className="trade-footer-links-navigation-a" href="#trade-services">Leistungen</a>
-                        <a className="trade-footer-links-navigation-a" href="#projects">Projekte</a>
-                        <a className="trade-footer-links-navigation-a" href="#about-us">Über uns</a>
-                        <a className="trade-footer-links-navigation-a" href="#contact">Kontakt</a>
-                    </div>
-                    <div className="trade-footer-links-contact">
-                        <h3 className="trade-footer-links-contact-h3">Kontakt</h3>
-                    <div className="trade-footer-phone-container">
-                        <Phone/>
-                        <a className="trade-footer-a" href="tel:+49431123456">0431 123456</a>
-                    </div>
-                    <div className="trade-footer-email-container">
-                        <Mail/>
-                        <a className="trade-footer-a" href="mailto:info@nordwerk-kiel.de">info@nordwerk-kiel.de</a>
-                    </div>
-                    </div>
-                    <div className="trade-footer-links-legalities">
-                        <h3 className="trade-footer-links-legalities-h3">Rechtliches</h3>
-                        <a className="trade-footer-links-legalities-a">Impressum</a>
-                        <a className="trade-footer-links-legalities-a">Datenschutz</a>
+                    <div className="trade-footer-links-container">
+                        <div className="trade-footer-links-navigation">
+                            <h3 className="trade-footer-links-navigation-h3">Navigation</h3>
+                            <a className="trade-footer-links-navigation-a" href="#trade-services">Leistungen</a>
+                            <a className="trade-footer-links-navigation-a" href="#projects">Projekte</a>
+                            <a className="trade-footer-links-navigation-a" href="#about-us">Über uns</a>
+                            <a className="trade-footer-links-navigation-a" href="#contact">Kontakt</a>
+                        </div>
+                        <div className="trade-footer-links-contact">
+                            <h3 className="trade-footer-links-contact-h3">Kontakt</h3>
+                        <div className="trade-footer-phone-container">
+                            <Phone/>
+                            <a className="trade-footer-a" href="tel:+49431123456">0431 123456</a>
+                        </div>
+                        <div className="trade-footer-email-container">
+                            <Mail/>
+                            <a className="trade-footer-a" href="mailto:info@nordwerk-kiel.de">info@nordwerk-kiel.de</a>
+                        </div>
+                        </div>
+                        <div className="trade-footer-links-legalities">
+                            <h3 className="trade-footer-links-legalities-h3">Rechtliches</h3>
+                            <a className="trade-footer-links-legalities-a">Impressum</a>
+                            <a className="trade-footer-links-legalities-a">Datenschutz</a>
+                        </div>
                     </div>
                 </div>
                 <div className="trade-footer-bottom">

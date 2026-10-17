@@ -390,10 +390,182 @@ transition: transform 0.25s ease,
         cursor: pointer;
     }
 }
+.restaurant-navlinks-menu-icon{
+    display: none;
+}
 @container (max-width: 1000px) {
     /* tablet layout */
 }
 
 @container (max-width: 600px) {
     /* phone layout */
+    .restaurant-menu-logo{
+        display: flex;
+        width: 100%;
+        margin: 0 10px;
+    }
+    .restaurant-menu-navlinks-list ul{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        list-style: none;
+        
+    }
+    .restaurant-menu-navlinks-list li{
+        font-family: "Cormorant Garamond";
+        font-size: 25px;
+        width: fit-content;
+        border-radius: 10px;
+        padding: 5px;
+        &&:hover{
+            background-color: #d6c9a3;
+            border-color: black;
+        }
+    }
+    .restaurant-navlinks-menu-icon{
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 10px;
+
+        &&:hover{
+            background-color: #d6c9a3;
+            border-color: black;
+        }
+    }
+    .restaurant-menu-overlay{
+        position: absolute;
+        inset: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: flex-end;
+        align-items: stretch;
+        background-color: rgb(0 0 0 / 40%);
+        overflow: hidden;
+        overscroll-behavior: contain;
+        width: 100%;
+    }
+    .restaurant-menu-window{
+        position: relative;
+        background-color: #e8dfc5;
+        border: 1px solid black;
+        border-radius: 20px;
+        padding: 20px 20px 0 0;
+        width: min(550px, 80%);
+        height: 100%;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        animation: slideInCart 0.25s ease-out;
+    }
+    .restaurant-navbar{
+        width: 100%;
+    }
+    .restaurant-navbar-container{
+        margin-top: 10px;
+        width: 95%;
+    }
+    .restaurant-navbar-logo{
+        width: 100%;
+        transform: translateX(3px)
+    }
+    .restaurant-navlinks-menu-icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 15px auto;
+}
+    .restaurant-navlinks-list{
+        display: none;
+    }
+    .restaurant-cusine-menu-button-p{
+        font-size: 18px;
+    }
+    .restaurant-cusine-menu-button-h2{
+        font-size: 30px;
+    }
+    .restaurant-cuisine-dishes{
+        display: grid;
+        grid-template-columns: repeat(1, minmax(300px, 1fr));
+    }
+    .restaurant-about-us{
+        display: flex;
+        flex-direction: column;
+    }
+    .restaurant-about-us-left-side{
+        width: 100%;
+    }
+    .restaurant-about-us-right-side{
+        margin-top: 15px;
+        padding: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .restaurant-about-us-values-container{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    .restaurant-about-us-values-container p{
+        width: 140px;
+    }
+    .restaurant-reservation-content{
+        width: 95%;
+    }
+    .restaurant-reservation-submit-button{
+        width: fit-content;
+        font-size: 20px;
+    }
+    .restaurant-reservation-form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    .restaurant-footer-logo-info-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        gap: 30px;
+        }
+    .restaurant-footer-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 15px 20px;
+    font-size: 18px;
+    }
+
+    .restaurant-footer-legal-info {
+        grid-column: 1 / -1;
+        margin-left: 40px;
+    }
+    .restaurant-footer-legal-info a {
+    display: inline-block;
+    margin-right: 15px;
+    }
+    .restaurant-footer-bottom-line {
+    margin-top: 25px;
+    }
+    .restaurant-footer-logo {
+        width: 280px;
+        max-width: 90%;
+        margin-left: 0;
+    }
+    .restaurant-footer-navigation,
+    .restaurant-footer-contact {
+        flex: 1;
+        min-width: 120px;
+    }
+    .restaurant-footer-info h3 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    }
+    .restaurant-footer-legal-info a {
+    margin-right: 15px;
+    }
 }

@@ -7,24 +7,20 @@
 .trade-topbar{
     display: flex;
     width: 100%;
-    height: 60px;
-    padding: 20px; 
+    height: fit-content;
     background-color: rgb(34, 33, 33);
     overflow: visible;
-   
+    align-items: center;
     
 }
 .trade-topbar-left-container{
     display: flex;
-    flex-direction: column;
-}
-.trade-topbar-left{
-    display: flex;
     gap: 30px;
     font-size: 15px;
-    align-items: center;
+    height: 100%;
     margin-bottom: 25px;
     color: rgb(0, 0, 0);
+    padding: 15px 20px 5px 15px;
 }
 .trade-topbar-left a, 
 .trade-topbar p{
@@ -62,9 +58,7 @@
     top: 0;
     z-index: 100;
     width: 100%;
-    padding: 20px 30px;
-    padding-right: 300px;
-    padding-bottom: 20px;
+    padding: 0 20px 20px 30px;
     background-color: rgb(34, 33, 33);
     border-bottom: 1px solid black;
     
@@ -74,6 +68,7 @@
     gap: 20px;
     color: rgb(0, 0, 0);
     font-size: 24px;
+    align-items: center;
 }
 .trade-navbar-links a{
     color: rgb(236, 137, 8);
@@ -89,6 +84,7 @@
     font-size: 24px;
     transition: 0.3s;
     color: rgb(236, 137, 8);
+    margin-top: 10px;
     &:hover{
         background-color: rgb(94, 77, 60);
         box-shadow: 2px 2px 2px black;
@@ -98,12 +94,18 @@
 }
 .trade-topbar-logo {
     margin-left: auto;
-    position: relative;
     z-index: 101;
+    width: 200px;
+    height: auto;
+    margin-right: 20px;
+    margin-block: 10px;
 }
-
+.trade-navbar-mobile-menu-links{
+    display: flex;
+    gap: 15px;
+}
 .trade-topbar-logo img {
-    width: 250px;
+    width: 100%;
     height: auto;
     display: block;
 }
@@ -318,6 +320,7 @@
     font-size: 25px;
     color: rgb(236, 137, 8);
     font-weight: bold;
+    margin-bottom: 15px;
 }
 .trade-projects{
     display: flex;
@@ -354,6 +357,8 @@
     display: flex;
     gap: 20px;
     align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 .trade-projects-display-before-after-description{
     display: flex;
@@ -372,6 +377,7 @@
     border: 1px solid black;
     border-radius: 10px;
     transition: transform 0.3s ease;
+    width: 45%;
 
     &:hover{
         transform: scale(1.015);
@@ -396,16 +402,21 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    width: 40%;
+    padding-right: 15px;
 }
 .trade-about-us-stats-container{
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
+.trade-about-us-image-container{
+    width: 60%;
+}
 .trade-about-us-image{
     border: 1px solid black;
     border-radius: 15px;
-    width: 750px;
+    width: 100%;
 }
 .trade-about-us-content-p1{
     font-size: 22px;
@@ -583,7 +594,7 @@
 
 }
 .trade-footer-logo{
-    width: 300px;
+    width: 40%;
     height: auto;
 }
 .trade-footer-header{
@@ -594,13 +605,17 @@
 }
 .trade-footer-links{
     display: flex;
-    width: 100%;
+    width: 95%;
     justify-content: space-around;
 }
 .trade-footer-links-navigation{
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+.trade-footer-links-container{
+    display: flex;
+    gap: 35px;
 }
 .trade-footer-links-legalities-h3,
 .trade-footer-links-contact-h3,
@@ -646,10 +661,230 @@
     margin-top: 20px;
     padding-bottom:30px;
 }
+.trade-navbar-menu-button-container{
+    display: none;
+}
 @container (max-width: 1000px) {
     /* tablet layout */
+    .trade-topbar-logo{
+    }
 }
 
 @container (max-width: 600px) {
     /* phone layout */
+    .trade-menu-x-button-container{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: transparent;
+        border: none;
+        scale: 1.4;
+        transition: 0.2s ease;
+        &&:hover{
+            color: orange;
+        }
+    }
+    .trade-menu-bottom-info-container{
+        display: flex;
+        color: white;
+        margin-top: auto;
+        margin-bottom: 20px;
+        margin-left: 10px;
+    }
+    .trade-menu-phone-container{
+        display: flex;
+        align-items: center;
+    }
+    .trade-menu-phone-container a{
+        color: orange;
+    }
+    .trade-menu-phone-icon{
+        color: orange;
+    }
+    .trade-navbar-mobile-menu-links{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 30px;
+        margin-top: 20px;
+        width: fit-content;
+        
+    }
+    .trade-navbar-mobile-menu-links a{
+        color: orange;
+        padding: 10px;
+        
+        &&:hover{
+            background-color: rgb(41, 41, 41);
+            border-radius: 10px;
+        }
+    }
+    .trade-topbar-menu-logo{
+        width: 100%;
+        display: flex;
+        margin-left: 10px;
+        
+    }
+    .trade-topbar-menu-logo img{
+        width: 100%;
+        
+    }
+    .trade-menu-overlay{
+        position: absolute;
+        inset: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: flex-end;
+        align-items: stretch;
+        background-color: rgb(0 0 0 / 40%);
+        overflow: hidden;
+        overscroll-behavior: contain;
+        width: 100%;
+    }
+    .trade-menu-window{
+        position: relative;
+        background-color: rgb(66, 66, 66);
+        border: 1px solid black;
+        border-radius: 20px;
+        padding: 20px 20px 0 0;
+        width: min(550px, 80%);
+        height: 100%;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        animation: slideInCart 0.25s ease-out;
+    }
+    .trade-topbar-left-container{
+        display: none;
+    }
+    .trade-navbar-menu-button-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        transition: 0.2s ease;
+        padding: 10px;
+        &&:hover{
+            background-color: rgb(65, 63, 63);
+            border-color: black;
+            border-radius: 10px;
+        }
+
+    }
+    .trade-navbar-offer-button{
+        margin: 0;
+    }
+    .trade-topbar{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .trade-navbar-links {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .trade-topbar-logo {
+    margin-left: 0;
+    }
+    .trade-navbar-mobile-hidden-links{
+        display: none;
+    }
+    .trade-hero-content-ctas{
+        font-size: 18px;
+        display: flex;
+        gap: 15px;
+    }
+    .trade-services-card{
+        width: 95%;
+    }
+    .trade-services-card-image-container {
+        width: 100%;
+        height: 180px;
+        display: flex;
+        justify-content: center;
+}
+
+.trade-services-card-image {
+    width: 90%;
+    height: 180px;
+    object-fit: cover;
+}
+    .trade-services-card-middle{
+        display: flex;
+    }
+    .trade-services-card-info-li{
+        font-size: 12px;
+    }
+    .trade-services-card-dots{
+        margin-top: 10px;
+    }
+    .trade-services-card-content{
+        display: flex;
+        flex-direction: column;
+    }
+    .trade-services-card-info{
+        width: 100%;
+    }
+    .trade-services-card-info p{
+        font-size: 12px;
+    }
+    .trade-services-card-info h2{
+        font-size: 20px;
+    }
+    .trade-services-card-info-p2{
+        margin-bottom: 20px;
+    }
+    .trade-projects-display-before-after{
+        display: flex;
+        flex-direction: column;
+    }
+    .trade-projects-displays{
+        width: 95%;
+    }
+    .trade-projects-display-icon{
+        transform: rotate(90deg);
+    }
+    .trade-projects-display-image{
+        width: 100%;
+    }
+    .trade-about-us-content-container{
+        width: 100%;
+    }
+    .trade-about-us-image-container{
+        width: 100%;
+        margin-top: 35px;
+    }
+    .trade-about-us{
+        display: flex;
+        flex-direction: column;
+        padding-top: 80px;
+    }
+    .trade-contact{
+        display: flex;
+        flex-direction: column;
+    }
+    .trade-contact-left{
+        width: 100%;
+    }
+    .trade-contact-right{
+        width: 100%;
+    }
+    .trade-footer-links{
+        display: flex;
+        flex-direction: column;
+    }
+    .trade-footer-header p{
+        font-size: 15px;
+    }
+    .trade-footer-links-container{
+        
+        display: grid;
+        grid-template-columns: repeat(2, minmax(125px, 1fr));
+    }
 }

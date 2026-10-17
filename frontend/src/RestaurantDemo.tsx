@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./RestaurantDemo.css";
+import { Menu } from "lucide-react";
 import logo from "./assets/restaurant img/antica tavola logo.png"
 import restaurantImage from "./assets/restaurant img/hero/inside-dining-with-olive-tree.png";
 import insideDiningWineGlass from "./assets/restaurant img/hero/inside-dining-with-wineglass.png";
@@ -19,6 +20,8 @@ import aboutUsImage from "./assets/restaurant img/unsereKueche/rustic-italian-pa
 
 
 function RestaurantDemo() {
+    const [menuOpen, setMenuOpen] = useState(false);
+
     const heroImages = [
         restaurantImage,
         insideDiningWineGlass,
@@ -73,6 +76,7 @@ function RestaurantDemo() {
         }
     }, [currentImage])
 
+
     return (
         <div className="restaurant-demo">
             <nav id="restaurant-home" className="restaurant-navbar">
@@ -81,13 +85,31 @@ function RestaurantDemo() {
                 </div>
             </nav>
             <nav className="restaurant-navlinks">
-                <ul>
-                    <li><a href="#restaurant-home">Home</a></li> 
-                    <li><a href="#unsere-kueche">Unsere Küche</a></li>
-                    <li><a href="#über-uns">Über uns</a></li>  
-                    <li><a href="#reservieren">Reservieren</a></li>  
-                </ul>
+                <div className="restaurant-navlinks-list">
+                    <ul >
+                        <li><a href="#restaurant-home">Home</a></li> 
+                        <li><a href="#unsere-kueche">Unsere Küche</a></li>
+                        <li><a href="#über-uns">Über uns</a></li>  
+                        <li><a href="#reservieren">Reservieren</a></li>  
+                    </ul>
+                </div>
+                <button className="restaurant-navlinks-menu-icon" onClick={() => setMenuOpen(true)}><Menu/></button>
             </nav>
+            {menuOpen &&(
+                <div className="restaurant-menu-overlay" onClick={() => setMenuOpen(false)}>
+                    <div className="restaurant-menu-window" onClick={(event) => event.stopPropagation()}>
+                        <img className="restaurant-menu-logo" src={logo} alt="Antica Tavola"/>
+                        <div className="restaurant-menu-navlinks-list">
+                            <ul >
+                                <li><a href="#restaurant-home" onClick={() => setMenuOpen(false)}>Home</a></li> 
+                                <li><a href="#unsere-kueche" onClick={() => setMenuOpen(false)}>Unsere Küche</a></li>
+                                <li><a href="#über-uns" onClick={() => setMenuOpen(false)}>Über uns</a></li>  
+                                <li><a href="#reservieren" onClick={() => setMenuOpen(false)}>Reservieren</a></li>  
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>)}
             <section className="restaurant-hero">
                 <div className="restaurant-hero-background">
                     {heroImages.map((image, index) => <img key={index} src={image}
@@ -156,6 +178,7 @@ function RestaurantDemo() {
                     </div>
             </section>
             <section id="reservieren" className="restaurant-reservation">
+                <div className="restaurant-reservation-content">
                 <div className="restaurant-reservation-heading">
                     <h1>Tisch reservieren</h1>
                     <h2>Ein Abend bei Antica Tavola</h2>
@@ -193,6 +216,7 @@ function RestaurantDemo() {
                         <p>24103 Kiel</p>
                     </div>
                 </div>
+                </div>
             </section>
             <section className="restaurant-footer">
                 <div className="restaurant-footer-logo-info-container">
@@ -213,7 +237,7 @@ function RestaurantDemo() {
                             <p>Musterstraße 12</p>
                             <p>24103 Kiel</p>
                             <p>0431 ...</p>
-                            <a href="mailto:info@anticatavolo.de">info@anticatavola.de</a>
+                            <a href="mailto:info@anticatavola.de">info@anticatavola.de</a>
                         </div>
                         <div className="restaurant-footer-legal-info">
                             <h3>Rechtliches</h3>

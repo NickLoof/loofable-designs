@@ -1313,6 +1313,23 @@ font-size: 20px;
             color: orange;
         }
     }
+    .online-shop-mobile-menu-button{
+        background-color: transparent;
+        border: 1px solid transparent;
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        &&:hover{
+            background-color: orange;
+            cursor: pointer;
+            border: 1px solid black;
+
+        }
+    }
+    .online-shop-navbar-right{
+        display: flex;
+        margin-left: auto;
+    }
     .demo-smartphone
     .online-shop-shop > .online-shop-shop-content-filter-container {
         display: none;

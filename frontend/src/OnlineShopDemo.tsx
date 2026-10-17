@@ -379,6 +379,7 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
     const checkoutRef = useRef<HTMLDivElement>(null);
     const checkoutSuccessRef = useRef<HTMLDivElement>(null);
     const filtersOpenRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -438,6 +439,12 @@ function OnlineShopDemo({demoScreenRef}: OnlineShopDemoProps) {
                 !filtersOpenRef.current.contains(event.target as Node)
             ){
                 setFiltersOpen(false);
+            }
+            if(
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node)
+            ){
+                setMobileMenuOpen(false);
             }
         }
 
@@ -656,7 +663,7 @@ function resetLoginForm() {
                             <button className="online-shop-mobile-menu-button" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}><Menu /></button>
                             {mobileMenuOpen && demoScreenRef.current && createPortal(
                                 <div className="online-shop-overlay">
-                                    <div className="online-shop-menu-window">
+                                    <div ref={menuRef} className="online-shop-menu-window">
                                         <div className="online-shop-menu-logo-wrapper">
                                             <img className="online-shop-topbar-logo" src={logo} alt="Northbound Logo" />
                                         </div>
