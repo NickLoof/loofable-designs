@@ -14,7 +14,7 @@ function Hero() {
                 </div>
                 <div className="hero-CTAs">
                     <a className="hero-primary" href="#kontakt">Kostenloses Angebot</a>
-                    <a className="hero-secondary" href="#live-demo">Projekte ansehen</a>
+                    <a className="hero-secondary" href="#live-demo">Preise ansehen</a>
                 </div>
                 <div className="hero-additional-info">
                     <div className="hero-info">

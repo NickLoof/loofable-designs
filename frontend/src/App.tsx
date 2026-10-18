@@ -4,6 +4,8 @@ import Hero from './Hero';
 import Services from './Services';
 import WhyLoofable from './WhyLoofable';
 import LiveDemo from './LiveDemo';
+import Processes from './Processes';
+import FAQ from './FAQ';
 
 function App() {
 
@@ -14,6 +16,8 @@ function App() {
       <Services/>
       <WhyLoofable/>
       <LiveDemo/>
+      <Processes/>
+      <FAQ/>
     </>
   )
 }

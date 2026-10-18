@@ -30,6 +30,7 @@
     background-clip: text;
     color: transparent;
     text-shadow: none;
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.7);
 }
 .hero-support-text{
     text-align: center;
@@ -56,6 +57,7 @@
 }
 .hero-primary{
     background-color: #02741e;
+    font-size: 20px;
 
     &:hover{
         transform: scale(1.03);
@@ -64,6 +66,7 @@
 }
 .hero-secondary{
     background-color: #01310d;
+    font-size: 20px;
     
     &:hover{
         transform: scale(1.03);
