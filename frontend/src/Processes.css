@@ -9,6 +9,12 @@
     justify-content: center;
     align-items: center;
     padding: 60px 60px;
+    background: radial-gradient(
+    ellipse at center,
+    #143a1e 5%,
+    #113322 20%,
+    #0a1710 75%,
+    #090e0b 100%);
 }
 .process-content-header{
     display: flex;

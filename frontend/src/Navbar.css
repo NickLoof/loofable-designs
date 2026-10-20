@@ -58,11 +58,11 @@ body{
     border-radius: 20px;
     margin-left: 30px;
     font-weight: 500;
-    transition: 0.3s;
+    transition: 0.2s ease;
     text-decoration: none;
 
     &:hover{
-        transform: scale(1.03);
+        transform: translateY(-3px);
         background-color: #03af2e;
     }
 }

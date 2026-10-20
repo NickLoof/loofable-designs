@@ -8,7 +8,7 @@ function FAQ () {
     const faqItems = [
         {
             question: "Wie lange dauert die Erstellung einer Website?",
-            answer: "Die Dauer hängt vom Umfang und den gewünschten Funktionen deiner Website ab. Eine kleinere Unternehmenswebsite kann oft innerhalb weniger Wochen fertiggestellt werden. Bei größeren Projekten oder zusätzlichen Funktionen kann es entsprechend länger dauern. Wie schnell es geht, hängt außerdem davon ab, wie schnell benötigte Inhalte und Rückmeldungen vorliegen. Vor Projektbeginn erhältst du von mir eine realistische Einschätzung des Zeitrahmens."
+            answer: "Die Dauer hängt vom Umfang und den gewünschten Funktionen deiner Website ab. Eine kleinere Unternehmenswebsite kann je nach Umfang bereits innerhalb weniger Tage fertiggestellt werden. Bei größeren Projekten oder zusätzlichen Funktionen kann es entsprechend länger dauern. Vor Projektbeginn erhältst du von mir eine realistische Einschätzung des Zeitrahmens."
         },
         {
             question: "Was kostet eine Website?",

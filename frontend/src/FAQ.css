@@ -52,6 +52,16 @@
     #0a1710 75%,
     #090e0b 100%);
     padding: 30px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    &&:hover{
+        background: radial-gradient(
+    ellipse at center,
+    #1c522a 5%,
+    #1a4e34 20%,
+    #0a1811 75%,
+    #090e0b 100%);
+    }
 }
 .faq-plus{
     margin-left: auto;

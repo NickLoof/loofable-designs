@@ -1,24 +1,20 @@
 import './App.css'
-import Navbar from './Navbar'
-import Hero from './Hero';
-import Services from './Services';
-import WhyLoofable from './WhyLoofable';
-import LiveDemo from './LiveDemo';
-import Processes from './Processes';
-import FAQ from './FAQ';
+import Home  from "./pages/Home";
+import Prices from './pages/Preise';
+import Contact from './pages/Kontakt';
+import {Routes, Route} from "react-router-dom";
 
 function App() {
 
   return (
-    <>
-      <Navbar/>
-      <Hero/>
-      <Services/>
-      <WhyLoofable/>
-      <LiveDemo/>
-      <Processes/>
-      <FAQ/>
-    </>
+    <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="/preise" element={<Prices/>}/>
+      <Route path="/kontakt" element={<Contact/>}/>
+      <Route path="/about-loofable" />
+      <Route path="/impressum" />
+      <Route path="/datenschutz" />
+    </Routes>
   )
 }
 

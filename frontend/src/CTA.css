@@ -1,0 +1,41 @@
+*{
+    box-sizing: border-box;
+}
+.cta-container{
+    font-family: "Chillax", sans-serif;
+    background: radial-gradient(
+    ellipse at center,
+    #143a1e 5%,
+    #113322 20%,
+    #0a1710 75%,
+    #090e0b 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+.cta-container h2{
+    font-size: 40px;
+    padding-top: 50px;
+    color: white;
+}
+.cta-container p{
+    font-size: 25px;
+    padding: 30px;
+    color: white;
+}
+.cta-button{
+    color: white;
+    font-size: 25px;
+    background-color: #02741e;
+    border-radius: 15px;
+    width: fit-content;
+    transition: 0.2s ease;
+    padding: 15px 30px; 
+    cursor: pointer;
+    &&:hover{
+        background-color: #03af2e;
+        transform: translateY(-3px);
+    }
+}

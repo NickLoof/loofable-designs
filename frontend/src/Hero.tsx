@@ -3,7 +3,7 @@ import "./Hero.css";
 function Hero() {
 
     return (
-        <section className="hero">
+        <section className="hero" id="loofable-home">
                 <div className="hero-headline">
                 <h1>Websites für kleine Unternehmen, die <span>auffallen wollen.</span></h1>
                 </div>
