@@ -13,13 +13,14 @@ function Footer () {
                 <div className="footer-links">
                     <div className="footer-navigation">
                         <h3>Navigation</h3>
-                        <a className="footer-normal-link" href="#loofable-home">Startseite</a>
-                        <a className="footer-normal-link" href="#leistungen">Leistungen</a>
+                        <Link className="footer-normal-link" to="/" onClick={() => window.scrollTo(0, 0)}>Startseite</Link>
+                        <Link className="footer-normal-link" to="/#leistungen">Leistungen</Link>
                         <Link className="footer-normal-link" to="/about-loofable">Über Loofable</Link>
-                        <a className="footer-normal-link" href="#live-demo">Live-Demo</a>
-                        <a className="footer-normal-link" href="#prozess">Prozess</a>
+                        <Link className="footer-normal-link" to="/#live-demo">Live-Demo</Link>
+                        <Link className="footer-normal-link" to="/#prozess">Prozess</Link>
                         <Link className="footer-normal-link" to="/preise">Preise</Link>
                         <Link className="footer-normal-link" to="/kontakt">Kontakt</Link>
+                        <Link className="footer-normal-link" to="/#faq">FAQ</Link>
                     </div>
                     <div className="footer-contact">
                         <h3>Kontakt</h3>

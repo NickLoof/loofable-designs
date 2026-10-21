@@ -10,11 +10,11 @@ function Navbar () {
             </div>
             <div className="nav-links">
                 <ul>
-                    <li><a href="#loofable-home">Startseite</a></li>
-                    <li><a href="#leistungen">Leistungen</a></li>
-                    <li><a href="#warum-loofable">Warum Loofable?</a></li>
-                    <li><a href="#live-demo">Live-Demo</a></li>
-                    <li><a href="#prozess">Prozess</a></li>
+                    <li><Link to="/" onClick={() => window.scrollTo(0, 0)}>Startseite</Link></li>
+                    <li><Link to="/#leistungen">Leistungen</Link></li>
+                    <li><Link to="/#warum-loofable">Warum Loofable?</Link></li>
+                    <li><Link to="/#live-demo">Live-Demo</Link></li>
+                    <li><Link to="/#prozess">Prozess</Link></li>
                     <li><Link to="/preise">Preise</Link></li>
                 </ul>
                 <Link to="/kontakt" className="navbar-button">Kostenloses Angebot</Link>

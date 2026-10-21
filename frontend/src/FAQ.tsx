@@ -41,15 +41,15 @@ function FAQ () {
     ]
 
     return (
-        <section className='faq-content'>
+        <section className='faq-content' id="faq">
             <div className='faq-header'>
                 <h2>Noch Fragen?</h2>
                 <p>Hier findest du Antworten auf die häufigsten Fragen rund um deine Website und die Zusammenarbeit.</p>
             </div>
             <div className='faq-items'>
                 {faqItems.map((item, index) => (
-                <div className='faq-item'>
-                    <button key={index} className='faq-question' onClick={() => setOpenFAQ(openFAQ === index? null: index)}>
+                <div className='faq-item' key={index}>
+                    <button className='faq-question' onClick={() => setOpenFAQ(openFAQ === index? null: index)}>
                         <span>{item.question}</span>
                         <span className={`faq-plus ${openFAQ === index ? "open" : ""}`}>+</span>
                     </button>
