@@ -1,0 +1,223 @@
+*{
+    box-sizing: border-box;
+}
+.contact-page{
+    font-family: "Chillax", sans-serif;
+    display: flex;
+    flex-direction: column;
+    padding-top: 120px;
+    width: 100%;
+}
+.contact-page-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.contact-page-header h2{
+    color: green;
+}
+.contact-page-form-selector{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+.contact-page-form-button{
+    width: 200px;
+    height: 40px;
+    background-color: green;
+    border: 1px solid black;
+    border-radius: 15px;
+    color:  white;
+    font-family: "Chillax", sans-serif;
+    font-size: 20px;
+    margin-top: 30px;
+    transition: 0.2s ease;
+    font-weight: bold;
+    &&:hover{
+        cursor: pointer;
+        background-color: rgb(3, 168, 3);
+        transform: translateY(-3px);
+    }
+}
+.contact-page-form-button-active{
+    background-color: rgb(4, 238, 4);
+    border-color: white;
+    color: rgb(3, 30, 15);
+}
+.project-page-form,
+.contact-page-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #16451f;
+}
+.project-page-form form,
+.contact-page-form form{
+    width: 90%;
+    max-width: 1200px;
+}
+.project-page-form fieldset,
+.contact-page-form fieldset{
+    border: 2px solid green;
+    border-radius: 15px;
+    width: 100%;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+}
+.project-page-form legend,
+.contact-page-form legend{
+ color: white;
+ font-size: 30px;
+ font-weight: bold;
+}
+.project-form-content input::placeholder,
+.project-form-content textarea::placeholder,
+.contact-form-content input::placeholder,
+.contact-form-content textarea::placeholder {
+    font-family: "Chillax", sans-serif;
+    font-size: 18px;
+    color: rgb(184, 180, 180);
+}
+.project-form-content input,
+.project-form-content-textarea,
+.contact-form-content input,
+.contact-form-content-textarea {
+    font-family: "Chillax", sans-serif;
+    color: white;
+}
+.project-form-content,
+.contact-form-content{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(400px, 1fr));
+    gap: 40px;
+    padding: 20px;
+}
+.project-form-input-container,
+.contact-form-input-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.project-form-textarea-container,
+.contact-form-textarea-container{
+    width: 95%;
+    justify-self: center;
+    padding-top: 60px;
+}
+.project-form-input-container{
+    justify-self: center;
+    width: 95%;
+}
+.project-form-input-container select,
+.project-form-input-container textarea,
+.project-form-input-container input,
+.contact-form-input-container textarea,
+.contact-form-input-container input{
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: rgb(7, 34, 7);
+    border: 2px solid rgb(10, 117, 10);
+    padding: 5px;
+    color: white;
+}
+.project-form-checkbox-container label,
+.project-form-input-container label,
+.contact-form-input-container label{
+    color: white;
+    font-size: 20px;
+}
+.project-form-privacy,
+.contact-form-privacy{
+    color: white;
+    padding: 40px 30px;
+    font-family: "Chillax", sans-serif;
+    display: flex;
+    align-items: center;
+}
+.project-form-input-wrapper input,
+.project-form-checkbox-container input,
+.project-form-privacy input,
+.contact-form-privacy input{
+    width: 18px;
+    height: 18px;
+    accent-color: green;
+    cursor: pointer;
+}
+.project-form-privacy label,
+.contact-form-privacy label{
+    padding-left: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+.project-form-submit-button-container,
+.contact-form-submit-button-container{
+    display: flex;
+    justify-content: center;
+    font-family: "Chillax", sans-serif;
+}
+.project-form-submit-button,
+.contact-form-submit-button{
+    width: 200px;
+    height: 40px;
+    background-color: green;
+    border: 1px solid black;
+    color: white;
+    border-radius: 15px;
+    transition: 0.2s ease;
+    font-size: 18px;
+    font-weight: bold;
+
+    &&:hover{
+        background-color: rgb(3, 168, 3);
+        transform: translateY(-3px);
+        cursor: pointer;
+        color: rgb(6, 34, 2);
+    }
+}
+.project-page-form-outer-fieldset{
+    padding: 30px;
+}
+.project-form-colorPicker{
+    width: 50%;
+    height: 40px;
+    transition: 0.2s ease;
+    &&:hover{
+        cursor: pointer;
+        transform: translateY(-1px);
+    }
+}
+.project-form-checkbox-container{
+    display: flex;
+    gap: 15px;
+}
+.project-form-contents-and-documents{
+    display: flex;
+    flex-direction: column;
+}
+.project-form-input-container p{
+    color: white;
+}
+input[type="file"] {
+    cursor: pointer;
+}
+input[type="file"]::file-selector-button {
+    cursor: pointer;
+    font-family: "Chillax", sans-serif;
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: #16451f;
+    color: white;
+    padding: 5px;
+}
+.project-form-input-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.project-form-input-container p{
+    color: white;
+    font-size: 20px;
+}

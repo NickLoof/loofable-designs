@@ -139,7 +139,7 @@ function RestaurantDemo() {
                         <div className="restaurant-cuisine-dish-text">
                             <p className="restaurant-dish-name">{dish.name}</p>
                             <p className="restaurant-dish-description">{dish.description}</p>
-                            <p className="restaurant-dish-price">{dish.price.toFixed(2)}€</p>
+                            <p className="restaurant-dish-price">{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(dish.price)}</p>
                         </div>
                     </div>))}
                     <div className="restaurant-cusine-menu-button">

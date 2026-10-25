@@ -542,7 +542,7 @@ function resetLoginForm() {
     }
     
 
-    const total = (subTotal + shippingCost).toFixed(2);
+    const total = subTotal + shippingCost;
 
     function ShopFilters() {
         return (
@@ -618,7 +618,7 @@ function resetLoginForm() {
                                             <div className="online-shop-topbar-search-dropdown-text">
                                                 <h3>{product.name}</h3>
                                                 <p>{product.category}</p>
-                                                <h3>{product.price.toFixed(2)}€</h3>
+                                                <h3>{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(product.price)}€</h3>
                                             </div>
                                         </div>)) : <p>Keine Produkte gefunden.</p>}
                                 </div>)}
@@ -777,7 +777,7 @@ function resetLoginForm() {
                                                     <img src={item.image} alt={item.name}/>
                                                     <div className="online-shop-cart-mobile-right">
                                                     <p>{item.name}</p>
-                                                    <p>{item.price.toFixed(2)}€</p>
+                                                    <p>{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(item.price)}</p>
                                                     <div className="online-shop-cart-quantity-container">
                                                         <p>Menge:</p>
                                                         <p className="online-shop-cart-quantity">
@@ -794,7 +794,7 @@ function resetLoginForm() {
                                         <div className="online-shop-cart-bottom">
                                         <div className="online-shop-cart-subtotal">
                                             <h3>Zwischensumme: </h3>
-                                            <p>{subTotal.toFixed(2)}€</p>
+                                            <p>{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(subTotal)}</p>
                                         </div>
                                         <button className="online-shop-cart-checkout-button" onClick={() => setCheckoutOpen(true)}>Zur Kasse</button>
                                         </div>
@@ -896,15 +896,15 @@ function resetLoginForm() {
                                                         <p>Menge:</p>
                                                         <p className="online-shop-checkout-quantity">{item.quantity}</p>
                                                     </div>
-                                                    <p>{(item.price*item.quantity).toFixed(2)}€</p>
+                                                    <p>{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(item.price*item.quantity)}</p>
                                                     
                                                 </div>))} 
                                             </div>
                                             <div className="online-shop-checkout-summary-wrapper">
-                                                <h3>Zwischensumme: {subTotal.toFixed(2)}€</h3>
-                                                <h3>Versand: {shippingCost.toFixed(2)}€</h3>
+                                                <h3>Zwischensumme: {new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(subTotal)}</h3>
+                                                <h3>Versand: {new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(shippingCost)}</h3>
                                                 <div className="online-shop-checkout-total">
-                                                    <h3>Summe: {total}€</h3>
+                                                    <h3>Summe: {new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(total)}</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -960,7 +960,7 @@ function resetLoginForm() {
                                     <p className="online-shop-catalog-product-rating">{Array(5).fill(null).map((_, index) =>
                                         (<Star key={index} fill={index < Math.round(product.rating) ? "orange" : "none"} />))}<span>{product.rating}</span>({product.reviews})</p>
                                         <p className="online-shop-catalog-product-price">{product.oldPrice !== null && (<span className="online-shop-catalog-product-oldPrice">{product.oldPrice.toFixed(2)}€</span>)}
-                                            {product.price.toFixed(2)}€</p>
+                                            {new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(product.price)}</p>
                                     <div className="online-shop-catalog-addToCart-container">
                                         <button className="online-shop-catalog-addToCart-button" onClick={() => addToCart(product)}><ShoppingCart/>In den Warenkorb</button>
                                     </div>
@@ -1032,8 +1032,9 @@ function resetLoginForm() {
                                     <p className="online-shop-bestseller-product-category">{product.category}</p>
                                     <p className="online-shop-bestseller-product-rating">{Array(5).fill(null).map((_, index) =>
                                         (<Star key={index} fill={index < Math.round(product.rating) ? "orange" : "none"} />))}<span>{product.rating}</span>({product.reviews})</p>
-                                        <p className="online-shop-bestseller-product-price">{product.oldPrice !== null && (<span className="online-shop-bestseller-product-oldPrice">{product.oldPrice.toFixed(2)}€</span>)}
-                                        {product.price.toFixed(2)}€</p>
+                                        <p className="online-shop-bestseller-product-price">{product.oldPrice !== null && 
+                                        (<span className="online-shop-bestseller-product-oldPrice">{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(product.oldPrice)}</span>)}
+                                        {new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(product.price)}</p>
                                     <Heart className="online-shop-bestseller-product-icon" />
                                 </div>
                             </div>))}

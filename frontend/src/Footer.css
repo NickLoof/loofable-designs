@@ -15,7 +15,8 @@
     width: 95%;
 }
 .footer-logo{
-    
+    display: flex;
+    align-items: center;
 }
 .footer-logo img{
     width: 250px;
