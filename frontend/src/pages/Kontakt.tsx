@@ -55,7 +55,6 @@ function Contact () {
         pageCount: "",
         pages: [] as string[],
         otherPages: "",
-        structureNotes: "",
         features: [] as string[],
         otherFeatures: "",
         timeline: "",
@@ -95,7 +94,7 @@ function Contact () {
         }
         if(!contactForm.message.trim()){
             newErrors.message = "Bitte gib eine Nachricht ein."
-        }else if(contactForm.message.length < 20){
+        }else if(contactForm.message.trim().length < 20){
             newErrors.message = "Deine Nachricht sollte mindestens 20 Zeichen lang sein."
         }
         if(!contactForm.privacyAccepted){
@@ -118,7 +117,8 @@ function Contact () {
         projectType: "",
         timeline: "",
         websiteGoal: "",
-        privacyAccepted: ""
+        privacyAccepted: "",
+        message: "",
     })
 
     const handleProjectSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
@@ -132,7 +132,8 @@ function Contact () {
             projectType: "",
             timeline: "",
             websiteGoal: "",
-            privacyAccepted: ""
+            privacyAccepted: "",
+            message: "",
         }
         
         if(!projectForm.firstName.trim()){
@@ -157,6 +158,11 @@ function Contact () {
         }
         if(!projectForm.websiteGoal.trim()){
             newErrors.websiteGoal = "Bitte gib an, was du mit deiner Website erreichen möchtest."
+        }
+        if(!projectForm.message.trim()){
+            newErrors.message = "Bitte gib eine Nachricht ein."
+        }else if(projectForm.message.trim().length < 20){
+            newErrors.message = "Deine Nachricht sollte mindestens 20 Zeichen lang sein."
         }
         if(!projectForm.privacyAccepted){
             newErrors.privacyAccepted = "Bitte akzeptiere die Datenschutzerklärung."
@@ -594,9 +600,11 @@ function Contact () {
                                 <legend>Weitere Informationen</legend>
                                 <div className="project-form-textarea-container">
                                     <div className="project-form-input-container">
-                                        <label htmlFor="project-form-message">Gibt es noch etwas, das ich über dein Projekt wissen sollte? (optional)</label>
+                                        <label htmlFor="project-form-message">Gibt es noch etwas, das ich über dein Projekt wissen sollte?</label>
                                         <textarea id="project-form-message" value={projectForm.message} placeholder="Schreibe deine Nachricht hier..." 
-                                        onChange={(event) => setProjectForm({...projectForm, message: event.target.value})} />
+                                        onChange={(event) => {setProjectForm({...projectForm, message: event.target.value});
+                                        setProjectErrors({...projectErrors, message: ""})}} />
+                                        {projectErrors.message &&(<p className="project-form-error">{projectErrors.message}</p>)}
                                     </div>
                                 </div>
                             </fieldset>
