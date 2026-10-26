@@ -174,9 +174,21 @@ function Contact () {
     console.log(location.state);
     const calculatorSelection = location.state as CalculatorSelection | null;
 
+    const testBackend = async () => {
+        const url = `http://127.0.0.1:8000/`   
+        const response = await fetch(`${url}inquiries`, {method: "POST",
+            headers: {"Content-Type": "application/json",
+            },
+            body: JSON.stringify({firstName: "Nicholas"})
+        });
+        const data = await response.json();
+        console.log(data);
+    }
+
     return(
         <>
             <div className="contact-page">
+                <button onClick={() => testBackend()}>Test Backend</button>
                 <div className="contact-page-header">
                     <h1>Kostenloses Angebot anfragen</h1>
                     <h2>Erzähl mir kurz von deinem Projekt. Ich melde mich persönlich bei dir und wir besprechen gemeinsam die nächsten Schritte.</h2>
