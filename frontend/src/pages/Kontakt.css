@@ -87,6 +87,7 @@
 .contact-form-content-textarea {
     font-family: "Chillax", sans-serif;
     color: white;
+    margin-top: 10px;
 }
 .project-form-content,
 .contact-form-content{
@@ -94,18 +95,20 @@
     grid-template-columns: repeat(2, minmax(400px, 1fr));
     gap: 40px;
     padding: 20px;
+    align-items: start;
 }
 .project-form-input-container,
 .contact-form-input-container{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: 10px;
 }
 .project-form-textarea-container,
 .contact-form-textarea-container{
     width: 95%;
     justify-self: center;
-    padding-top: 60px;
+    padding-top: 10px;
 }
 .project-form-input-container{
     justify-self: center;
@@ -122,6 +125,7 @@
     border: 2px solid rgb(10, 117, 10);
     padding: 5px;
     color: white;
+    margin-top: 10px;
 }
 .project-form-checkbox-container label,
 .project-form-input-container label,
@@ -145,6 +149,7 @@
     height: 18px;
     accent-color: green;
     cursor: pointer;
+    flex-shrink: 0;
 }
 .project-form-privacy label,
 .contact-form-privacy label{
@@ -197,9 +202,6 @@
     display: flex;
     flex-direction: column;
 }
-.project-form-input-container p{
-    color: white;
-}
 input[type="file"] {
     cursor: pointer;
 }
@@ -217,7 +219,49 @@ input[type="file"]::file-selector-button {
     align-items: center;
     gap: 10px;
 }
-.project-form-input-container p{
+.project-form-input-wrapper label{
     color: white;
+    font-family: "Chillax", sans-serif;
+    font-size: 18px;
+}
+.project-form-input-container h3{
     font-size: 20px;
+    color: white;
+    font-weight: 400;
+}
+.project-form-page-checkboxes{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.project-form-feature-checkboxes{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.project-form-error,
+.contact-form-error{
+    color: red;
+    font-size: 18px;
+}
+.privacy-error,
+.contact-form-privacy-container p{
+    margin-left: 30px;
+}
+.contact-calculator-selection{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 15px;
+    background-color: #0a200e;
+    gap: 15px;
+}
+.contact-calculator-addons-name,
+.contact-calculator-package-name-price{
+    display: flex;
+    justify-content: space-between;
+}
+.contact-calculator-total{
+margin-top: 20px;
 }

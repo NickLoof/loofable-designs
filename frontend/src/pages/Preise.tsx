@@ -1,24 +1,13 @@
 import "./Preise.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import type { Package, AddOn } from "../types/calculator";
 
 function Prices() {
     const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
     const [addonQuantities, setAddonQuantities] = useState<Record<string, number>>({});
     const [selectedAddons, setSelectedAddons] = useState<AddOn[]>([]);
 
-    type Package = {
-        name: string,
-        price: number,
-        startingAt: boolean,
-        description: string,
-        features: string[]
-    }
-    type AddOn = {
-        name: string;
-        price: number;
-        startingAt: boolean;
-        allowsQuantity: boolean
-    }
 
     const addOn : AddOn[] = [
         {
@@ -200,6 +189,8 @@ function Prices() {
     const selectedAddonsTotal = selectedAddons.reduce((sum, addon) =>{return sum + addon.price;}, 0);
     const quantityAddonsTotal = addOn.reduce((sum, addon) => {const quantity = addonQuantities[addon.name] || 0; return sum + addon.price * quantity;}, 0);
     const total = (selectedPackage?.price || 0) + selectedAddonsTotal + quantityAddonsTotal;
+
+    const navigate = useNavigate();
     
 
     return(
@@ -327,7 +318,8 @@ function Prices() {
                             <div className="prices-calculator-sum-body">
                                 {selectedPackage &&(<h3>ca. {new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(total)}</h3>)}
                             </div>
-                            <button className="prices-calculator-cta">Auswahl ins Kontaktformular übernehmen</button>
+                            <button className="prices-calculator-cta" onClick={() => navigate("/kontakt", {state: {selectedPackage, selectedAddons, addonQuantities, total}})}>
+                                Auswahl ins Kontaktformular übernehmen</button>
                         </div>
                     </div>
         </>
