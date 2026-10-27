@@ -14,6 +14,9 @@ function Contact () {
         message: "",
         privacyAccepted: false
     });
+    const [contactSuccess, setContactSuccess] = useState("");
+    const [submitError, setSubmitError] = useState("");
+    const [projectSuccess, setProjectSuccess] = useState("")
 
     const features = [
     { value: "contact-form", label: "Kontakt-/Anfrageformular" },
@@ -70,7 +73,7 @@ function Contact () {
         privacyAccepted: ""
     })
 
-    const handleContactSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+    const handleContactSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const newErrors = {
@@ -105,9 +108,28 @@ function Contact () {
         if(hasErrors){
             return;
         }
-        console.log({formType: "basic", formData: contactForm, calculatorSelection: calculatorSelection});
-        //send to python
-    }
+        
+        const url = `http://127.0.0.1:8000/inquiries/quick`;
+        const response = await fetch(url, {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(contactForm)})
+        const data = await response.json();
+        if (response.ok){
+            setContactSuccess("Success!");
+            setSubmitError("");
+            setContactForm({
+                firstName: "",
+                lastName: "",
+                companyName: "",
+                email: "",
+                phone: "",
+                message: "",
+                privacyAccepted: false
+            });
+        }else{
+            setSubmitError("Something went wrong!");
+            setContactSuccess("");
+        }  
+}
+    
 
     const [projectErrors, setProjectErrors] = useState({
         firstName: "",
@@ -121,7 +143,7 @@ function Contact () {
         message: "",
     })
 
-    const handleProjectSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+    const handleProjectSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const newErrors = {
@@ -135,6 +157,26 @@ function Contact () {
             privacyAccepted: "",
             message: "",
         }
+        const formData = new FormData();
+        Object.entries(projectForm).forEach(([key, value]) => {
+            if(value === null){
+                return
+            }
+            else if (value instanceof File){
+                formData.append(key, value);
+            }
+            else if(Array.isArray(value)){
+                if(key !== "images"){
+                formData.append(key, JSON.stringify(value));
+                }else{
+                    projectForm.images.forEach((image) => formData.append("images", image));
+                }
+            }else{
+                formData.append(key, value.toString());
+            }
+        })
+        
+        
         
         if(!projectForm.firstName.trim()){
             newErrors.firstName = "Bitte gib deinen Vornamen ein.";
@@ -172,8 +214,49 @@ function Contact () {
         if(hasErrors){
             return;
         }
-        console.log({formType: "advanced", formData: projectForm, calculatorSelection: calculatorSelection});
-        //send to python
+        const url = `http://127.0.0.1:8000/inquiries/project`;
+        const response = await fetch(url, {method: "POST", body: formData})
+        const data = await response.json();
+        if (response.ok){
+            setProjectSuccess("✓ Anfrage erfolgreich gesendet!");
+            setSubmitError("");
+            setProjectForm({
+                firstName: "",
+                lastName: "",
+                companyName: "",
+                email: "",
+                phone: "",
+                projectType: "",
+                industry: "",
+                companyDescription: "",
+                websiteGoal: "",
+                url: "",
+                primaryColor: "#ffffff",
+                secondaryColor: "#ffffff",
+                accentColor: "#ffffff",
+                style: "",
+                inspiration: "",
+                availableText: false,
+                availableImages: false,
+                availableLogo: false,
+                availableBranding: false,
+                textFile: null as File | null,
+                logo: null as File | null,
+                images: [] as File[],
+                branding: null as File | null,
+                pageCount: "",
+                pages: [] as string[],
+                otherPages: "",
+                features: [] as string[],
+                otherFeatures: "",
+                timeline: "",
+                message: "",
+                privacyAccepted: false
+            });
+        }else{
+            setSubmitError("Es ist ein Fehler aufgetreten");
+            setProjectSuccess("");
+        }
     }
 
     const location = useLocation();
@@ -194,7 +277,6 @@ function Contact () {
     return(
         <>
             <div className="contact-page">
-                <button onClick={() => testBackend()}>Test Backend</button>
                 <div className="contact-page-header">
                     <h1>Kostenloses Angebot anfragen</h1>
                     <h2>Erzähl mir kurz von deinem Projekt. Ich melde mich persönlich bei dir und wir besprechen gemeinsam die nächsten Schritte.</h2>
@@ -294,6 +376,8 @@ function Contact () {
                                 <div className="contact-form-submit-button-container">
                                     <button type="submit" className="contact-form-submit-button">Anfrage senden</button>
                                 </div>
+                                {contactSuccess && (<div><h3>{contactSuccess}</h3><p>Vielen Dank für deine Anfrage. Ich melde mich so schnell wie möglich bei dir.</p></div>)}
+                                {submitError && <p>{submitError}</p>}
                             </fieldset>
                         </form>
                       </div>
@@ -618,6 +702,8 @@ function Contact () {
                                 <div className="project-form-submit-button-container">
                                     <button type="submit" className="project-form-submit-button">Anfrage senden</button>
                                 </div>
+                                {projectSuccess && (<div><h3>{projectSuccess}</h3><p>Vielen Dank für deine Anfrage. Ich melde mich so schnell wie möglich bei dir.</p></div>)}
+                                {submitError && <p>{submitError}</p>}
                             </fieldset>
                         </form>
                     </div>}
