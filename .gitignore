@@ -28,3 +28,6 @@ backend/loofable.db
 backend/venv/
 #Customer uploads
 backend/uploads/
+# Python cache
+__pycache__/
+*.pyc
