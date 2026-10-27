@@ -217,6 +217,7 @@ function Contact () {
         const url = `http://127.0.0.1:8000/inquiries/project`;
         const response = await fetch(url, {method: "POST", body: formData})
         const data = await response.json();
+        console.log(data);
         if (response.ok){
             setProjectSuccess("✓ Anfrage erfolgreich gesendet!");
             setSubmitError("");
@@ -548,7 +549,7 @@ function Contact () {
                                         <div className="project-form-input-container">
                                             <label htmlFor="project-form-image-input">Bilder hochladen: </label>
                                             <input id="project-form-image-input" type="file" accept="image/*" multiple 
-                                            onChange={(event) => setProjectForm({...projectForm, images: Array.from(event.target.files ?? [])})}/>
+                                            onChange={(event) => setProjectForm({...projectForm, images: [...projectForm.images, ...Array.from(event.target.files ?? [])]})}/>
                                             <p>Akzeptierte Bildformate: .png, .jpg, .jpeg, .webp</p>
                                         </div>)}
                                     </div>
