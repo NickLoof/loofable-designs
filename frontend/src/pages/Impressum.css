@@ -1,0 +1,58 @@
+.impressum-page h1,
+.impressum-page h2,
+.impressum-page h3,
+.impressum-page h4,
+.impressum-page p {
+    margin: 0;
+}
+.impressum-page{
+    color: white;
+    padding: 100px;
+    font-family: "Chillax", sans-serif;
+}
+.impressum-page-h3{
+    margin-bottom: 60px;
+}
+.impressum-container-header h2{
+    font-size: 20px;
+    width: 30%;
+    font-weight: 400;
+}
+.impressum-container-header{
+    margin-bottom: 50px;
+}
+.impressum-page h1{
+    color: rgb(16, 185, 16);
+}
+.impressum-my-info{
+    margin-bottom: 40px;
+}
+.impressum-my-info h3{
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+.impressum-my-info h4{
+    font-size: 20px;
+}
+.impressum-my-info-section{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.impressum-my-info p{
+    font-size: 17px;
+}
+.impressum-contact{
+    font-size: 20px;
+}
+.impressum-contact h4{
+    font-size: 20px;
+}
+.impressum-contact a{
+    color: green;
+    text-decoration: none;
+    font-size: 17px;
+}
+.impressum-contact p{
+    font-size: 17px;
+}

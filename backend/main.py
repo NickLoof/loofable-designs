@@ -6,6 +6,17 @@ import json
 from pathlib import Path
 import shutil
 import uuid
+from dotenv import load_dotenv
+import os
+import smtplib
+from email.message import EmailMessage
+
+
+load_dotenv()
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+SMTP_HOST = os.getenv("SMTP_HOST")
+SMTP_PORT = int(os.getenv("SMTP_PORT"))
 
 UPLOAD_DIR = Path(__file__).parent / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -25,6 +36,19 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+def send_email(subject: str, body: str, reply_to: str):
+    message = EmailMessage()
+
+    message["From"] = EMAIL_ADDRESS
+    message["To"] = EMAIL_ADDRESS
+    message["Subject"] = subject
+    message["Reply-To"] = reply_to
+
+    message.set_content(body)
+    with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as smtp:
+        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        smtp.send_message(message)
 
 def get_db_connection():
     connection = sqlite3.connect("loofable.db")
@@ -124,6 +148,7 @@ class ProjectInquiry(BaseInquiry):
     otherFeatures: str | None = None
     timeline: str
 
+
 @app.get("/")
 def home():
     return{"message": "Loofable backend is running"}
@@ -143,6 +168,24 @@ def create_quick_inquiry(inquiry: QuickInquiry):
     ))
     connection.commit()
     connection.close()
+
+    body = f"""
+    Neue Kurzanfrage über loofable-designs.de
+
+    Name: {inquiry.firstName} {inquiry.lastName}
+    Unternehmen: {inquiry.companyName or "-"}
+    E-Mail: {inquiry.email}
+    Telefon: {inquiry.phone or "-"}
+    Nachricht: 
+    {inquiry.message}
+    """
+    subject = f"Neue Kurzanfrage - {inquiry.firstName} {inquiry.lastName}"
+
+    try:
+        send_email(subject, body, inquiry.email)
+    except Exception as error:
+        print(f"E-mail could not be sent: {error}")
+
     return {"message": "Inquiry saved successfully"}
 
 @app.post("/inquiries/project")
@@ -275,6 +318,61 @@ def create_project_inquiry(
     ))
     connection.commit()
     connection.close()
+
+    pages_list = json.loads(pages) if pages else []
+    features_list = json.loads(features) if features else []
+
+    pages_text = ", ".join(pages_list) if pages_list else "-"
+    features_text = ", ".join(features_list) if features_list else "-"
+
+    images_text = ", ".join(image_original_names) if image_original_names else "-"
+
+    body = f"""
+    Neue Projektanfrage
+
+    KUNDE
+    Name: {firstName} {lastName}
+    Unternehmen: {companyName or "-"}
+    E-Mail: {email}
+    Telefon: {phone or "-"}
+
+    PROJEKT
+    Projektart: {projectType}
+    Branche: {industry or "-"}
+    Firmenbeschreibung: {companyDescription or "-"}
+    Ziel der Website: {websiteGoal}
+    Bestehende Website: {url or "-"}
+
+    DESIGN
+    Primärfarbe: {primaryColor or "-"}
+    Sekundärfarbe: {secondaryColor or "-"}
+    Akzentfarbe: {accentColor or "-"}
+    Stil: {style or "-"}
+
+    SEITEN & FUNKTIONEN
+    Seitenanzahl: {pageCount or "-"}
+    Seiten: {pages_text or "-"}
+    Funktionen: {features_text or "-"}
+
+    ZEITPLAN
+    {timeline}
+
+    DATEIEN
+    Text: {text_file_original_name or "-"}
+    Logo: {logo_original_name or "-"}
+    Bilder: {images_text or "-"}
+    Branding: {branding_original_name or "-"}
+
+    Nachricht: 
+    {message}
+    """
+    subject = f"Neue Projektanfrage - {firstName} {lastName}"
+
+    try:
+        send_email(subject, body, email)
+    except Exception as error:
+        print(f"E-mail could not be sent: {error}")
+
     return {"message": "Inquiry saved successfully"}
 
 @app.get("/inquiries/quick")

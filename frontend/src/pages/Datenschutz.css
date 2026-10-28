@@ -1,0 +1,95 @@
+.datenschutz-page h1,
+.datenschutz-page h2,
+.datenschutz-page h3,
+.datenschutz-page h4,
+.datenschutz-page p {
+    margin: 0;
+}
+.datenschutz-page{
+    color: white;
+    padding: 100px;
+    font-family: "Chillax", sans-serif;
+}
+.datenschutz-page-h3{
+    margin-bottom: 60px;
+}
+.datenschutz-container{
+
+}
+.datenschutz-container h1{
+    margin-bottom: 60px;
+}
+.datenschutz-responsible-party-contact,
+.datenschutz-responsible-party{
+    margin-bottom: 30px;
+}
+.datenschutz-responsible-party-header{
+    margin-bottom: 20px;
+}
+.datenschutz-responsible-party h3{
+    font-size: 25px;
+}
+.datenschutz-responsible-party-contact a,
+.datenschutz-responsible-party-contact p,
+.datenschutz-responsible-party p{
+    font-size: 18px;
+    
+}
+.datenschutz-responsible-party-contact a{
+    color: green;
+    text-decoration: none;
+}
+.datenschutz-responsible-party-contact h4,
+.datenschutz-responsible-party h4{
+    font-size: 22px;
+}
+.datenschutz-responsible-party-my-info-section{
+    margin-bottom: 15px;
+}
+.datenschutz-gdpr-rights,
+.datenschutz-recipients,
+.datenschutz-storage,
+.datenschutz-email,
+.datenschutz-uploads,
+.datenschutz-forms,
+.datenschutz-hosting-server-logs,
+.datenschutz-general-processing{
+    margin-bottom: 30px;
+    width: 60%;
+}
+.datenschutz-gdpr-rights h3,
+.datenschutz-recipients h3,
+.datenschutz-storage h3,
+.datenschutz-email h3,
+.datenschutz-uploads h3,
+.datenschutz-forms h3,
+.datenschutz-hosting-server-logs h3,
+.datenschutz-general-processing h3{
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+.datenschutz-gdpr-rights h4,
+.datenschutz-recipients h4,
+.datenschutz-storage h4,
+.datenschutz-email h4,
+.datenschutz-uploads h4,
+.datenschutz-forms h4,
+.datenschutz-hosting-server-logs h4,
+.datenschutz-general-processing h4{
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.datenschutz-gdpr-rights p,
+.datenschutz-recipients p,
+.datenschutz-storage p,
+.datenschutz-email p,
+.datenschutz-uploads p,
+.datenschutz-forms p,
+.datenschutz-hosting-server-logs p,
+.datenschutz-general-processing p{
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.datenschutz-gdpr-rights{
+
+}
