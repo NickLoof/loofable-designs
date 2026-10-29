@@ -11,6 +11,7 @@
     background-color: rgb(34, 33, 33);
     overflow: visible;
     align-items: center;
+    padding-top: 10px;
     
 }
 .trade-topbar-left-container{
@@ -70,10 +71,19 @@
     font-size: 24px;
     align-items: center;
 }
-.trade-navbar-links a{
+.trade-navbar-mobile-hidden-links{
+    display: flex;
+    gap: 20px;
+}
+.trade-navbar-button{
     color: rgb(236, 137, 8);
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    
     &:hover{
         color: rgb(119, 71, 12);
+        cursor: pointer;
     }
 }
 .trade-navbar-offer-button{
@@ -168,6 +178,7 @@
 .trade-hero-content-cta{
     border: 3px solid black;
     padding: 10px;
+    font-size: 30px;
     border-radius: 10px;
     background-color: rgb(99, 76, 53);
     transition: 0.3s;
@@ -229,6 +240,7 @@
     justify-self: start;
     border-left: none;
     transition: 0.2s;
+    cursor: pointer;
 
     &:hover{
         background-color: rgb(179, 106, 34);
@@ -243,6 +255,7 @@
     border-right: none;
     height: 70px;
     transition: 0.2s;
+    cursor: pointer;
 
     &:hover{
         background-color: rgb(179, 106, 34);
@@ -271,6 +284,7 @@
     left: 50%;
     transform: translateX(-50%);
     transition: 0.2s;
+    
 }
 .trade-services-card-dots .active {
     background-color: rgb(236, 137, 8);
@@ -440,7 +454,7 @@
 .trade-contact{
     display: flex;
     width: 100%;
-    padding: 70px 20px 40px 20px;
+    padding: 95px 20px 40px 20px;
     background-color: rgb(34, 33, 33);
 }
 .trade-contact-left{
@@ -575,6 +589,7 @@
         background-color: rgb(255, 183, 89);
         transform: translateY(-3px);
         box-shadow: 1px 1px 1px 1px black;
+        cursor: pointer;
     }
 }
 .trade-footer{
@@ -611,6 +626,7 @@
 .trade-footer-links-navigation{
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 10px;
 }
 .trade-footer-links-container{
@@ -623,13 +639,22 @@
     font-size: 25px;
 }
 .trade-footer-links-legalities-a,
-.trade-footer-a,
-.trade-footer-links-navigation-a{
+.trade-footer-a{
     font-size: 18px;
     color: inherit;
 
     &:hover{
         cursor: pointer;
+        scale:1.05;
+    }
+}
+.trade-footer-links-navigation-a{
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+    cursor: pointer;
+    &:hover{
+        color: orange;
         scale:1.05;
     }
 }
@@ -680,6 +705,7 @@
         border: none;
         scale: 1.4;
         transition: 0.2s ease;
+        cursor: pointer;
         &&:hover{
             color: orange;
         }
@@ -704,9 +730,11 @@
     .trade-navbar-mobile-menu-links{
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        align-items: flex-start;
+        padding-left: 20px;
+        gap: 20px;
         font-size: 30px;
-        margin-top: 20px;
+        margin-top: 40px;
         width: fit-content;
         
     }
@@ -767,6 +795,7 @@
         border-radius: 10px;
         transition: 0.2s ease;
         padding: 10px;
+        cursor: pointer;
         &&:hover{
             background-color: rgb(65, 63, 63);
             border-color: black;
@@ -882,8 +911,7 @@
     .trade-footer-header p{
         font-size: 15px;
     }
-    .trade-footer-links-container{
-        
+    .trade-footer-links-container{ 
         display: grid;
         grid-template-columns: repeat(2, minmax(125px, 1fr));
     }

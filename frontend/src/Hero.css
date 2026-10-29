@@ -58,19 +58,23 @@
 .hero-primary{
     background-color: #02741e;
     font-size: 20px;
+    transition: 0.2s ease;
 
     &:hover{
-        transform: scale(1.03);
+        transform: translateY(-3px);
         background-color: #03af2e;
+        border-color: white;
     }
 }
 .hero-secondary{
     background-color: #01310d;
     font-size: 20px;
+    transition: 0.2s ease;
     
     &:hover{
-        transform: scale(1.03);
+        transform: translateY(-3px);
         background-color: #02661b;
+        border-color: white;
     }
 }
 .hero-additional-info{

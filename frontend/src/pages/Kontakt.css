@@ -180,6 +180,7 @@
         transform: translateY(-3px);
         cursor: pointer;
         color: rgb(6, 34, 2);
+        border-color: white;
     }
 }
 .project-page-form-outer-fieldset{
@@ -228,6 +229,62 @@ input[type="file"]::file-selector-button {
     font-size: 20px;
     color: white;
     font-weight: 400;
+}
+.project-form-input-container p{
+    color: white;
+}
+.project-form-selected-file,
+.project-form-selected-image{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+}
+.project-form-selected-image p,
+.project-form-selected-file p{
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+.project-form-selected-file button,
+.project-form-selected-image button{
+    background-color: transparent;
+    color: red;
+    border: none;
+}
+.project-form-upload-input {
+    display: none;
+}
+.project-form-upload-button {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
+    border: 2px solid green;
+    background-color: rgb(16, 63, 16);
+    border-radius: 10px;
+    margin: 5px 0;
+    color: black;
+    transition: 0.2s ease;
+    &&:hover{
+        transform: translateY(-2px);
+        background-color: green;
+        border-color: white;
+    }
+}
+.project-form-selected-x{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: red;
+    font-size: 18px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+.project-form-selected-x:hover {
+    transform: scale(1.2);
 }
 .project-form-page-checkboxes{
     display: grid;

@@ -2,7 +2,7 @@ import "./HandwerkDemo.css";
 import { Phone, Dot, ArrowRight, ArrowLeft, ArrowBigRight, Mail, Menu, CircleX } from "lucide-react";
 import logo from "./assets/handwerk img/nordwerk-logo.svg";
 import heroBackground from "./assets/handwerk img/hero-background.png";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type RefObject } from "react";
 import sanierungImage from "./assets/handwerk img/sanierung.png";
 import renovierungImage from "./assets/handwerk img/renovierung.png";
 import innenausbauImage from "./assets/handwerk img/innenausbau.png";
@@ -14,7 +14,11 @@ import after2 from "./assets/handwerk img/nachher2.png";
 import after3 from "./assets/handwerk img/nachher3.png";
 import team from "./assets/handwerk img/team.png";
 
-function HandwerkDemo() {
+type TradeDemoProps = {
+        demoScreenRef: RefObject<HTMLDivElement | null>
+    }
+
+function HandwerkDemo({demoScreenRef}: TradeDemoProps) {
     const [currentService, setCurrentService] = useState(0);
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -64,6 +68,21 @@ function HandwerkDemo() {
         };
     }, []);
 
+    const scrollToDemoSection = (sectionId: string) => {
+    const container = demoScreenRef.current;
+    const section = container?.querySelector(`#${sectionId}`);
+
+    if (!container || !section) return;
+
+    const containerTop = container.getBoundingClientRect().top;
+    const sectionTop = section.getBoundingClientRect().top;
+
+    container.scrollTo({
+        top: container.scrollTop + sectionTop - containerTop,
+        behavior: "smooth"
+    });
+};
+
     return(
         <div className="trade-demo">
             <div className="trade-topbar">
@@ -82,11 +101,11 @@ function HandwerkDemo() {
                 <nav className="trade-navbar">
                         <div className="trade-navbar-links">
                             <div className="trade-navbar-mobile-hidden-links">
-                            <a href="#trade-services">Leistungen</a>|
-                            <a href="#projects">Projekte</a>|
-                            <a href="#about-us">Über uns</a>|
+                            <button className="trade-navbar-button" onClick={() => scrollToDemoSection("trade-services")}>Leistungen</button>|
+                            <button className="trade-navbar-button" onClick={() => scrollToDemoSection("projects")}>Projekte</button>|
+                            <button className="trade-navbar-button" onClick={() => scrollToDemoSection("about-us")}>Über uns</button>|
                             </div>
-                            <a className="trade-navbar-offer-button" href="#contact">Angebot anfragen</a>
+                            <button className="trade-navbar-offer-button" onClick={() => scrollToDemoSection("contact")}>Angebot anfragen</button>
                             <button className="trade-navbar-menu-button-container" onClick={() => setMenuOpen(true)}><Menu/></button>
                         </div>
                 </nav>
@@ -97,9 +116,9 @@ function HandwerkDemo() {
                                 <img src={logo}/>
                             </div>
                             <div className="trade-navbar-mobile-menu-links">
-                                <a href="#trade-services" onClick={() => setMenuOpen(false)}>Leistungen</a>
-                                <a href="#projects" onClick={() => setMenuOpen(false)}>Projekte</a>
-                                <a href="#about-us" onClick={() => setMenuOpen(false)}>Über uns</a>
+                                <button className="trade-navbar-button" onClick={() => scrollToDemoSection("trade-services")}>Leistungen</button>
+                                <button className="trade-navbar-button" onClick={() => scrollToDemoSection("projects")}>Projekte</button>
+                                <button className="trade-navbar-button" onClick={() => scrollToDemoSection("about-us")}>Über uns</button>
                             </div>
                             <div className="trade-menu-bottom-info-container">
                                 <div className="trade-menu-phone-container">
@@ -109,7 +128,7 @@ function HandwerkDemo() {
                                 <p>Mo-Fr 07:00-17:00</p>
                                 <p>Kiel +50 km</p>
                             </div>
-                            <button className="trade-menu-x-button-container"><CircleX/></button>
+                            <button className="trade-menu-x-button-container" onClick={() => setMenuOpen(false)}><CircleX/></button>
                         </div>
                     </div>
                 )}
@@ -122,8 +141,8 @@ function HandwerkDemo() {
                         <p className="trade-hero-content-header-p2">Von der ersten Planung bis zum letzten Handgriff. Zuverlässige Arbeit, klare Absprachen und saubere Ergebnisse in Kiel und Umgebung.</p>
                     </div>
                     <div className="trade-hero-content-ctas">
-                        <a className="trade-hero-content-cta"><span>Projekt anfragen</span></a>
-                        <a className="trade-hero-content-cta"><span>Projekte ansehen</span></a>
+                        <button className="trade-hero-content-cta" onClick={() => scrollToDemoSection("contact")}><span>Projekt anfragen</span></button>
+                        <button className="trade-hero-content-cta" onClick={() => scrollToDemoSection("projects")}><span>Projekte ansehen</span></button>
                     </div>
                 </div>
             </section>
@@ -288,10 +307,10 @@ function HandwerkDemo() {
                     <div className="trade-footer-links-container">
                         <div className="trade-footer-links-navigation">
                             <h3 className="trade-footer-links-navigation-h3">Navigation</h3>
-                            <a className="trade-footer-links-navigation-a" href="#trade-services">Leistungen</a>
-                            <a className="trade-footer-links-navigation-a" href="#projects">Projekte</a>
-                            <a className="trade-footer-links-navigation-a" href="#about-us">Über uns</a>
-                            <a className="trade-footer-links-navigation-a" href="#contact">Kontakt</a>
+                            <button className="trade-footer-links-navigation-a" onClick={() => scrollToDemoSection("trade-services")}>Leistungen</button>
+                            <button className="trade-footer-links-navigation-a" onClick={() => scrollToDemoSection("projects")}>Projekte</button>
+                            <button className="trade-footer-links-navigation-a" onClick={() => scrollToDemoSection("about-us")}>Über uns</button>
+                            <button className="trade-footer-links-navigation-a" onClick={() => scrollToDemoSection("contact")}>Kontakt</button>
                         </div>
                         <div className="trade-footer-links-contact">
                             <h3 className="trade-footer-links-contact-h3">Kontakt</h3>

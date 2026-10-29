@@ -1,4 +1,5 @@
 import "./Hero.css";
+import { Link } from "react-router-dom";
 
 function Hero() {
 
@@ -13,8 +14,8 @@ function Hero() {
                     </p>
                 </div>
                 <div className="hero-CTAs">
-                    <a className="hero-primary" href="#kontakt">Kostenloses Angebot</a>
-                    <a className="hero-secondary" href="#live-demo">Preise ansehen</a>
+                    <Link to="/kontakt" className="hero-primary">Kostenloses Angebot</Link>
+                    <Link to="/preise" className="hero-secondary">Preise ansehen</Link>
                 </div>
                 <div className="hero-additional-info">
                     <div className="hero-info">

@@ -1,0 +1,59 @@
+.toast {
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: toast-slide-in 0.3s ease-out;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+}
+.toast.success {
+    background: radial-gradient(
+    ellipse at center,
+    #143a1e 5%,
+    #113322 25%,
+    #0a1710 60%,
+    #090e0b 100%);
+    border: 1px solid green;
+    color: white;
+}
+
+.toast.error {
+    background: radial-gradient(
+    ellipse at center,
+    #3a1414 5%,
+    #331111 25%,
+    #170a0a 60%,
+    #0e0909 100%);
+    border: 1px solid rgb(255, 0, 0);
+    color: rgb(195, 196, 166);
+}
+.toast button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.toast.success button {
+    color: green;
+}
+
+.toast.error button {
+    color: rgb(255, 0, 0);
+}
+@keyframes toast-slide-in {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

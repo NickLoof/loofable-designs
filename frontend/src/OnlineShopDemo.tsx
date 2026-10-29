@@ -597,6 +597,20 @@ function resetLoginForm() {
         )
     }
 
+    const scrollToDemoSection = (sectionId: string) => {
+    const container = demoScreenRef.current;
+    const section = container?.querySelector(`#${sectionId}`);
+
+    if (!container || !section) return;
+
+    const containerTop = container.getBoundingClientRect().top;
+    const sectionTop = section.getBoundingClientRect().top;
+
+    container.scrollTo({
+        top: container.scrollTop + sectionTop - containerTop,
+        behavior: "smooth"
+    });
+};
 
     return (
         <div className="online-shop-demo" id="home">
@@ -648,10 +662,10 @@ function resetLoginForm() {
                                         </div>
                                     </div>}
                             </div>
-                            <a onClick={() => setShopOpen(false)} className="online-shop-navbar-button" href="#home">Home</a>
-                            <a onClick={() => setShopOpen(false)} className="online-shop-navbar-button" href="#popular">Beliebte Kategorien</a>
-                            <a onClick={() => setShopOpen(false)} className="online-shop-navbar-button" href="#bestseller">Bestseller</a>
-                            <a onClick={() => setShopOpen(false)} className="online-shop-navbar-button" href="#promo">Northbound</a>
+                            <button onClick={() => {setShopOpen(false); scrollToDemoSection("home");}} className="online-shop-navbar-button">Home</button>
+                            <button onClick={() => {setShopOpen(false); scrollToDemoSection("popular");}} className="online-shop-navbar-button">Beliebte Kategorien</button>
+                            <button onClick={() => {setShopOpen(false); scrollToDemoSection("bestseller");}} className="online-shop-navbar-button">Bestseller</button>
+                            <button onClick={() => {setShopOpen(false); scrollToDemoSection("promo");}} className="online-shop-navbar-button">Northbound</button>
                         </div>
                         <div className="online-shop-navbar-right">
                             <Heart className="online-shop-navbar-right-icon" />
@@ -698,7 +712,7 @@ function resetLoginForm() {
                                                     setShowLoginPassword(!showLoginPassword)}><EyeClosed/></button>)
                                                     :(<button className="online-shop-login-eye-button" onClick={() => setShowLoginPassword(!showLoginPassword)}><Eye/></button>)}
                                                 </div>
-                                                <a>Passwort vergessen?</a>
+                                                <a className="online-shop-login-forgot-password">Passwort vergessen?</a>
                                                 <button type="submit" className="online-shop-login-button" onClick={() => resetLoginForm()}>Einloggen</button>
                                             </fieldset>
                                         </form>
@@ -938,7 +952,6 @@ function resetLoginForm() {
                 <div className="online-shop-shop-header">
                     <h1>{selectedCategory === null ? "Alle Produkte": selectedCategory}</h1>
                 </div>
-                    <ShopFilters/>
                     {filtersOpen && demoScreenRef.current && createPortal(
                         <div className="online-shop-overlay">
                             <div  ref={filtersOpenRef} className="online-shop-shop-filter-window">
@@ -947,6 +960,7 @@ function resetLoginForm() {
                             </div>
                         </div>, demoScreenRef.current)}
                     <div className="online-shop-shop-content">
+                    <ShopFilters/>
                     <button className="online-shop-mobile-filter-button" onClick={() => setFiltersOpen(true)}>Filter</button>
                     <div className="online-shop-shop-content-catalog">
                         {productsToDisplay.length === 0
@@ -980,8 +994,8 @@ function resetLoginForm() {
                             <p>Ausrüstung für unterwegs, gemacht für kleine Auszeiten und große Abenteuer.</p>
                         </div>
                         <div className="online-shop-hero-cta-container">
-                            <a className="online-shop-hero-cta-primary">Jetzt entdecken</a>
-                            <a className="online-shop-hero-cta-secondary">Bestseller ansehen</a>
+                            <a className="online-shop-hero-cta-primary" href="#popular">Jetzt entdecken</a>
+                            <a className="online-shop-hero-cta-secondary" href="#bestseller">Bestseller ansehen</a>
                         </div>
                     </div>
                 </section>

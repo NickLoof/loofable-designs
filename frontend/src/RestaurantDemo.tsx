@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type RefObject } from "react";
 import "./RestaurantDemo.css";
-import { Menu } from "lucide-react";
+import { CircleX, Menu } from "lucide-react";
 import logo from "./assets/restaurant img/antica tavola logo.png"
 import restaurantImage from "./assets/restaurant img/hero/inside-dining-with-olive-tree.png";
 import insideDiningWineGlass from "./assets/restaurant img/hero/inside-dining-with-wineglass.png";
@@ -18,8 +18,11 @@ import tiramisu2 from "./assets/restaurant img/unsereKueche/tiramisu2.png";
 import wineCheeseProcciutto from "./assets/restaurant img/unsereKueche/wine-cheese-procciutto.png";
 import aboutUsImage from "./assets/restaurant img/unsereKueche/rustic-italian-pasta-making.png";
 
+type RestaurantDemoProps = {
+        demoScreenRef: RefObject<HTMLDivElement | null>
+    }
 
-function RestaurantDemo() {
+function RestaurantDemo({demoScreenRef}: RestaurantDemoProps) {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const heroImages = [
@@ -76,6 +79,21 @@ function RestaurantDemo() {
         }
     }, [currentImage])
 
+    const scrollToDemoSection = (sectionId: string) => {
+    const container = demoScreenRef.current;
+    const section = container?.querySelector(`#${sectionId}`);
+
+    if (!container || !section) return;
+
+    const containerTop = container.getBoundingClientRect().top;
+    const sectionTop = section.getBoundingClientRect().top;
+
+    container.scrollTo({
+        top: container.scrollTop + sectionTop - containerTop,
+        behavior: "smooth"
+    });
+};
+
 
     return (
         <div className="restaurant-demo">
@@ -87,10 +105,10 @@ function RestaurantDemo() {
             <nav className="restaurant-navlinks">
                 <div className="restaurant-navlinks-list">
                     <ul >
-                        <li><a href="#restaurant-home">Home</a></li> 
-                        <li><a href="#unsere-kueche">Unsere Küche</a></li>
-                        <li><a href="#über-uns">Über uns</a></li>  
-                        <li><a href="#reservieren">Reservieren</a></li>  
+                        <li><button className="restaurant-navlinks-link" onClick={() => scrollToDemoSection("restaurant-home")}>Home</button></li> 
+                        <li><button className="restaurant-navlinks-link" onClick={() => scrollToDemoSection("unsere-kueche")}>Unsere Küche</button></li>
+                        <li><button className="restaurant-navlinks-link" onClick={() => scrollToDemoSection("über-uns")}>Über uns</button></li>  
+                        <li><button className="restaurant-navlinks-link" onClick={() => scrollToDemoSection("reservieren")}>Reservieren</button></li>  
                     </ul>
                 </div>
                 <button className="restaurant-navlinks-menu-icon" onClick={() => setMenuOpen(true)}><Menu/></button>
@@ -101,14 +119,17 @@ function RestaurantDemo() {
                         <img className="restaurant-menu-logo" src={logo} alt="Antica Tavola"/>
                         <div className="restaurant-menu-navlinks-list">
                             <ul >
-                                <li><a href="#restaurant-home" onClick={() => setMenuOpen(false)}>Home</a></li> 
-                                <li><a href="#unsere-kueche" onClick={() => setMenuOpen(false)}>Unsere Küche</a></li>
-                                <li><a href="#über-uns" onClick={() => setMenuOpen(false)}>Über uns</a></li>  
-                                <li><a href="#reservieren" onClick={() => setMenuOpen(false)}>Reservieren</a></li>  
+                                <li><button className="restaurant-navlinks-link" onClick={() => {scrollToDemoSection("restaurant-home"); setMenuOpen(false)}}>Home</button></li> 
+                                <li><button className="restaurant-navlinks-link" onClick={() => {scrollToDemoSection("unsere-kueche"); setMenuOpen(false)}}>Unsere Küche</button></li>
+                                <li><button className="restaurant-navlinks-link" onClick={() => {scrollToDemoSection("über-uns"); setMenuOpen(false)}}>Über uns</button></li>  
+                                <li><button className="restaurant-navlinks-link" onClick={() => {scrollToDemoSection("reservieren"); setMenuOpen(false)}}>Reservieren</button></li>  
                             </ul>
                         </div>
+                        <div>
+                            <button className="restaurant-mobile-menu-x" onClick={() => setMenuOpen(false)}><CircleX/></button>
+                        </div>
                     </div>
-
+                    
                 </div>)}
             <section className="restaurant-hero">
                 <div className="restaurant-hero-background">
@@ -227,9 +248,9 @@ function RestaurantDemo() {
                         <div className="restaurant-footer-navigation">
                             <ul> 
                                 <h3>Navigation</h3>
-                                <li><a href="#unsere-kueche">Unsere Küche</a></li>
-                                <li><a href="#über-uns">Über uns</a></li>  
-                                <li><a href="#reservieren">Reservieren</a></li>  
+                                <li><button className="restaurant-navlinks-link" onClick={() => {scrollToDemoSection("unsere-kueche"); setMenuOpen(false)}}>Unsere Küche</button></li>
+                                <li><button className="restaurant-navlinks-link" onClick={() => {scrollToDemoSection("über-uns"); setMenuOpen(false)}}>Über uns</button></li>  
+                                <li><button className="restaurant-navlinks-link" onClick={() => {scrollToDemoSection("reservieren"); setMenuOpen(false)}}>Reservieren</button></li>  
                             </ul>
                         </div>
                         <div className="restaurant-footer-contact">

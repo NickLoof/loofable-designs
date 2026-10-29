@@ -117,6 +117,7 @@
 }
 .online-shop-shop-wrapper{
     position: relative;
+    
 }
 .online-shop-navbar-shop-dropdown{
     position: absolute;
@@ -598,8 +599,13 @@ border: none;
     &:hover{
         color: orange;
         scale: 1.55;
+        cursor: pointer;
     }
 }
+
+    .online-shop-login-forgot-password{
+        width: fit-content;
+    }
 .online-shop-hero{
     position: relative;
     height: 600px;
@@ -654,6 +660,8 @@ border: none;
     background-color: rgb(255, 153, 0);
     padding: 5px;
     transition: 0.2s;
+    text-decoration: none;
+    color: rgb(22, 15, 1);
 
     &:hover{
         background-color: rgb(218, 132, 3);
@@ -668,6 +676,8 @@ border: none;
     background-color: rgb(105, 71, 19);
     padding: 5px;
     transition: 0.2s;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
 
     &:hover{
         background-color: rgb(218, 132, 3);
@@ -678,7 +688,7 @@ border: none;
 .online-shop-popular{
     display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 80px 50px 50px 50px;
     background-color: rgb(46, 53, 21);
 }
 .online-shop-popular-header h1{
@@ -742,7 +752,7 @@ border: none;
     display: flex;
     flex-direction: column;
     gap: 30px;
-    padding: 40px 30px 60px 30px;
+    padding: 70px 30px 60px 30px;
     background-color: rgb(116, 54, 3);
 }
 .online-shop-bestseller-header h1{
@@ -832,7 +842,7 @@ font-size: 20px;
 .online-shop-promo{
     display: flex;
     background-color: rgb(46, 53, 21);
-    padding: 50px 0 50px 0;
+    padding: 80px 0 50px 0;
 }
 .online-shop-promo-left{
     width: 50%;
@@ -867,6 +877,7 @@ font-size: 20px;
     background-color: rgb(255, 153, 0);
     transition: 0.2s;
     color: rgb(71, 43, 1);
+    cursor: pointer;
 
     &:hover{
         scale: 1.03;
@@ -1066,6 +1077,9 @@ font-size: 20px;
         cursor: pointer;
     }
 }
+.online-shop-mobile-filter-button {
+    display: none;
+}
 .online-shop-catalog-product-icon{
     position: absolute;
     top: 15px;
@@ -1154,6 +1168,9 @@ font-size: 20px;
     .online-shop-bestseller-grid {
         justify-content: center;
 }
+    .online-shop-topbar-search-dropdown-text h3{
+        font-size: 17px;
+    }
 }
 
 @container (max-width: 600px) {
@@ -1163,6 +1180,9 @@ font-size: 20px;
     }
     .online-shop-navbar-left {
     display: none;
+    }
+    .online-shop-navbar{
+        margin-bottom: 10px;
     }
     .online-shop-hero-text-container p {
     width: 100%;
@@ -1299,6 +1319,7 @@ font-size: 20px;
         transition: 0.2s ease;
         &&:hover{
             background-color: rgb(223, 104, 6);
+            cursor: pointer;
         }
     }
     .online-shop-close-menu-button{
@@ -1311,6 +1332,7 @@ font-size: 20px;
         color: rgb(27, 26, 26);
         &&:hover{
             color: orange;
+            cursor: pointer;
         }
     }
     .online-shop-mobile-menu-button{
@@ -1377,8 +1399,16 @@ font-size: 20px;
         &&:hover{
             background-color: rgb(16, 100, 16);
             transform: translateY(-3px);
+            cursor: pointer;
         }
     }
+    .demo-smartphone .online-shop-shop-content > .online-shop-shop-content-filter-container {
+    display: none;
+}
+
+.demo-smartphone .online-shop-mobile-filter-button {
+    display: block;
+}
     .online-shop-login-window{
         width: 95%;
     }

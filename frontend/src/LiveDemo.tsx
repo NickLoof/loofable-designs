@@ -42,10 +42,10 @@ function LiveDemo() {
                 </div>
             </div>
             <div className="live-demo-screen-container">
-                <div ref={demoScreenRef} className={`live-demo-viewport demo-${selectedScreen}`}>
-                    <div className="live-demo-demo-screen">
-                        {selectedDemo === "restaurant"&&<RestaurantDemo/>}
-                        {selectedDemo === "handwerk"&&<HandwerkDemo/>}
+                <div  className={`live-demo-viewport demo-${selectedScreen}`}>
+                    <div ref={demoScreenRef} className="live-demo-demo-screen">
+                        {selectedDemo === "restaurant"&&<RestaurantDemo demoScreenRef={demoScreenRef}/>}
+                        {selectedDemo === "handwerk"&&<HandwerkDemo demoScreenRef={demoScreenRef}/>}
                         {selectedDemo === "online-shop"&&<OnlineShopDemo demoScreenRef={demoScreenRef}/>}
                     </div>
                 </div>

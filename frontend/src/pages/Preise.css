@@ -349,5 +349,7 @@
         transform: translateY(-3px);
         background-color: #03a52c;
         cursor: pointer;
+        color: black;
+        border-color: white;
     }
 }

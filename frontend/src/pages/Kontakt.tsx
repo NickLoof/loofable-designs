@@ -2,6 +2,8 @@ import "./Kontakt.css";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import type { CalculatorSelection } from "../types/calculator";
+import Toast from "../Toast";
+import { X } from "lucide-react";
 
 function Contact () {
     const [formType, setFormType] = useState<"basic" | "advanced">("basic");
@@ -14,9 +16,7 @@ function Contact () {
         message: "",
         privacyAccepted: false
     });
-    const [contactSuccess, setContactSuccess] = useState("");
-    const [submitError, setSubmitError] = useState("");
-    const [projectSuccess, setProjectSuccess] = useState("")
+    const [toast, setToast] = useState<{message: string; type: "success"|"error";} | null>(null);
 
     const features = [
     { value: "contact-form", label: "Kontakt-/Anfrageformular" },
@@ -113,8 +113,6 @@ function Contact () {
         const response = await fetch(url, {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(contactForm)})
         const data = await response.json();
         if (response.ok){
-            setContactSuccess("Success!");
-            setSubmitError("");
             setContactForm({
                 firstName: "",
                 lastName: "",
@@ -124,9 +122,15 @@ function Contact () {
                 message: "",
                 privacyAccepted: false
             });
+
+            setToast({message: "Anfrage erfolgreich gesendet!", type: "success"})
+            setCalculatorSelection(null);
+
         }else{
-            setSubmitError("Something went wrong!");
-            setContactSuccess("");
+            setToast({
+                message: "Beim Senden ist etwas schiefgelaufen.",
+                type: "error"
+            })
         }  
 }
     
@@ -219,8 +223,11 @@ function Contact () {
         const data = await response.json();
         console.log(data);
         if (response.ok){
-            setProjectSuccess("✓ Anfrage erfolgreich gesendet!");
-            setSubmitError("");
+            setToast({
+                message: "Projektanfrage erfolgreich gesendet!",
+                type: "success"
+            });
+            setCalculatorSelection(null);
             setProjectForm({
                 firstName: "",
                 lastName: "",
@@ -255,14 +262,19 @@ function Contact () {
                 privacyAccepted: false
             });
         }else{
-            setSubmitError("Es ist ein Fehler aufgetreten");
-            setProjectSuccess("");
+            setToast({
+                message: "Beim Senden der Projektanfrage ist etwas schiefgelaufen.",
+                type: "error"
+            });
         }
     }
 
     const location = useLocation();
     console.log(location.state);
-    const calculatorSelection = location.state as CalculatorSelection | null;
+    const [calculatorSelection, setCalculatorSelection] =
+    useState<CalculatorSelection | null>(
+        location.state as CalculatorSelection | null
+    );
 
     const testBackend = async () => {
         const url = `http://127.0.0.1:8000/`   
@@ -275,9 +287,25 @@ function Contact () {
         console.log(data);
     }
 
+    const handleImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const newImages = Array.from(event.target.files ?? []);
+        const uniqueImages = newImages.filter((newImage) =>
+            !projectForm.images.some((image) => image.name === newImage.name)
+        );
+        setProjectForm({
+            ...projectForm,
+            images: [...projectForm.images, ...uniqueImages]
+        });
+    }
+
     return(
         <>
             <div className="contact-page">
+                {toast && (
+                    <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)}/>
+                )}
                 <div className="contact-page-header">
                     <h1>Kostenloses Angebot anfragen</h1>
                     <h2>Erzähl mir kurz von deinem Projekt. Ich melde mich persönlich bei dir und wir besprechen gemeinsam die nächsten Schritte.</h2>
@@ -377,8 +405,6 @@ function Contact () {
                                 <div className="contact-form-submit-button-container">
                                     <button type="submit" className="contact-form-submit-button">Anfrage senden</button>
                                 </div>
-                                {contactSuccess && (<div><h3>{contactSuccess}</h3><p>Vielen Dank für deine Anfrage. Ich melde mich so schnell wie möglich bei dir.</p></div>)}
-                                {submitError && <p>{submitError}</p>}
                             </fieldset>
                         </form>
                       </div>
@@ -533,11 +559,26 @@ function Contact () {
                                         </div>
                                         {projectForm.availableText &&(
                                         <div className="project-form-input-container">
-                                            <label htmlFor="project-form-text-input">Texte hochladen: </label>
-                                            <input id="project-form-text-input" type="file" accept=".pdf, .doc, .docx, .txt" 
-                                            onChange={(event) => setProjectForm({...projectForm, textFile: event.target.files?.[0] ?? null})}/>
-                                            <p>Akzeptierte Dokumente: .pdf, .doc, .docx, .txt</p>
+                                            <p>Texte hochladen:</p>
+                                            <label htmlFor="project-form-text-input" className="project-form-upload-button">Datei auswählen</label>
+                                            <input id="project-form-text-input" type="file" accept=".pdf, .doc, .docx, .txt" className="project-form-upload-input"
+                                            onChange={(event) => {
+                                                const file = event.target.files?.[0] ?? null;
+                                                setProjectForm({
+                                                    ...projectForm,
+                                                    textFile: file
+                                                });
+                                                event.target.value = "";
+                                            }}/>
+                                            <p>Akzeptierte Formate: .pdf, .doc, .docx, .txt</p>
                                         </div>)}
+                                        {projectForm.textFile && (
+                                            <div className="project-form-selected-file">
+                                                <p>{projectForm.textFile.name}</p>
+                                                <button type="button" onClick={() => setProjectForm({...projectForm, textFile: null})}><X 
+                                                className="project-form-selected-x" /></button>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="project-form-contents-and-documents">
                                         <div className="project-form-checkbox-container">
@@ -547,25 +588,57 @@ function Contact () {
                                         </div>
                                         {projectForm.availableImages &&(
                                         <div className="project-form-input-container">
-                                            <label htmlFor="project-form-image-input">Bilder hochladen: </label>
-                                            <input id="project-form-image-input" type="file" accept="image/*" multiple 
-                                            onChange={(event) => setProjectForm({...projectForm, images: [...projectForm.images, ...Array.from(event.target.files ?? [])]})}/>
+                                            <p>Bilder hochladen:</p>
+                                            <label
+                                                htmlFor="project-form-image-input"
+                                                className="project-form-upload-button">
+                                                Bilder auswählen
+                                            </label>
+                                            <input id="project-form-image-input" type="file" accept="image/*" multiple className="project-form-upload-input"
+                                            onChange={handleImageUpload}/>
                                             <p>Akzeptierte Bildformate: .png, .jpg, .jpeg, .webp</p>
+                                            {projectForm.images.length > 0 && (
+                                                <div className="project-form-selected-images">
+                                                    {projectForm.images.map((image, index) => (
+                                                        <div key={index} className="project-form-selected-image">
+                                                            <p>{image.name}</p>
+                                                            <button type="button"  
+                                                            onClick={() => setProjectForm({...projectForm, images: projectForm.images.filter((_image, imageIndex) => 
+                                                                imageIndex !== index)})}><X className="project-form-selected-x"/></button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>)}
                                     </div>
                                     <div className="project-form-contents-and-documents">
                                         <div className="project-form-checkbox-container">
-                                            <input type="checkbox" id="project-form-logo-check" checked={projectForm.availableLogo} 
+                                            <input type="checkbox" id="project-form-logo-check" checked={projectForm.availableLogo}  
                                                 onChange={(event) => setProjectForm({...projectForm, availableLogo: event.target.checked})} />
                                             <label htmlFor="project-form-logo-check">Stellst du ein Logo zur verfügung?</label>
                                         </div>
                                         {projectForm.availableLogo &&(
                                         <div className="project-form-input-container">
-                                            <label htmlFor="project-form-logo-input">Logo hochladen: </label>
-                                            <input id="project-form-logo-input" type="file" accept=".png,.jpg,.jpeg,.svg,.webp" 
-                                            onChange={(event) => setProjectForm({...projectForm, logo: event.target.files?.[0] ?? null})}/>
+                                            <p>Logo hochladen:</p>
+                                            <label htmlFor="project-form-logo-input" className="project-form-upload-button">Datei auswählen </label>
+                                            <input id="project-form-logo-input" type="file" accept=".png,.jpg,.jpeg,.svg,.webp" className="project-form-upload-input" 
+                                            onChange={(event) => {
+                                                const file = event.target.files?.[0] ?? null;
+                                                setProjectForm({
+                                                    ...projectForm,
+                                                    logo: file
+                                                });
+                                                event.target.value = "";
+                                            }}/>
                                             <p>Akzeptierte Bildformate: .png, .jpg, .jpeg, .svg, .webp</p>
                                         </div>)}
+                                        {projectForm.logo && (
+                                            <div className="project-form-selected-file">
+                                                <p>{projectForm.logo.name}</p>
+                                                <button type="button" onClick={() => setProjectForm({...projectForm, logo: null})}><X 
+                                                className="project-form-selected-x"/></button>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="project-form-contents-and-documents">
                                         <div className="project-form-checkbox-container">
@@ -575,11 +648,26 @@ function Contact () {
                                         </div>
                                         {projectForm.availableBranding &&(
                                         <div className="project-form-input-container">
-                                            <label htmlFor="project-form-branding-input">Markendesign hochladen: </label>
-                                            <input id="project-form-branding-input" type="file" accept=".pdf,.png,.jpg,.jpeg" 
-                                            onChange={(event) => setProjectForm({...projectForm, branding: event.target.files?.[0] ?? null})}/>
-                                            <p>Akzeptierte Bildformate: .pdf, .png, .jpg, .jpeg</p>
+                                            <p>Markendesign hochladen: </p>
+                                            <label htmlFor="project-form-branding-input" className="project-form-upload-button">Datei auswählen </label>
+                                            <input id="project-form-branding-input" type="file" accept=".pdf,.png,.jpg,.jpeg" className="project-form-upload-input"
+                                            onChange={(event) => {
+                                                const file = event.target.files?.[0] ?? null;
+                                                setProjectForm({
+                                                    ...projectForm,
+                                                    branding: file
+                                                });
+                                                event.target.value = "";
+                                            }}/>
+                                            <p>Akzeptierte Formate: .pdf, .png, .jpg, .jpeg</p>
                                         </div>)}
+                                        {projectForm.branding && (
+                                            <div className="project-form-selected-file">
+                                                <p>{projectForm.branding.name}</p>
+                                                <button type="button" onClick={() => setProjectForm({...projectForm, branding: null})}><X 
+                                                className="project-form-selected-x"/></button>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </fieldset>
@@ -703,8 +791,6 @@ function Contact () {
                                 <div className="project-form-submit-button-container">
                                     <button type="submit" className="project-form-submit-button">Anfrage senden</button>
                                 </div>
-                                {projectSuccess && (<div><h3>{projectSuccess}</h3><p>Vielen Dank für deine Anfrage. Ich melde mich so schnell wie möglich bei dir.</p></div>)}
-                                {submitError && <p>{submitError}</p>}
                             </fieldset>
                         </form>
                     </div>}

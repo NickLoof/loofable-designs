@@ -1,0 +1,127 @@
+.about-hero h1,
+.about-hero h2,
+.about-hero h3,
+.about-hero h4{
+    margin: 0;
+}
+.about-hero{
+    font-family: "Chillax", sans-serif;
+    width: 100%;
+    color: white;
+    background: radial-gradient(
+    ellipse at center,
+    #143a1e 5%,
+    #113322 25%,
+    #0a1710 60%,
+    #090e0b 100%);
+    padding: 60px 200px;
+}
+.about-hero-content h3{
+    color: green;
+    font-size: 30px;
+}
+.about-hero-content h1{
+    font-size: 40px;
+    padding-top: 30px;
+}
+.about-hero-content p{
+    font-size: 21px;
+}
+.about-hero-intro{
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+    align-items: center;
+}
+.about-hero-intro h4{
+    font-size: 30px;
+}
+.about-hero-intro p{
+    font-size: 21px;
+}
+.about-hero-intro span{
+    color: green;
+    font-weight: bold;
+}
+.about-cta{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+}
+.about-cta h3{
+    font-size: 40px;
+}
+.about-cta p{
+    font-size: 21px;
+    color: green;
+}
+.about-cta button{
+    width: 250px;
+    height: 50px;
+    margin-top: 50px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    background-color: green;
+    border: 1px solid black;
+    color: white;
+    transition: 0.2s ease;
+    font-size: 21px;
+    box-shadow: 1px 1px 1px black;
+    &&:hover{
+        border-color: white;
+        background-color: rgb(2, 168, 2);
+        transform: translateY(-3px);
+        color: black;
+        cursor: pointer;
+        box-shadow: 1px 1px 1px rgb(41, 41, 41);
+    }
+}
+.about-content{
+    padding-bottom: 50px;
+    background-color: rgb(1, 1, 12);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Chillax", sans-serif;
+    
+}
+.about-loofable-story{
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    gap: 40px;
+}
+.about-loofable-story p{
+    font-size: 21px;
+}
+.about-loofable-ideology{
+    display: flex;
+    width: 95%;
+    margin-top: 30px;
+}
+.about-loofable-ideology-card{
+    margin: 40px;
+    padding: 15px;
+    width: 33%;
+    border: 1px solid green;
+    border-radius: 15px;
+    background: radial-gradient(
+    ellipse at center,
+    #143a1e 5%,
+    #113322 25%,
+    #0a1710 60%,
+    #090e0b 100%);
+}
+.about-loofable-ideology-card h3{
+    font-size: 25px;
+}
+.about-loofable-ideology-card p{
+    font-size: 20px;
+}
+.about-values-heading{
+    font-size: 35px;
+    margin-top: 50px;
+}

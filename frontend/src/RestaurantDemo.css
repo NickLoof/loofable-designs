@@ -15,6 +15,7 @@
     width: 400px;
     height: 150px;
     display: flex;
+    margin-top: 10px;
 }
 .restaurant-navlinks{
     color: black;
@@ -26,10 +27,15 @@
     top: 0;
     z-index: 10;
 }
-.restaurant-navlinks a{
+.restaurant-navlinks-link{
     transition: color 0.25s ease;
+    border: none;
+    font-family: "Cormorant Garamond";
+    background-color: transparent;
+    font-size: 22px;
     &:hover{
         color: #9b8350;
+        cursor: pointer;
     }
 }
 .restaurant-navlinks ul{
@@ -262,12 +268,14 @@
     display: flex;
     gap: 30px;
     padding-bottom: 20px;
+    justify-content: center;
 }
 .restaurant-reservation-select{
     border-radius: 10px;
     margin-left: 5px;
     background-color: #e9cb7e;
     width: 100px;
+    cursor: pointer;
 
     &:hover{
         background-color: #d6b256;
@@ -277,6 +285,8 @@
     border-radius: 10px;
     margin-left: 5px;
     background-color: #e9cb7e;
+    cursor: pointer;
+    
 
     &:hover{
         background-color: #d6b256;
@@ -307,6 +317,8 @@ font-size: 25px;
 transition: transform 0.25s ease,
             background-color 0.25s ease,
             box-shadow 0.25s ease;
+cursor: pointer;
+margin: 40px 0;
 
 &:hover{
     background-color: #d6b256;
@@ -316,6 +328,7 @@ transition: transform 0.25s ease,
 }
 .restaurant-reservation-info{
     display: flex;
+    justify-content: center;
     gap: 110px;
 }
 .restaurant-footer{
@@ -430,12 +443,13 @@ transition: transform 0.25s ease,
         &&:hover{
             background-color: #d6c9a3;
             border-color: black;
+            cursor: pointer;
         }
     }
     .restaurant-menu-overlay{
         position: absolute;
         inset: 0;
-        z-index: 1000;
+        z-index: 500;
         display: flex;
         justify-content: flex-end;
         align-items: stretch;
@@ -456,6 +470,20 @@ transition: transform 0.25s ease,
         display: flex;
         flex-direction: column;
         animation: slideInCart 0.25s ease-out;
+    }
+    .restaurant-mobile-menu-x{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 1000;
+        color: black;
+        background-color: transparent;
+        border: none;
+        scale: 1.4;
+        &&:hover{
+            cursor: pointer;
+            color: rgb(73, 73, 73);
+        }
     }
     .restaurant-navbar{
         width: 100%;
