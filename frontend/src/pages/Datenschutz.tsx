@@ -113,6 +113,11 @@ function Datenschutz() {
                         Mit IONOS besteht eine Vereinbarung zur Auftragsverarbeitung gemäß
                         Art. 28 DSGVO.
                     </p>
+                    <p>
+                        Server-Logfiles werden grundsätzlich für maximal 14 Tage gespeichert und
+                        anschließend gelöscht, sofern keine längere Aufbewahrung zur Aufklärung
+                        sicherheitsrelevanter Vorfälle erforderlich ist.
+                    </p>
                 </section>
                 <section className="datenschutz-forms">
                     <h3>4. Kontakt- und Projektanfragen</h3>
