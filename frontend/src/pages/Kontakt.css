@@ -327,8 +327,6 @@ input[type="file"]::file-selector-button {
 margin-top: 20px;
 }
 @media(max-width: 800px){
-    .contact-form-input-container{
-    }
     .project-form-content,
     .contact-form-content{
         grid-template-columns: repeat(1, minmax(150px, 1fr));

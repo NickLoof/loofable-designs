@@ -1,5 +1,5 @@
 import "./Preise.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Package, AddOn } from "../types/calculator";
 
@@ -7,6 +7,18 @@ function Prices() {
     const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
     const [addonQuantities, setAddonQuantities] = useState<Record<string, number>>({});
     const [selectedAddons, setSelectedAddons] = useState<AddOn[]>([]);
+
+    
+    useEffect(() => {
+    document.title = "Preise | Loofable Designs";
+
+    const description = document.querySelector('meta[name="description"]');
+
+    description?.setAttribute(
+        "content",
+        "Transparente Preise für individuelle Websites, Online-Shops und Webdesign von Loofable Designs – passend für Selbstständige und kleine Unternehmen."
+    );
+    }, []);
 
 
     const addOn : AddOn[] = [

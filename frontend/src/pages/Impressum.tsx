@@ -1,6 +1,18 @@
 import "./Impressum.css";
+import { useEffect } from "react";
 
 function Impressum(){
+
+    useEffect(() => {
+    document.title = "Impressum | Loofable Designs";
+
+    const description = document.querySelector('meta[name="description"]');
+
+    description?.setAttribute(
+    "content",
+    "Impressum und Anbieterinformationen von Loofable Designs."
+    );
+    }, []);
 
     return(
         <div className="impressum-page">

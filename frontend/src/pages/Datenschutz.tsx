@@ -1,6 +1,18 @@
 import "./Datenschutz.css";
+import { useEffect } from "react";
 
 function Datenschutz() {
+
+    useEffect(() => {
+    document.title = "Datenschutz | Loofable Designs";
+
+    const description = document.querySelector('meta[name="description"]');
+
+    description?.setAttribute(
+    "content",
+    "Datenschutzerklärung von Loofable Designs mit Informationen zur Verarbeitung personenbezogener Daten."
+    );
+    }, []);
 
     return(
         <div className="datenschutz-page">
@@ -58,7 +70,49 @@ function Datenschutz() {
                     </div>
                 </section>
                 <section className="datenschutz-hosting-server-logs">
-                    {/* Wird nach Auswahl des Hosting-Anbieters ergänzt */}
+                    <h3>3. Hosting und Server-Logfiles</h3>
+                    <p>
+                        Diese Website wird auf einem Server der IONOS SE, Elgendorfer Str. 57,
+                        56410 Montabaur, Deutschland, gehostet.
+                    </p>
+
+                    <p>
+                        Beim Aufruf dieser Website werden durch den Webserver technisch
+                        erforderliche Daten verarbeitet. Hierzu können insbesondere folgende
+                        Daten gehören:
+                    </p>
+
+                    <ul>
+                        <li>IP-Adresse des aufrufenden Geräts</li>
+                        <li>Datum und Uhrzeit des Zugriffs</li>
+                        <li>aufgerufene Seite bzw. Datei</li>
+                        <li>übertragene Datenmenge</li>
+                        <li>Referrer-URL</li>
+                        <li>verwendeter Browser und Betriebssystem</li>
+                        <li>HTTP-Statuscode</li>
+                    </ul>
+
+                    <p>
+                        Die Verarbeitung dieser Daten erfolgt, um die Website technisch
+                        bereitzustellen, die Stabilität und Sicherheit des Systems zu
+                        gewährleisten sowie technische Fehler und mögliche Angriffe erkennen
+                        und nachvollziehen zu können.
+                    </p>
+
+                    <p>
+                        Rechtsgrundlage für die Verarbeitung ist Art. 6 Abs. 1 lit. f DSGVO.
+                        Unser berechtigtes Interesse liegt in der sicheren, stabilen und
+                        technisch einwandfreien Bereitstellung dieser Website.
+                    </p>
+
+                    <p>
+                        Die Server werden innerhalb der Europäischen Union betrieben.
+                    </p>
+
+                    <p>
+                        Mit IONOS besteht eine Vereinbarung zur Auftragsverarbeitung gemäß
+                        Art. 28 DSGVO.
+                    </p>
                 </section>
                 <section className="datenschutz-forms">
                     <h3>4. Kontakt- und Projektanfragen</h3>

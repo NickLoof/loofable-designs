@@ -1,11 +1,23 @@
 import "./Kontakt.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import type { CalculatorSelection } from "../types/calculator";
 import Toast from "../Toast";
 import { X } from "lucide-react";
 
 function Contact () {
+
+    useEffect(() => {
+    document.title = "Kontakt | Loofable Designs";
+
+    const description = document.querySelector('meta[name="description"]');
+
+    description?.setAttribute(
+    "content",
+    "Kontaktiere Loofable Designs für deine neue Website, deinen Online-Shop oder ein Website-Redesign. Gemeinsam besprechen wir dein Projekt unverbindlich."
+    );
+    }, []);
+
     const [formType, setFormType] = useState<"basic" | "advanced">("basic");
     const [contactForm, setContactForm] = useState({
         firstName: "",
@@ -111,7 +123,6 @@ function Contact () {
         
         const url = `http://127.0.0.1:8000/inquiries/quick`;
         const response = await fetch(url, {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(contactForm)})
-        const data = await response.json();
         if (response.ok){
             setContactForm({
                 firstName: "",
@@ -276,16 +287,6 @@ function Contact () {
         location.state as CalculatorSelection | null
     );
 
-    const testBackend = async () => {
-        const url = `http://127.0.0.1:8000/`   
-        const response = await fetch(`${url}inquiries`, {method: "POST",
-            headers: {"Content-Type": "application/json",
-            },
-            body: JSON.stringify({firstName: "Nicholas"})
-        });
-        const data = await response.json();
-        console.log(data);
-    }
 
     const handleImageUpload = (
     event: React.ChangeEvent<HTMLInputElement>

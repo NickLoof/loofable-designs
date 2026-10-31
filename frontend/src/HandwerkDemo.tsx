@@ -1,5 +1,5 @@
 import "./HandwerkDemo.css";
-import { Phone, Dot, ArrowRight, ArrowLeft, ArrowBigRight, Mail, Menu, CircleX } from "lucide-react";
+import { Phone, ArrowRight, ArrowLeft, ArrowBigRight, Mail, Menu, CircleX } from "lucide-react";
 import logo from "./assets/handwerk img/nordwerk-logo.svg";
 import heroBackground from "./assets/handwerk img/hero-background.png";
 import { useState, useRef, useEffect, type RefObject } from "react";
@@ -95,7 +95,7 @@ function HandwerkDemo({demoScreenRef}: TradeDemoProps) {
                         <p>Kiel +50 km</p>
                 </div>
                 <div className="trade-topbar-logo">
-                    <img src={logo}/>
+                    <img src={logo} alt="Nordwerk Logo"/>
                 </div>
             </div>
                 <nav className="trade-navbar">
@@ -113,7 +113,7 @@ function HandwerkDemo({demoScreenRef}: TradeDemoProps) {
                     <div className="trade-menu-overlay">
                         <div ref={menuRef} className="trade-menu-window">
                             <div className="trade-topbar-menu-logo">
-                                <img src={logo}/>
+                                <img src={logo} alt="Nordwerk Logo"/>
                             </div>
                             <div className="trade-navbar-mobile-menu-links">
                                 <button className="trade-navbar-button" onClick={() => scrollToDemoSection("trade-services")}>Leistungen</button>
@@ -133,7 +133,7 @@ function HandwerkDemo({demoScreenRef}: TradeDemoProps) {
                     </div>
                 )}
             <section className="trade-hero">
-                <img className="trade-hero-background" src={heroBackground}/>
+                <img className="trade-hero-background" src={heroBackground} alt=""/>
                 <div className="trade-hero-content">
                     <div className="trade-hero-content-header">
                         <p className="trade-hero-content-header-p1">Sanierung <span>•</span> Renovierung <span>•</span> Innenausbau</p>
@@ -298,7 +298,7 @@ function HandwerkDemo({demoScreenRef}: TradeDemoProps) {
             <section className="trade-footer">
                 <div className="trade-footer-links">
                     <div className="trade-footer-logo-container">
-                        <img className="trade-footer-logo" src={logo}/>
+                        <img className="trade-footer-logo" src={logo} alt="Nordwerk Logo"/>
                         <div className="trade-footer-header">
                             <p>Sanierung · Renovierung · Innenausbau</p>
                             <p>in Kiel und Umgebung</p>

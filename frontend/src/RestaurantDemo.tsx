@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type RefObject } from "react";
+import { useState, useEffect, type RefObject } from "react";
 import "./RestaurantDemo.css";
 import { CircleX, Menu } from "lucide-react";
 import logo from "./assets/restaurant img/antica tavola logo.png"
@@ -133,7 +133,7 @@ function RestaurantDemo({demoScreenRef}: RestaurantDemoProps) {
                 </div>)}
             <section className="restaurant-hero">
                 <div className="restaurant-hero-background">
-                    {heroImages.map((image, index) => <img key={index} src={image}
+                    {heroImages.map((image, index) => <img key={index} src={image} alt=""
                     className={index == currentImage?"restaurant-hero-image restaurant-hero-image-active":"restaurant-hero-image"}/>)}
                     <div className="restaurant-hero-content">
                         <div className="restaurant-hero-text">
@@ -156,7 +156,7 @@ function RestaurantDemo({demoScreenRef}: RestaurantDemoProps) {
                 <div className="restaurant-cuisine-dishes">
                 {unsereKuecheDishes.map((dish) => (
                     <div key={dish.name} className="restaurant-cuisine-dish">
-                        <img src={dish.image} className="restaurant-unsere-kueche-image"/>
+                        <img src={dish.image} className="restaurant-unsere-kueche-image" alt={dish.name}/>
                         <div className="restaurant-cuisine-dish-text">
                             <p className="restaurant-dish-name">{dish.name}</p>
                             <p className="restaurant-dish-description">{dish.description}</p>

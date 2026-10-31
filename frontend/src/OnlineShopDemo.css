@@ -380,9 +380,6 @@
     display: flex;
     flex-direction: column;
 }
-.online-shop-checkout-address{
-
-}
 .online-shop-cart-quantity-container{
     display: flex;
     flex-direction: column;
@@ -972,9 +969,6 @@ font-size: 20px;
     margin-top: 20px;
     padding: 20px;
     justify-content: space-between;
-}
-.online-shop-footer-bottom-p{
-
 }
 .online-shop-footer-bottom-social{
     display: flex;

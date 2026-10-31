@@ -1,6 +1,18 @@
 import "./AboutLoofable.css";
+import { useEffect } from "react";
 
 function AboutLoofable(){
+
+    useEffect(() => {
+    document.title = "Über Loofable | Loofable Designs";
+
+    const description = document.querySelector('meta[name="description"]');
+
+    description?.setAttribute(
+    "content",
+    "Lerne Loofable Designs kennen – persönliches Webdesign und individuelle Webentwicklung für Selbstständige und kleine Unternehmen."
+    );
+    }, []);
 
     return(
         <>

@@ -2,7 +2,7 @@ import "./Navbar.css";
 import logo from "./assets/branding/loofable-designs-logo-3d.svg";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, CircleX } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 function Navbar () {
     const location = useLocation();
@@ -42,10 +42,15 @@ function Navbar () {
             window.removeEventListener("scroll", handleScroll);
         };
     }, [])
+
+    useEffect(() => {
+    setNavbarMenuOpen(false);
+    }, [location.pathname, location.hash]);
+
     return (
         <nav className="navbar">
             <div className="navbar-logo-container">
-                <img className="navbar-logo" src={logo} alt="Loofable-Designs"/>
+                <img className="navbar-logo" src={logo} alt="Loofable Designs"/>
             </div>
             <div className="nav-links">
                 <ul>
@@ -64,29 +69,27 @@ function Navbar () {
             </div>
             <div className="navbar-mobile-button-container">
                 <Link to="/kontakt" className="navbar-button">Kostenloses Angebot</Link>
-                <button className="navbar-menu" onClick={() => setNavbarMenuOpen(true)}><Menu/></button>
+                <button className="navbar-menu-button-container" onClick={() => setNavbarMenuOpen(!navbarMenuOpen)}>{navbarMenuOpen
+                ?<X size={50} className="navbar-menu-x"/>
+                :<Menu size={50} className="navbar-menu"/>}</button>
             </div>
                 {navbarMenuOpen === true &&(
                     <div className="navbar-menu-overlay">
                         <div className="navbar-menu-window">
-                            <div className="navbar-logo-container">
-                                <img className="navbar-logo" src={logo} alt="Loofable-Designs"/>
-                            </div>
                             <div className="navbar-menu-links">
                                 <ul>
-                                    <li><Link to="/" onClick={() => window.scrollTo(0, 0)} 
+                                    <li><Link to="/" onClick={() => {window.scrollTo(0, 0); setNavbarMenuOpen(false)}}
                                     className={location.pathname === "/" && activeSection === "loofable-home"?"active":""}>Startseite</Link></li>
-                                    <li><Link to="/#leistungen" 
+                                    <li><Link to="/#leistungen" onClick={() => setNavbarMenuOpen(false)} 
                                     className={location.pathname === "/" && activeSection === "leistungen"?"active":""}>Leistungen</Link></li>
-                                    <li><Link to="/#warum-loofable" 
+                                    <li><Link to="/#warum-loofable" onClick={() => setNavbarMenuOpen(false)}  
                                     className={location.pathname === "/" && activeSection === "warum-loofable"?"active":""}>Warum Loofable?</Link></li>
-                                    <li><Link to="/#live-demo" 
+                                    <li><Link to="/#live-demo" onClick={() => setNavbarMenuOpen(false)} 
                                     className={location.pathname === "/" && activeSection === "live-demo"?"active":""}>Live-Demo</Link></li>
-                                    <li><Link to="/#prozess"
+                                    <li><Link to="/#prozess" onClick={() => setNavbarMenuOpen(false)} 
                                     className={location.pathname === "/" && activeSection === "prozess"?"active":""}>Prozess</Link></li>
-                                    <li><Link to="/preise" className={location.pathname === "/preise" ? "active" : ""}>Preise</Link></li>
+                                    <li><Link to="/preise" onClick={() => setNavbarMenuOpen(false)}  className={location.pathname === "/preise" ? "active" : ""}>Preise</Link></li>
                                 </ul>
-                                <button className="navbar-menu-close-button" onClick={() => setNavbarMenuOpen(false)}><CircleX/></button>
                             </div>
                         </div>
                     </div>

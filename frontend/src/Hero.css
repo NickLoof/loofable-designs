@@ -121,9 +121,6 @@
     .hero-headline{
         font-size: 23px;
     }
-    .hero-headline span{
-
-    }
 }
 @media (max-width: 400px){
     .hero-additional-info{
