@@ -46,7 +46,8 @@ def send_email(subject: str, body: str, reply_to: str):
     message["Reply-To"] = reply_to
 
     message.set_content(body)
-    with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as smtp:
+    with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30) as smtp:
+        smtp.starttls()
         smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         smtp.send_message(message)
 
