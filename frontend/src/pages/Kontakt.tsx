@@ -121,7 +121,7 @@ function Contact () {
             return;
         }
         
-        const url = `http://127.0.0.1:8000/inquiries/quick`;
+        const url = "/api/inquiries/quick";
         const response = await fetch(url, {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(contactForm)})
         if (response.ok){
             setContactForm({
@@ -229,7 +229,7 @@ function Contact () {
         if(hasErrors){
             return;
         }
-        const url = `http://127.0.0.1:8000/inquiries/project`;
+        const url = "/api/inquiries/project";
         const response = await fetch(url, {method: "POST", body: formData})
         const data = await response.json();
         console.log(data);
