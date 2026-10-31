@@ -11,7 +11,6 @@
     background-color: rgb(34, 33, 33);
     overflow: visible;
     align-items: center;
-    padding-top: 10px;
     
 }
 .trade-topbar-left-container{
@@ -689,9 +688,35 @@
 .trade-navbar-menu-button-container{
     display: none;
 }
+.trade-hero-content-header-p1{
+    justify-content: center;
+    align-items: center;
+}
 @container (max-width: 1000px) {
     /* tablet layout */
-    .trade-topbar-logo{
+    .trade-footer-links{
+        display: flex;
+        flex-direction: column;
+    }
+    .trade-footer{
+        padding-top: 20px;
+    }
+    .trade-footer-logo-container{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 15px;
+    }
+    .trade-footer-header{
+        padding: 0;
+    }
+    .trade-footer-logo{
+        width: 200px;
+    }
+    .trade-footer-links-container{
+        justify-content: space-between;
     }
 }
 
@@ -914,5 +939,73 @@
     .trade-footer-links-container{ 
         display: grid;
         grid-template-columns: repeat(2, minmax(125px, 1fr));
+    }
+}
+@container (max-width: 400px){
+    .trade-footer-links-container{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .trade-projects-display-before-after-description h2{
+        width: auto;
+        font-size: 20px;
+        text-align: center;
+    }
+    .trade-projects-display-before-after-description p{
+        text-align: center;
+    }
+    .trade-projects-header{
+        text-align: center;
+    }
+    .trade-projects-header h1{
+        font-size: 30px;
+    }
+    .trade-projects-header p{
+        font-size: 20px;
+    }
+    .trade-projects{
+        padding-top: 40px;
+    }
+    .trade-services-card-info ul{
+        margin: 0 0;
+        padding: 0 0;
+    }
+    .trade-services-card-info-p2{
+        margin-bottom: 15px;
+    }
+    .trade-services-header-h2{
+        text-align: center;
+        font-size: 30px;
+    }
+    .trade-services{
+        padding-top: 40px;
+    }
+    .trade-hero-content-header h1{
+        font-size: 32px;
+    }
+    .trade-navbar-offer-button{
+        font-size: 15px;
+    }
+    .trade-contact-form-h3{
+        font-size: 30px;
+        text-align: center;
+    }
+    .trade-contact-form-inputs{
+        display: flex;
+        flex-direction: column;
+    }
+    .trade-hero-content-header-p1{
+    }
+    .trade-hero-content p{
+        font-size: 20px;
+    }
+    .trade-hero-content-ctas{
+        display: flex;
+        flex-direction: column;
+    }
+    .trade-hero-content-cta{
+        font-size: 20px;
     }
 }

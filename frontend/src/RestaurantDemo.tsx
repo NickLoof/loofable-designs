@@ -163,10 +163,10 @@ function RestaurantDemo({demoScreenRef}: RestaurantDemoProps) {
                             <p className="restaurant-dish-price">{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(dish.price)}</p>
                         </div>
                     </div>))}
-                    <div className="restaurant-cusine-menu-button">
-                        <p className="restaurant-cusine-menu-button-p"><strong>Noch mehr entdecken</strong></p>
-                        <p className="restaurant-cusine-menu-button-p">Antipasti, Pasta, Pizza, Desserts und ausgewählte Weine</p>
-                        <a href="#speisekarte" className="restaurant-cusine-menu-button-h2"><strong>Speisekarte ansehen</strong></a>
+                    <div className="restaurant-cuisine-menu-button">
+                        <a href="#speisekarte" className="restaurant-cuisine-menu-button-h2"><strong>Speisekarte ansehen</strong></a>
+                        <p className="restaurant-cuisine-menu-button-p"><strong>Noch mehr entdecken</strong></p>
+                        <p className="restaurant-cuisine-menu-button-p">Antipasti, Pasta, Pizza, Desserts und ausgewählte Weine</p>
                     </div>
                 </div>
             </section>

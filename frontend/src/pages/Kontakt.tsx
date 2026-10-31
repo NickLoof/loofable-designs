@@ -19,7 +19,7 @@ function Contact () {
     const [toast, setToast] = useState<{message: string; type: "success"|"error";} | null>(null);
 
     const features = [
-    { value: "contact-form", label: "Kontakt-/Anfrageformular" },
+    { value: "contact-form", label: "Kontakt- / Anfrageformular" },
     { value: "maps", label: "Google Maps / Standortkarte" },
     { value: "gallery", label: "Galerie" },
     { value: "booking", label: "Buchungssystem" },
@@ -411,7 +411,7 @@ function Contact () {
                     :<div className="project-page-form">
                         <form onSubmit={handleProjectSubmit} noValidate>
                             <fieldset className="project-page-form-outer-fieldset">
-                                <legend>Projektanfrage</legend>
+                                <legend className="project-form-project-legend">Projektanfrage</legend>
                             <fieldset>
                                 <legend>Kontaktdaten</legend>
                                 <div className="project-form-content">
@@ -464,7 +464,7 @@ function Contact () {
                                 </div>
                                 <div className="project-form-input-container">
                                     <label htmlFor="project-form-companyDescription">Beschreibe dein Unternehmen kurz:</label>
-                                    <textarea className="contact-form-content-textarea" id="project-form-companyDescription" value={projectForm.companyDescription} placeholder="Unternehmensbeschreibung hier..."
+                                    <textarea className="project-form-content-textarea" id="project-form-companyDescription" value={projectForm.companyDescription} placeholder="Unternehmensbeschreibung hier..."
                                     onChange={(event) => {setProjectForm({...projectForm, companyDescription: event.target.value});
                                     setProjectErrors({...projectErrors, companyDescription: ""})}}/>
                                     {projectErrors.companyDescription &&(<p className="project-form-error">{projectErrors.companyDescription}</p>)}
@@ -502,7 +502,7 @@ function Contact () {
                                 </div>
                                 <div className="project-form-input-container">
                                     <label htmlFor="project-form-websiteGoal">Was möchtest du mit deiner Website erreichen?</label>
-                                    <textarea className="contact-form-content-textarea" id="project-form-websiteGoal" value={projectForm.websiteGoal} 
+                                    <textarea className="project-form-content-textarea" id="project-form-websiteGoal" value={projectForm.websiteGoal} 
                                     placeholder="z.B. mehr Anfragen, das Unternehmen professionell präsentieren usw."
                                     onChange={(event) => {setProjectForm({...projectForm, websiteGoal: event.target.value});
                                     setProjectErrors({...projectErrors, websiteGoal: ""})}}/>
@@ -644,7 +644,7 @@ function Contact () {
                                         <div className="project-form-checkbox-container">
                                             <input type="checkbox" id="project-form-branding-check" checked={projectForm.availableBranding} 
                                                 onChange={(event) => setProjectForm({...projectForm, availableBranding: event.target.checked})} />
-                                            <label htmlFor="project-form-branding-check">Stellst du bereits Branding/Markenmaterial zur Verfügung?</label>
+                                            <label htmlFor="project-form-branding-check">Stellst du bereits Branding zur Verfügung?</label>
                                         </div>
                                         {projectForm.availableBranding &&(
                                         <div className="project-form-input-container">

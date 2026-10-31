@@ -19,6 +19,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 .prices-header h1{
      font-size: 40px;
@@ -33,7 +34,7 @@
 .prices-packages{
     color: white;
     display: grid;
-    grid-template-columns: repeat(3, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 40px;
     width: 90%;
 }
@@ -127,7 +128,7 @@
     radial-gradient(circle at 75% 100%, #0d1a12 0%, transparent 25%),
     #090e0b;
     padding: 30px;
-    width: 500px;
+    max-width: 500px;
     min-width: 400px;
     display: flex;
     flex-direction: column;
@@ -153,6 +154,7 @@
 }
 .prices-packages-redesign-header h1{
     font-size: 40px;
+    flex-shrink: 1;
 }
 .prices-addon-packages{
     display: grid;
@@ -351,5 +353,108 @@
         cursor: pointer;
         color: black;
         border-color: white;
+    }
+}
+@media(max-width: 550px){
+    .prices-packages{
+        justify-content: center;
+    }
+    .prices-package{
+        min-width: 150px;
+        width: 80%;
+        font-size: 15px;
+        justify-self: center;
+    }
+    .prices-package button{
+        width: 80%;
+    }
+    .prices-addon-top h2{
+        font-size: 20px;
+    }
+    .prices-addon-top{
+        display: flex;
+        flex-direction: column;
+    }
+    .prices-addon-package{
+        width: 70%;
+        justify-self: center;
+    }
+    .prices-calculator-container h2{
+        font-size: 25px;
+    }
+    .prices-calculator-sum-header,
+    .prices-calculator-container{
+        align-items: flex-start;
+        width: 95%;
+    }
+    .prices-calculator-sum-header h2{
+        font-size: 25px;
+    }
+    .prices-selected-addon {
+        display: block;
+        width: fit-content;
+    }
+
+    .prices-selected-addon h2 {
+        width: fit-content;
+    }
+    .prices-calculator-cta{
+        align-self: center;
+        width: 70%;
+        font-size: 20px;
+    }
+    .prices-calculator-sum-body{
+        align-self: center;
+    }
+    .prices-redesign-package{
+        width: 70%;
+        padding: 20px;
+        min-width: 350px;
+    }
+    .prices-redesign-package button{
+        width: 80%;
+    }
+    .prices-package-heading{
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media(max-width: 400px){
+    .prices-addon-top h2{
+        font-size: 16px;
+    }
+    .prices-redesign-package{
+        width: 70%;
+        padding: 20px;
+        min-width: 275px;
+    }
+    .prices-package{
+        width: 70%;
+        padding: 20px;
+        min-width: 275px;
+    }
+    .prices-addons-heading h2{
+        font-size: 25px;
+    }
+    .prices-selected-package-quantity-name-price,
+    .prices-selected-package-name-price{
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        align-items: center;
+        text-align: center;
+        
+    }
+    .prices-calculator-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: solid;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .prices-calculator-sum-body{
+        font-size: 18px;
+        text-align: center;
     }
 }

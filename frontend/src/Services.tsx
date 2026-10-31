@@ -14,7 +14,7 @@ function Services() {
             <div className="services-cards">
                 <div className="services-card">
                     <GlobeCode className="services-icon"/>
-                    <h1>Unternehmenwebsites</h1>
+                    <h1>Unternehmen-Websites</h1>
                     <p className="services-card-p">Moderne, individuelle Websites für Handwerksbetriebe, Salons, Fotografen und lokale Dienstleister – entwickelt, 
                         um dein Unternehmen professionell zu präsentieren und Besucher in Anfragen zu verwandeln.
                     </p>

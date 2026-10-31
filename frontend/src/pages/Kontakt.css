@@ -5,6 +5,8 @@
     font-family: "Chillax", sans-serif;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    
     padding-top: 120px;
     width: 100%;
 }
@@ -14,6 +16,7 @@
     align-items: center;
     justify-content: center;
     color: white;
+    text-align: center;
 }
 .contact-page-header h2{
     color: green;
@@ -22,6 +25,7 @@
     display: flex;
     justify-content: center;
     gap: 50px;
+    margin-bottom: 35px;
 }
 .contact-page-form-button{
     width: 200px;
@@ -92,7 +96,7 @@
 .project-form-content,
 .contact-form-content{
     display: grid;
-    grid-template-columns: repeat(2, minmax(400px, 1fr));
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
     gap: 40px;
     padding: 20px;
     align-items: start;
@@ -165,7 +169,7 @@
 }
 .project-form-submit-button,
 .contact-form-submit-button{
-    width: 200px;
+    max-width: 200px;
     height: 40px;
     background-color: green;
     border: 1px solid black;
@@ -322,3 +326,77 @@ input[type="file"]::file-selector-button {
 .contact-calculator-total{
 margin-top: 20px;
 }
+@media(max-width: 800px){
+    .contact-form-input-container{
+    }
+    .project-form-content,
+    .contact-form-content{
+        grid-template-columns: repeat(1, minmax(150px, 1fr));
+}
+    .project-form-content select{
+        width: fit-content;
+    }
+    .project-form-page-checkboxes{
+    grid-template-columns: repeat(1, 1fr);
+}
+    .project-form-feature-checkboxes{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media(max-width: 600px){
+    .contact-page-form-selector{
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+    .project-form-page-checkboxes{
+    grid-template-columns: repeat(1, 1fr);
+}
+    .project-form-feature-checkboxes{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .project-form-content select{
+        max-width: 150px;
+    }
+    .project-form-project-legend {
+        display: none;
+    }
+    .project-page-form-outer-fieldset{
+        border: none;
+        padding: 10px;
+        margin: 0;
+        min-width: 0;
+    }
+    .project-page-form .project-page-form-outer-fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 45px;
+    }
+    .project-form-content-textarea{
+        width: 90%;
+    }
+    .contact-calculator-selection{
+        width: 90%;
+    }
+}
+@media(max-width: 400px){
+    .contact-page-form fieldset{
+        min-width: 150px;
+    }
+    .project-form-privacy,
+    .contact-form-privacy{
+        display: flex;
+        flex-direction: column;
+    }
+    .contact-form-privacy label{
+        min-width: 125px;
+    }
+    .project-form-input-container textarea{
+        width: 215px;
+    }
+    .project-page-form fieldset{
+        margin-bottom: 10px;
+    }
+}
+

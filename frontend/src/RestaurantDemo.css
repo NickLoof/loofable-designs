@@ -187,7 +187,7 @@
     margin: 18px 0 0;
     margin-top: auto;
 }
-.restaurant-cusine-menu-button{
+.restaurant-cuisine-menu-button{
     display: flex;
     flex-direction: column;
     border: 1px solid;
@@ -211,12 +211,16 @@
         background-color: #e9cb7e;
     }
 }
-.restaurant-cusine-menu-button-h2{
+.restaurant-cuisine-menu-button{
+    border: 2px solid #1f1900;
+    box-shadow: 2px 2px 2px rgb(41, 36, 27);
+}
+.restaurant-cuisine-menu-button-h2{
     font-size: 40px;
     color: #4f4827;
 }
-.restaurant-cusine-menu-button-p{
-    font-size: 10px;
+.restaurant-cuisine-menu-button-p{
+    font-size: 17px;
     color: #4f4827;
 }
 .restaurant-about-us{
@@ -408,9 +412,36 @@ margin: 40px 0;
 }
 @container (max-width: 1000px) {
     /* tablet layout */
+    .restaurant-cuisine-menu-button-p{
+        display: none;
+    }
+    .restaurant-cuisine-menu-button{
+        width: fit-content;
+        height: fit-content;
+        justify-self: center;
+    }
+    .restaurant-cuisine-dishes{
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+    }
+    .restaurant-footer-logo{
+        width: 200px;
+        height: auto;
+        margin-left: 0;
+    }
+    .restaurant-footer-logo-info-container{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+    .restaurant-footer-info{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-right: 10px;
+    }
 }
 
-@container (max-width: 600px) {
+@container (max-width: 800px) {
     /* phone layout */
     .restaurant-menu-logo{
         display: flex;
@@ -505,15 +536,15 @@ margin: 40px 0;
     .restaurant-navlinks-list{
         display: none;
     }
-    .restaurant-cusine-menu-button-p{
+    .restaurant-cuisine-menu-button-p{
         font-size: 18px;
     }
-    .restaurant-cusine-menu-button-h2{
+    .restaurant-cuisine-menu-button-h2{
         font-size: 30px;
     }
     .restaurant-cuisine-dishes{
         display: grid;
-        grid-template-columns: repeat(1, minmax(300px, 1fr));
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
     }
     .restaurant-about-us{
         display: flex;
@@ -595,5 +626,85 @@ margin: 40px 0;
     }
     .restaurant-footer-legal-info a {
     margin-right: 15px;
+    }
+    
+}
+@media (max-width: 560px){
+    .restaurant-cuisine-dishes{
+        grid-template-columns: repeat(1, minmax(200px, 1fr));
+    }
+}
+@media (max-width: 390px){
+    .restaurant-hero-text h1{
+        font-size: 30px;
+    }
+    .restaurant-hero-text p{
+        font-size: 22px;
+    }
+    .restaurant-navbar-logo{
+        width: 260px;
+        justify-self: center;
+        height: auto;
+    }
+    .restaurant-hero-ctas{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .restaurant-hero-secondary,
+    .restaurant-hero-primary{
+        padding: 5px;
+    }
+    .restaurant-cuisine-heading h2{
+        font-size: 30px;
+    }
+    .restaurant-cuisine-dish{
+        width: 200px;
+        margin-inline: auto;
+        justify-self: center;
+    }
+    .restaurant-cuisine-dishes{
+        padding: 0;
+        padding-top: 20px;
+        width: 100%;
+        justify-content: center;
+    }
+    .restaurant-cuisine-menu-button{
+        width: 200px;
+        justify-self: center;
+        height: 100px;
+        
+    }
+    .restaurant-reservation-info{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .restaurant-cuisine-menu-button-p{
+        display: none;
+    }
+    .restaurant-footer{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: center;
+    }
+    .restaurant-footer-navigation ul{
+        padding-left: 0;
+    }
+    .restaurant-footer-legal-info{
+        margin-left: 0;
+    }
+    .restaurant-footer-logo{
+        width: 200px;
+        height: auto;
+    }
+    .restaurant-footer-info{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .restaurant-footer-contact{
     }
 }

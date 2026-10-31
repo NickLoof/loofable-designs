@@ -53,7 +53,7 @@ function Prices() {
             allowsQuantity: false
         },
         {
-            name: "Karten-/Standortintegration",
+            name: "Karten-/ Standortintegration",
             price: 50,
             startingAt: false,
             allowsQuantity: false
@@ -65,7 +65,7 @@ function Prices() {
             allowsQuantity: false
         },
         {
-            name: "Erweitertes Kontakt-/Anfrageformular",
+            name: "Erweitertes Kontakt-/ Anfrageformular",
             price: 100,
             startingAt: false,
             allowsQuantity: false

@@ -325,6 +325,7 @@
     font-size: 18px;
     font-weight: 600;
     transition: 0.2s;
+    cursor: pointer;
     &&:hover{
         background-color: rgb(253, 165, 0);
         transform: translateY(-3px);
@@ -342,6 +343,9 @@
         transform: translateY(-3px);
         background-color: orange;
     }
+}
+.online-shop-signup-confirmation-window button{
+    cursor: pointer;
 }
 .online-shop-checkout-header{
     font-size: 23px;
@@ -418,6 +422,7 @@
     border: none;
     scale: 1.4;
     transition: 0.2s;
+    cursor: pointer;
     &:hover{
         scale: 1.6;
         color: rgb(197, 87, 14);
@@ -1434,5 +1439,102 @@ font-size: 20px;
     .online-shop-checkout-summary-wrapper{
         padding-top: 20px;
         margin-top: 10px;
+    }
+    .online-shop-our-story-window{
+        width: 95%;
+        height: 600px;
+        overflow-y: auto;
+    }
+    .online-shop-trust{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 25px;
+        justify-content: center;
+    }
+    .online-shop-bestseller-grid{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    .online-shop-bestseller-product-name{
+        font-size: 25px;
+    }
+    .online-shop-bestseller-header h1{
+        font-size: 30px;
+    }
+    .online-shop-bestseller-header p{
+        font-size: 20px;
+    }
+    .online-shop-popular-cards{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    .online-shop-popular h1{
+        font-size: 30px;
+    }
+    .online-shop-popular p{
+        font-size: 20px;
+    }
+    .online-shop-hero-cta-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .online-shop-hero-cta-primary,
+    .online-shop-hero-cta-secondary{
+        font-size: 18px;
+        text-align: center;
+        width: fit-content;
+    }
+    .online-shop-hero-content{
+        gap: 20px;
+    }
+    .online-shop-topbar-searchbar{
+        width: 100%;
+    }
+    .online-shop-topbar-search-wrapper{
+        width: 95%;
+    }
+    .online-shop-login-window{
+        padding: 0;
+    }
+    .online-shop-login-window h2{
+        margin-top: 20px;
+    }
+    .online-shop-login-form{
+        width: 100%;
+    }
+    .online-shop-login-content{
+        margin-inline: auto;
+        width: 90%;
+    }
+    .online-shop-signup-form input,
+    .online-shop-login-form input{
+        width: 100%;
+    }
+    .online-shop-signup-button,
+    .online-shop-login-email-input,
+    .online-shop-login-button,
+    .online-shop-login-password-container{
+        width: 95%;
+    }
+    .online-shop-signup-form fieldset,
+    .online-shop-login-form fieldset{
+        width: 100%;
+        padding: 15px;
+    }
+    .online-shop-signup-window{
+        height: 600px;
+        padding: 10px 0;
+        padding-top: 30px;
+    }
+    .online-shop-signup-window-content{
+        width: 95%;
+    }
+    .online-shop-signup-confirmation-window{
+        width: 95%;
+    }
+    .online-shop-topbar-search-dropdown-item{
+        display: flex;
+        flex-direction: column;
     }
 }

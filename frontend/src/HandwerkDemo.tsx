@@ -136,7 +136,7 @@ function HandwerkDemo({demoScreenRef}: TradeDemoProps) {
                 <img className="trade-hero-background" src={heroBackground}/>
                 <div className="trade-hero-content">
                     <div className="trade-hero-content-header">
-                        <p className="trade-hero-content-header-p1">Sanierung<Dot/>Renovierung<Dot/>Innenausbau</p>
+                        <p className="trade-hero-content-header-p1">Sanierung <span>•</span> Renovierung <span>•</span> Innenausbau</p>
                         <h1 className="trade-hero-content-header-h1">Handwerk, das hält.</h1>
                         <p className="trade-hero-content-header-p2">Von der ersten Planung bis zum letzten Handgriff. Zuverlässige Arbeit, klare Absprachen und saubere Ergebnisse in Kiel und Umgebung.</p>
                     </div>
@@ -299,10 +299,10 @@ function HandwerkDemo({demoScreenRef}: TradeDemoProps) {
                 <div className="trade-footer-links">
                     <div className="trade-footer-logo-container">
                         <img className="trade-footer-logo" src={logo}/>
-                    <div className="trade-footer-header">
-                        <p>Sanierung · Renovierung · Innenausbau</p>
-                        <p>in Kiel und Umgebung</p>
-                    </div>
+                        <div className="trade-footer-header">
+                            <p>Sanierung · Renovierung · Innenausbau</p>
+                            <p>in Kiel und Umgebung</p>
+                        </div>
                     </div>
                     <div className="trade-footer-links-container">
                         <div className="trade-footer-links-navigation">

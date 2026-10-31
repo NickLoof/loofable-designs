@@ -12,12 +12,15 @@
     font-family: "Chillax", sans-serif;
     padding-bottom: 40px;
     padding-top: 100px;
+    width: 100%;
 }
 .hero-headline{
     display: flex;
     justify-content: center;
+    text-align: center;
     font-weight: 500;
     font-size: 30px;
+    width: 95%;
 }
 .hero-headline h1{
     margin-bottom: 0;
@@ -39,6 +42,7 @@
     font-weight: 400;
     font-size: 24px;
     padding-bottom: 90px;
+    width: 95%;
 }
 .hero-CTAs{
     display: flex;
@@ -88,7 +92,61 @@
     gap: 100px;
     margin-bottom: 40px;
     font-weight: 400;
+    width: 95%;
 }
 .hero-additional-info h1, p{
     margin-bottom: 0;
+}
+@media (max-width: 900px){
+    .hero-CTAs a{
+        padding: 15px;
+    }
+    .hero-additional-info{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+        width: 95%;
+        gap: 25px;
+    }
+    .hero-headline{
+        font-size: 25px;
+    }
+}
+@media (max-width: 520px){
+    .hero-CTAs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .hero-headline{
+        font-size: 23px;
+    }
+    .hero-headline span{
+
+    }
+}
+@media (max-width: 400px){
+    .hero-additional-info{
+        grid-template-columns: repeat(1, minmax(150px, 1fr));
+        justify-items: center;
+        gap: 35px;
+    }
+    .hero-info{
+        border-bottom: 1px solid white;
+        width: 200px;
+        padding-bottom: 20px;
+    }
+    .hero-headline{
+        font-size: 16px;
+        width: 90%;
+        display: flex;
+        padding-bottom: 30px;
+    }
+    .hero-support-text{
+        font-size: 18px;
+    }
+    .hero{
+        padding-top: 45px;
+        align-items: center;
+    }
 }

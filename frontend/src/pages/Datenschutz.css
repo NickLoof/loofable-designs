@@ -67,6 +67,7 @@
 .datenschutz-general-processing h3{
     font-size: 25px;
     margin-bottom: 15px;
+    color: green;
 }
 .datenschutz-gdpr-rights h4,
 .datenschutz-recipients h4,
@@ -78,6 +79,7 @@
 .datenschutz-general-processing h4{
     font-size: 22px;
     margin-bottom: 10px;
+    
 }
 .datenschutz-gdpr-rights p,
 .datenschutz-recipients p,
@@ -90,6 +92,26 @@
     font-size: 18px;
     margin-bottom: 15px;
 }
-.datenschutz-gdpr-rights{
 
+@media (max-width: 560px){
+    .datenschutz-page{
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        margin-top: 35px;
+        margin-left: 35px;
+        width: 90%;
+    }
+    .datenschutz-container h1{
+        font-size: 25px;
+    }
+    .datenschutz-container h3{
+        font-size: 22px;
+    }
+    .datenschutz-container p{
+        font-size: 16px;
+    }
+    .datenschutz-container h4{
+        font-size: 18px;
+    }
 }

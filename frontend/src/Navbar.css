@@ -18,25 +18,26 @@ body{
     radial-gradient(circle at 75% 100%, #0d1a12 0%, transparent 50%),
     rgba(9, 14, 11, 0.80);
     backdrop-filter: blur(10px);
-    padding: 5px 50px;
+    padding: 5px clamp(15px, 3.5vw, 50px);
     z-index: 1000;
+    
+    font-family: "Chillax", sans-serif;
 }
 .navbar-logo{
-    width: 250px;
+    width: clamp(180px, 17vw, 200px);
     height: auto;
 }
 .nav-links{
     display: flex;
     align-items: center;
-    margin-left: auto;
-    font-family: "Chillax", sans-serif;
+    margin-left: clamp(10px, 3vw, auto);
 }
 .nav-links ul{
     list-style: none;
     display: flex;
-    gap: 45px;
+    gap: clamp(15px, 3vw, 30px);
     font-size: 20px;
-    margin-right: 50px;
+    margin-right: clamp(10px, 3vw, 50px);
     font-weight: 400;
 }
 .nav-links ul a{
@@ -51,12 +52,13 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     background-color: green;
     border: 2px solid black;
     color: white;
     padding: 10px 15px;
     border-radius: 20px;
-    margin-left: 30px;
+    margin-left: clamp(10px, 2vw, 30px);
     font-weight: 500;
     transition: 0.3s ease;
     text-decoration: none;
@@ -82,7 +84,71 @@ body{
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -23px;
+    bottom: -15px;
     height: 2px;
     background-color: green;
+}
+.navbar-menu{
+    display: none;
+}
+.navbar-menu-overlay{
+    display: none;
+}
+@media (max-width: 1160px) {
+    .navbar-menu{
+        display: block;
+        margin-left: auto;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        color: green;
+        scale: 1.3;
+        align-items: center;
+        transition: 0.2s ease;
+        &&:hover{
+            border: 1px solid green;
+            background-color: #0b2216;
+            cursor: pointer;
+            
+        }
+    }
+    .navbar-menu-overlay{
+        display: block;
+    }
+    .navbar-menu-window{
+
+    }
+    .navbar-menu-links ul a{
+        text-decoration: none;
+        color: white;
+        position: relative;
+        &:hover{
+        color: green;
+    }
+    }
+    .navbar-menu-links ul{
+        list-style: none;
+    }
+    .nav-links{
+        display: none;
+    }
+    .navbar-menu-close-button{
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        color: #03af2e;
+    }
+    .navbar{
+        display: flex;
+        justify-content: space-between;
+    }
+    .navbar-mobile-button-container{
+        display: flex;
+        gap: 20px
+    }
+}
+@media (max-width: 425px) {
+    .navbar-button{
+        display: none;
+    }
 }

@@ -695,6 +695,7 @@ function resetLoginForm() {
                             {loginOpen&& demoScreenRef.current && createPortal(
                                 <div className="online-shop-overlay">
                                     <div ref={loginRef} className="online-shop-login-window">
+                                        <div className="online-shop-login-content">
                                         <h2>Willkommen zurück!</h2>
                                         <h3>Melde dich bei deinem Konto an.</h3>
                                         <form className="online-shop-login-form">
@@ -702,7 +703,7 @@ function resetLoginForm() {
                                                 <legend>Login</legend>
                                                 <label htmlFor="login-email-input">E-Mail</label>
                                                 <input id="login-email-input" type="email" placeholder="E-Mail eingeben" value={loginEmail} onChange={(event) => 
-                                                    setLoginEmail(event.target.value)}/>
+                                                    setLoginEmail(event.target.value)} className="online-shop-login-email-input"/>
                                                 <label htmlFor="login-password-input">Passwort</label>
                                                 <div className="online-shop-login-password-container">
                                                     <input className="online-shop-login-password" id="login-password-input" 
@@ -713,7 +714,7 @@ function resetLoginForm() {
                                                     :(<button className="online-shop-login-eye-button" onClick={() => setShowLoginPassword(!showLoginPassword)}><Eye/></button>)}
                                                 </div>
                                                 <a className="online-shop-login-forgot-password">Passwort vergessen?</a>
-                                                <button type="submit" className="online-shop-login-button" onClick={() => resetLoginForm()}>Einloggen</button>
+                                                <button type="button" className="online-shop-login-button" onClick={() => resetLoginForm()}>Einloggen</button>
                                             </fieldset>
                                         </form>
                                         <div className="online-shop-login-outside-form">
@@ -722,10 +723,12 @@ function resetLoginForm() {
                                         </div>
                                         <button className="online-shop-close-login-button" onClick={() => {setLoginOpen(false); resetSignupForm(); resetLoginForm();}}><CircleX/></button>
                                     </div>
+                                    </div>
                                 </div>, demoScreenRef.current)}
                                 {signupOpen&& demoScreenRef.current && createPortal(
                                     <div className="online-shop-overlay"> 
                                         <div ref={signupRef} className="online-shop-signup-window">
+                                            <div className="online-shop-signup-window-content">
                                             <form className="online-shop-signup-form" onSubmit={handleSignupSubmit}>
                                                 <fieldset>
                                                     <legend>Konto erstellen</legend>
@@ -769,6 +772,7 @@ function resetLoginForm() {
                                                 {setSignupOpen(false); setLoginOpen(true); resetSignupForm();}}>Zur Anmeldung</button>
                                             </div>
                                         </div>
+                                        </div>
                                     </div>, demoScreenRef.current
                                 )}
                                 {signupSuccessOpen && demoScreenRef.current && createPortal(
@@ -810,7 +814,7 @@ function resetLoginForm() {
                                             <h3>Zwischensumme: </h3>
                                             <p>{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(subTotal)}</p>
                                         </div>
-                                        <button className="online-shop-cart-checkout-button" onClick={() => setCheckoutOpen(true)}>Zur Kasse</button>
+                                        <button className="online-shop-cart-checkout-button" onClick={() => {setCheckoutOpen(true); setCartOpen(false)}}>Zur Kasse</button>
                                         </div>
                                         <button className="online-shop-x-button" onClick={() => setCartOpen(false)}><CircleX/></button>
                                     </div>
@@ -1042,7 +1046,7 @@ function resetLoginForm() {
                             <div key={product.id} className="online-shop-bestseller-product">
                                 <img className="online-shop-bestseller-product-image" src={product.image} alt={product.name} />
                                 <div className="online-shop-bestseller-product-info">
-                                    <p className="online-shop-bestseller-product-name">{product.name}</p>
+                                    <h3 className="online-shop-bestseller-product-name">{product.name}</h3>
                                     <p className="online-shop-bestseller-product-category">{product.category}</p>
                                     <p className="online-shop-bestseller-product-rating">{Array(5).fill(null).map((_, index) =>
                                         (<Star key={index} fill={index < Math.round(product.rating) ? "orange" : "none"} />))}<span>{product.rating}</span>({product.reviews})</p>
