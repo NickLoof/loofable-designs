@@ -1,7 +1,6 @@
 .restaurant-demo a{
     text-decoration: none;
     color: black;
-    width: 100%;
 }
 .restaurant-navbar{
     display: flex;
@@ -74,7 +73,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 80px;
+    gap: 40px;
     z-index: 1;
 }
 .restaurant-hero-text h1{
@@ -91,6 +90,7 @@
 }
 .restaurant-hero-primary,
 .restaurant-hero-secondary{
+    width: fit-content;
     color: black;
     padding: 15px 15px;
     border: 2px solid black;
