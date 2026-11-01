@@ -718,6 +718,19 @@
     .trade-footer-links-container{
         justify-content: space-between;
     }
+    .online-shop-hero-cta-secondary,
+    .online-shop-hero-cta-primary{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .online-shop-hero-cta-secondary{
+        width: 250px;
+    }
+    .online-shop-hero-cta-container{
+        align-items: center;
+    }
 }
 
 @container (max-width: 600px) {
