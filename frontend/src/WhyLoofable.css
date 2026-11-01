@@ -100,4 +100,7 @@ p {
         text-align: center;
         gap: 15px;
     }
+    .why-loofable-reason svg{
+        margin-left: 0;
+    }
 }

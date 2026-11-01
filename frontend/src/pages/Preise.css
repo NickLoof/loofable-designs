@@ -355,6 +355,14 @@
         border-color: white;
     }
 }
+@media (max-width: 900px) {
+    .prices-calculator-sum-body h3{
+        font-size: 30px;
+    }
+    .prices-calculator-sum-body{
+        text-align: center;
+    }
+}
 @media(max-width: 550px){
     .prices-packages{
         justify-content: center;
@@ -418,6 +426,9 @@
         display: flex;
         flex-direction: column;
     }
+    .prices-calculator-sum-body h3{
+        font-size: 25px;
+    }
 }
 @media(max-width: 400px){
     .prices-addon-top h2{
@@ -456,5 +467,8 @@
     .prices-calculator-sum-body{
         font-size: 18px;
         text-align: center;
+    }
+    .prices-calculator-sum-body h3{
+        font-size: 21px;
     }
 }

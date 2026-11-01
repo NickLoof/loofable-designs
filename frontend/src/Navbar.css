@@ -181,6 +181,11 @@ body{
         gap: 20px
     }
 }
+@media (max-width: 530px){
+    .navbar-button{
+        display: none;
+    }
+}
 @media (max-width: 425px) {
     .navbar-button{
         display: none;

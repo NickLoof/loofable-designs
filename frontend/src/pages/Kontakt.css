@@ -118,6 +118,9 @@
     justify-self: center;
     width: 95%;
 }
+.project-form-input-container select{
+    cursor: pointer;
+}
 .project-form-input-container select,
 .project-form-input-container textarea,
 .project-form-input-container input,
@@ -326,6 +329,9 @@ input[type="file"]::file-selector-button {
 .contact-calculator-total{
 margin-top: 20px;
 }
+@media(max-width: 900px){
+    
+}
 @media(max-width: 800px){
     .project-form-content,
     .contact-form-content{
@@ -376,6 +382,9 @@ margin-top: 20px;
     }
     .contact-calculator-selection{
         width: 90%;
+    }
+    .project-form-input-container textarea{
+        width: 100%;
     }
 }
 @media(max-width: 400px){

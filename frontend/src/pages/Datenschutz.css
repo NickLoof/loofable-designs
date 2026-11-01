@@ -24,6 +24,13 @@
     margin-bottom: 20px;
 }
 .datenschutz-responsible-party h3{
+    color: green;
+}
+.datenschutz-responsible-party-contact h4,
+.datenschutz-responsible-party h4{
+    color: green;
+}
+.datenschutz-responsible-party h3{
     font-size: 25px;
 }
 .datenschutz-responsible-party-contact a,

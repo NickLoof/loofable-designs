@@ -56,11 +56,17 @@
 .impressum-contact p{
     font-size: 17px;
 }
+@media (max-width: 650px){
+    .impressum-page{
+        padding-left: 50px;
+    }
+}
 @media (max-width: 475px){
     .impressum-page{
         display: flex;
         flex-direction: column;
         justify-content: center;
         text-align: flex-start;
+        padding-left: 40px;
     }
 }
