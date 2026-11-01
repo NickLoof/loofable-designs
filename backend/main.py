@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Form, File, UploadFile
+from fastapi import FastAPI, Form, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
@@ -11,6 +11,48 @@ import os
 import smtplib
 from email.message import EmailMessage
 
+
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
+
+ALLOWED_TEXT_EXTENSIONS = {".pdf", ".doc", ".docx", ".txt"}
+ALLOWED_LOGO_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".svg"}
+ALLOWED_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
+ALLOWED_BRANDING_EXTENSIONS = {
+    ".pdf",
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".webp",
+    ".svg",
+}
+
+ALLOWED_TEXT_TYPES = {
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "text/plain",
+}
+
+ALLOWED_LOGO_TYPES = {
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/svg+xml",
+}
+
+ALLOWED_IMAGE_TYPES = {
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+}
+
+ALLOWED_BRANDING_TYPES = {
+    "application/pdf",
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/svg+xml",
+}
 
 load_dotenv()
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
@@ -36,6 +78,31 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+def validate_upload(file: UploadFile, allowed_extensions: set[str], allowed_types: set[str]):
+    extension = Path(file.filename).suffix.lower()
+
+    if extension not in allowed_extensions:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Dateityp {extension} ist nicht erlaubt."
+        )
+
+    if file.content_type not in allowed_types:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Dateityp {file.content_type} ist nicht erlaubt."
+        )
+
+    file.file.seek(0, 2)
+    file_size = file.file.tell()
+    file.file.seek(0)
+
+    if file_size > MAX_FILE_SIZE:
+        raise HTTPException(
+            status_code=400,
+            detail="Die Datei darf maximal 10 MB groß sein."
+        )
 
 def send_email(subject: str, body: str, reply_to: str):
     message = EmailMessage()
@@ -233,6 +300,21 @@ def create_project_inquiry(
     branding_stored_name = None
     image_original_names = []
     image_stored_names = []
+
+        # Validate all uploads before saving anything
+    if textFile:
+        validate_upload(textFile, ALLOWED_TEXT_EXTENSIONS, ALLOWED_TEXT_TYPES)
+
+    if logo:
+        validate_upload(logo, ALLOWED_LOGO_EXTENSIONS, ALLOWED_LOGO_TYPES)
+
+    if branding:
+        validate_upload(branding, ALLOWED_BRANDING_EXTENSIONS, ALLOWED_BRANDING_TYPES)
+
+    if images:
+        for image in images:
+            validate_upload(image, ALLOWED_IMAGE_EXTENSIONS, ALLOWED_IMAGE_TYPES)
+
 
     if textFile:
         file_extension = Path(textFile.filename).suffix
