@@ -49,23 +49,25 @@ function Navbar () {
 
     return (
         <nav className="navbar">
-            <div className="navbar-logo-container">
-                <img className="navbar-logo" src={logo} alt="Loofable Designs"/>
-            </div>
-            <div className="nav-links">
-                <ul>
-                    <li><Link to="/" onClick={() => window.scrollTo(0, 0)} 
-                    className={location.pathname === "/" && activeSection === "loofable-home"?"active":""}>Startseite</Link></li>
-                    <li><Link to="/#leistungen" 
-                    className={location.pathname === "/" && activeSection === "leistungen"?"active":""}>Leistungen</Link></li>
-                    <li><Link to="/#warum-loofable" 
-                    className={location.pathname === "/" && activeSection === "warum-loofable"?"active":""}>Warum Loofable?</Link></li>
-                    <li><Link to="/#live-demo" 
-                    className={location.pathname === "/" && activeSection === "live-demo"?"active":""}>Live-Demo</Link></li>
-                    <li><Link to="/#prozess"
-                    className={location.pathname === "/" && activeSection === "prozess"?"active":""}>Prozess</Link></li>
-                    <li><Link to="/preise" className={location.pathname === "/preise" ? "active" : ""}>Preise</Link></li>
-                </ul>
+            <div className="navbar-logo-links">
+                <div className="navbar-logo-container">
+                    <img className="navbar-logo" src={logo} alt="Loofable Designs"/>
+                </div>
+                <div className="nav-links">
+                    <ul>
+                        <li><Link to="/" onClick={() => window.scrollTo(0, 0)} 
+                        className={location.pathname === "/" && activeSection === "loofable-home"?"active":""}>Startseite</Link></li>
+                        <li><Link to="/#leistungen" 
+                        className={location.pathname === "/" && activeSection === "leistungen"?"active":""}>Leistungen</Link></li>
+                        <li><Link to="/#warum-loofable" 
+                        className={location.pathname === "/" && activeSection === "warum-loofable"?"active":""}>Warum Loofable?</Link></li>
+                        <li><Link to="/#live-demo" 
+                        className={location.pathname === "/" && activeSection === "live-demo"?"active":""}>Live-Demo</Link></li>
+                        <li><Link to="/#prozess"
+                        className={location.pathname === "/" && activeSection === "prozess"?"active":""}>Prozess</Link></li>
+                        <li><Link to="/preise" className={location.pathname === "/preise" ? "active" : ""}>Preise</Link></li>
+                    </ul>
+                </div>
             </div>
             <div className="navbar-mobile-button-container">
                 <Link to="/kontakt" className="navbar-button">Kostenloses Angebot</Link>

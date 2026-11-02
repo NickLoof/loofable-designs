@@ -9,6 +9,8 @@ body{
 }
 .navbar{
     position: fixed;
+    display: flex;
+    justify-content: space-between;
     top: 0;
     width: 100%;
     display: flex;
@@ -22,6 +24,10 @@ body{
     z-index: 1000;
     
     font-family: "Chillax", sans-serif;
+}
+.navbar-logo-links{
+    display: flex;
+    flex-direction: row;
 }
 .navbar-logo{
     width: clamp(180px, 17vw, 200px);
@@ -109,7 +115,7 @@ body{
         padding-left: 15px;
     }
 }
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
     .navbar-menu-button-container{
         display: block;
         border: transparent;
