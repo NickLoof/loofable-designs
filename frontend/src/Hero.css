@@ -16,11 +16,17 @@
 }
 .hero-headline{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     text-align: center;
     font-weight: 500;
     font-size: 30px;
     width: 95%;
+}
+.hero-eyebrow {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 .hero-headline h1{
     margin-bottom: 0;

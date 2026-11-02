@@ -6,6 +6,7 @@ function Hero() {
     return (
         <section className="hero" id="loofable-home">
                 <div className="hero-headline">
+                    <p className="hero-eyebrow">WEBDESIGN & WEBENTWICKLUNG AUS KIEL</p>
                 <h1>Websites für kleine Unternehmen, die <span>auffallen wollen.</span></h1>
                 </div>
                 <div className="hero-support-text">

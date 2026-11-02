@@ -8,7 +8,7 @@ function WhyLoofable() {
     return (
         <section id="warum-loofable" className="why-loofable">
             <div className="why-loofable-header">
-                <p>Der unabhängige Vorteil</p>
+                <p>Persönlich. Direkt. Individuell.</p>
                 <h1>Warum Loofable Designs?</h1>
             </div>
             <div className="why-loofable-columns">

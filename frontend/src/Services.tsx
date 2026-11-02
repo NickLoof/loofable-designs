@@ -9,7 +9,8 @@ function Services() {
                 <h1>Alles, was dein Unternehmen für den Online-Erfolg braucht</h1>
             </div>
             <div className="services-support-text">
-                <p>Von schlichten, modernen Websites bis hin zu maßgeschneiderten, funktionalen Online-Shops</p>
+                <p>Individuelles Webdesign für Selbstständige und kleine Unternehmen in Kiel und Umgebung – 
+                    von modernen Unternehmens-Websites bis hin zu maßgeschneiderten Online-Shops.</p>
             </div>
             <div className="services-cards">
                 <div className="services-card">
@@ -38,7 +39,7 @@ function Services() {
                 </div>
                 <div className="services-card">
                     <Store className="services-icon"/>
-                    <h1>Online Shops</h1>
+                    <h1>Online-Shops</h1>
                     <p className="services-card-p">Vom ersten Produkt bis zum sicheren Checkout: individuelle Online-Shops für digitale und physische Produkte, passend zu deinem Unternehmen.
                     </p>
                     <ul>

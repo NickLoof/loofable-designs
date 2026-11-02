@@ -28,6 +28,7 @@ function Footer () {
                         <a className="footer-contact-link" href="tel:+491754458459">+49 175 4458459</a>
                         <p>Telefonisch erreichhbar:</p>
                         <p>Mo–Fr: 9:00–18:00 Uhr</p>
+                        <p className="footer-location">Kiel, Schleswig-Holstein</p>
                     </div>
                     <div className="footer-legal">
                         <h3>Rechtliches</h3>

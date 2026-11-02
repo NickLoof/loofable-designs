@@ -6,7 +6,7 @@ function Processes () {
         <section id="prozess" className="process-content">
             <div className="process-content-header">
                 <h2>So läuft dein Projekt ab.</h2>
-                <p>Von der ersten Idee bis zur fertigen Website - transparent und unkompliziert</p>
+                <p>Von der ersten Idee bis zur fertigen Website – transparent und unkompliziert</p>
             </div>
             <div className="process-content-info">
                 <div className="process-timeline">

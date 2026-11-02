@@ -90,6 +90,10 @@
         width: 200px;
         text-align: left;
     }
+.footer-location {
+  margin-top: 0.5rem;
+  font-style: italic;
+}
 @media (max-width: 1200px){
     .footer-logo img{
     max-width: 250px;
