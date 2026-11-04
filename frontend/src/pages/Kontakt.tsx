@@ -146,6 +146,10 @@ function Contact () {
 
             setToast({message: "Anfrage erfolgreich gesendet!", type: "success"})
             setCalculatorSelection(null);
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+                });
 
         }else{
             setToast({
@@ -309,6 +313,10 @@ function Contact () {
                 message: "",
                 privacyAccepted: false
             });
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+                });
         }else{
             setToast({
                 message: "Beim Senden der Projektanfrage ist etwas schiefgelaufen.",
