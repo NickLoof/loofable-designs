@@ -548,36 +548,36 @@ def create_project_inquiry(
 
     return {"message": "Inquiry saved successfully"}
 
-@app.get("/inquiries/quick")
-def read_quick_inquiry():
-    connection = get_db_connection()
-    cursor = connection.execute("""SELECT * FROM quick_inquiries """)
-    inquiries = cursor.fetchall()
-    connection.close()
-    return [dict(row) for row in inquiries]
+#@app.get("/inquiries/quick")
+#def read_quick_inquiry():
+    #connection = get_db_connection()
+    #cursor = connection.execute("""SELECT * FROM quick_inquiries """)
+    #inquiries = cursor.fetchall()
+    #connection.close()
+    #return [dict(row) for row in inquiries]
 
-@app.get("/inquiries/project")
-def read_project_inquiries():
-    connection = get_db_connection()
-    cursor = connection.execute("""SELECT * FROM project_inquiries """)
-    inquiries = cursor.fetchall()
-    connection.close()
-    result = []
-    for row in inquiries:
-        inquiry = dict(row)
-        inquiry["pages"] = json.loads(inquiry["pages"])
-        inquiry["features"] = json.loads(inquiry["features"])
-        result.append(inquiry)
-    return result
-
-
+#@app.get("/inquiries/project")
+#def read_project_inquiries():
+    #connection = get_db_connection()
+    #cursor = connection.execute("""SELECT * FROM project_inquiries """)
+    #inquiries = cursor.fetchall()
+    #connection.close()
+    #result = []
+    #for row in inquiries:
+        #inquiry = dict(row)
+        #inquiry["pages"] = json.loads(inquiry["pages"])
+        #inquiry["features"] = json.loads(inquiry["features"])
+        #result.append(inquiry)
+    #return result
 
 
-@app.get("/debug/project-columns")
-def project_columns():
-    connection = get_db_connection()
-    cursor = connection.execute("PRAGMA table_info(project_inquiries)")
-    columns = cursor.fetchall()
-    connection.close()
 
-    return [dict(column) for column in columns]
+
+# @app.get("/debug/project-columns")
+# def project_columns():
+#     connection = get_db_connection()
+#     cursor = connection.execute("PRAGMA table_info(project_inquiries)")
+#     columns = cursor.fetchall()
+#     connection.close()
+
+#     return [dict(column) for column in columns]
