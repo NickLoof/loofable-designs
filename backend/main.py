@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Form, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import sqlite3
 import json
 from pathlib import Path
@@ -135,6 +135,10 @@ def create_tables():
         phone TEXT,
         privacyAccepted INTEGER,
         message TEXT
+        selectedPackage TEXT,
+        selectedAddons TEXT,
+        addonQuantities TEXT,
+        total REAL
         )
         """)
     connection.execute("""
@@ -175,8 +179,32 @@ def create_tables():
     features TEXT,
     otherFeatures TEXT,
     timeline TEXT
+    selectedPackage TEXT,
+    selectedAddons TEXT,
+    addonQuantities TEXT,
+    total REAL
     )
      """)
+
+    new_columns = {
+    "selectedPackage": "TEXT",
+    "selectedAddons": "TEXT",
+    "addonQuantities": "TEXT",
+    "total": "REAL"
+}
+
+    for table in ["quick_inquiries", "project_inquiries"]:
+        existing_columns = {
+            row["name"]
+            for row in connection.execute(f"PRAGMA table_info({table})")
+        }
+
+        for column, column_type in new_columns.items():
+            if column not in existing_columns:
+                connection.execute(
+                    f"ALTER TABLE {table} ADD COLUMN {column} {column_type}"
+                )
+
     connection.commit()
     connection.close()
 
@@ -190,6 +218,10 @@ class BaseInquiry(BaseModel):
     phone: str | None = None
     privacyAccepted: bool
     message: str
+    selectedPackage: str | None = None
+    selectedAddons: list[dict] = Field(default_factory=list)
+    addonQuantities: dict[str, int] = Field(default_factory=dict)
+    total: float | None = None
 
 class QuickInquiry(BaseInquiry):
     pass
@@ -224,8 +256,8 @@ def home():
 def create_quick_inquiry(inquiry: QuickInquiry):
     connection = get_db_connection()
     connection.execute("""INSERT INTO quick_inquiries
-    (firstName, lastName, companyName, email, phone, privacyAccepted, message)
-    VALUES (?, ?, ?, ?, ?, ?, ?) """, (
+    (firstName, lastName, companyName, email, phone, privacyAccepted, message, selectedPackage, selectedAddons, addonQuantities, total)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) """, (
         inquiry.firstName,
         inquiry.lastName,
         inquiry.companyName,
@@ -233,9 +265,28 @@ def create_quick_inquiry(inquiry: QuickInquiry):
         inquiry.phone,
         inquiry.privacyAccepted,
         inquiry.message,
+        inquiry.selectedPackage,
+        json.dumps(inquiry.selectedAddons),
+        json.dumps(inquiry.addonQuantities),
+        inquiry.total,
     ))
     connection.commit()
     connection.close()
+
+    addons_text = "\n".join(
+        f"- {addon['name']}: {addon['price']} €"
+        for addon in inquiry.selectedAddons
+    ) or "-"
+    quantities_text = "\n".join(
+        f"- {name}: {quantity}"
+        for name, quantity in inquiry.addonQuantities.items()
+    ) or "-"
+
+    total_text = (
+        f"{inquiry.total:.2f} €"
+        if inquiry.total is not None
+        else "Preis auf Anfrage"
+    )
 
     body = f"""
     Neue Kurzanfrage über loofable-designs.de
@@ -244,6 +295,11 @@ def create_quick_inquiry(inquiry: QuickInquiry):
     Unternehmen: {inquiry.companyName or "-"}
     E-Mail: {inquiry.email}
     Telefon: {inquiry.phone or "-"}
+    PAKET & PREIS
+    Gewähltes Paket: {inquiry.selectedPackage or "-"}
+    Zusatzleistungen: {addons_text}
+    Mengen: {quantities_text}
+    Geschätzter Gesamtpreis: {total_text}
     Nachricht: 
     {inquiry.message}
     """
@@ -289,6 +345,10 @@ def create_project_inquiry(
     features: str | None = Form(None),
     otherFeatures: str | None = Form(None),
     timeline: str = Form(),
+    selectedPackage: str | None = Form(None),
+    selectedAddons: str = Form("[]"),
+    addonQuantities: str = Form("{}"),
+    total: float | None = Form(None),
     ):
     connection = get_db_connection()
 
@@ -361,8 +421,9 @@ def create_project_inquiry(
     connection.execute("""INSERT INTO project_inquiries
     (firstName, lastName, companyName, email, phone, privacyAccepted, message, projectType, industry, companyDescription, websiteGoal, url, primaryColor, secondaryColor, accentColor, 
     style, inspiration, availableText, availableImages, availableLogo, availableBranding, textFileOriginalName, textFileStoredName, logoOriginalName, logoStoredName,
-     brandingOriginalName, brandingStoredName, imageOriginalNames, imageStoredNames, pageCount, pages, otherPages, features, otherFeatures, timeline)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) """, (
+     brandingOriginalName, brandingStoredName, imageOriginalNames, imageStoredNames, pageCount, pages, otherPages, features, otherFeatures, timeline, 
+     selectedPackage, selectedAddons, addonQuantities, total)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) """, (
         firstName,
         lastName,
         companyName,
@@ -398,6 +459,10 @@ def create_project_inquiry(
         features,
         otherFeatures,
         timeline,
+        selectedPackage, 
+        selectedAddons, 
+        addonQuantities, 
+        total,
     ))
     connection.commit()
     connection.close()
@@ -409,6 +474,25 @@ def create_project_inquiry(
     features_text = ", ".join(features_list) if features_list else "-"
 
     images_text = ", ".join(image_original_names) if image_original_names else "-"
+
+    addons_list = json.loads(selectedAddons)
+    quantities_dict = json.loads(addonQuantities)
+
+    addons_text = "\n".join(
+        f"- {addon['name']}: {addon['price']} €"
+        for addon in addons_list
+    ) or "-"
+
+    quantities_text = "\n".join(
+        f"- {name}: {quantity}"
+        for name, quantity in quantities_dict.items()
+    ) or "-"
+
+    total_text = (
+        f"{total:.2f} €"
+        if total is not None
+        else "Preis auf Anfrage"
+    )
 
     body = f"""
     Neue Projektanfrage
@@ -436,6 +520,12 @@ def create_project_inquiry(
     Seitenanzahl: {pageCount or "-"}
     Seiten: {pages_text or "-"}
     Funktionen: {features_text or "-"}
+
+    PAKET & PREIS
+    Gewähltes Paket: {selectedPackage or "-"}
+    Zusatzleistungen: {addons_text}
+    Mengen: {quantities_text}
+    Geschätzter Gesamtpreis: {total_text}
 
     ZEITPLAN
     {timeline}

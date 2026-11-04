@@ -178,7 +178,8 @@ function Prices() {
                 "1 Monat Betreuung inklusive"]
         }
     ]
-    const redesign: Package = {
+    const redesignPackages: Package[] = [
+        {
     name: "Website-Redesign",
     price: 499,
     startingAt: true,
@@ -194,9 +195,24 @@ function Prices() {
     "Modernisierung von Animationen & Interaktionen",
     "Technische Optimierungen",
     "Einrichtung & Veröffentlichung der überarbeiteten Website",
-    "1 Monat Betreuung inklusive"
-]
-} 
+    "1 Monat Betreuung inklusive"]
+},
+        {
+            name: "Individuelle Webanwendungen",
+            price: null,
+            startingAt: false,
+            description: "Für Unternehmen, die ihre bestehende Website um individuelle Funktionen erweitern oder digitale Geschäftsprozesse vereinfachen möchten.",
+            features: [
+            "Online-Bestellsysteme",
+            "Terminbuchungen & Reservierungen",
+            "Kundenportale & Benutzerkonten",
+            "Individuelle Formulare",
+            "Verwaltungsbereiche & Dashboards",
+            "Automatische Benachrichtigungen",
+            "Datenbankanbindungen",
+            "Integration in bestehende Websites"]
+        }
+]; 
 
     const selectedAddonsTotal = selectedAddons.reduce((sum, addon) =>{return sum + addon.price;}, 0);
     const quantityAddonsTotal = addOn.reduce((sum, addon) => {const quantity = addonQuantities[addon.name] || 0; return sum + addon.price * quantity;}, 0);
@@ -246,29 +262,45 @@ function Prices() {
                 <div className="prices-packages-redesign">
                         <div className="prices-packages-redesign-header">
                             <h3>Du hast bereits eine Website?</h3>
-                            <h1>Website-Redesign</h1>
-                            <p>Deine Website ist technisch oder optisch in die Jahre gekommen? Ich modernisiere Design, 
-                                Struktur und Benutzerfreundlichkeit und passe sie an dein Unternehmen an.</p>
+                            <h1>Websites modernisieren & erweitern</h1>
+                            <p>Deine Website braucht einen neuen Look oder zusätzliche Funktionen? Ich modernisiere bestehende Websites 
+                                und entwickle individuelle Webanwendungen, die dein Unternehmen im Alltag unterstützen.</p>
                         </div>
-                        <div className={`prices-redesign-package ${selectedPackage?.name === redesign.name ? "selected" : ""}`}>
+                        <div className="prices-redesign-packages-grid">
+                        {redesignPackages.map((pkg) => (
+                        <div key={pkg.name} className={`prices-redesign-package ${selectedPackage?.name === pkg.name ? "selected" : ""}`}>
                             <div className="prices-package-heading">
                                 <div className="bestseller-package-heading">
-                                    <h2>{redesign.name}</h2>
-                                    {redesign.name === "Business Website" &&(<p className="bestseller-p">Bestseller</p>)}
+                                    <h2>{pkg.name}</h2>
+                                    {pkg.name === "Business Website" &&(<p className="bestseller-p">Bestseller</p>)}
                                 </div>
-                                <h2>{redesign.startingAt && "ab "}{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(redesign.price)}</h2>  
+                                <h2>{pkg.price === null
+                                    ? "Preis auf Anfrage"
+                                    : (
+                                    <>
+                                        {pkg.startingAt && "ab "}
+                                        {new Intl.NumberFormat("de-DE", {
+                                        style: "currency",
+                                        currency: "EUR",
+                                        }).format(pkg.price)}
+                                    </>
+                                    )}
+                                </h2>  
                             </div>
                             <div className="prices-package-info">
-                                <p>{redesign.description}</p>
+                                <p>{pkg.description}</p>
                                 <ul>
-                                    {redesign.features.map((feature) => (
+                                    {pkg.features.map((feature) => (
                                             <li key={feature}>{feature}</li>
                                         ))}
                                     </ul>
                             </div>
-                            <button className="prices-package-button" onClick={() => setSelectedPackage(selectedPackage?.name === redesign.name ? null : redesign)}>
-                                    {selectedPackage?.name === redesign.name ?"Ausgewählt ✓":"Paket auswählen"}</button>
-                        </div>     
+                            <button className="prices-package-button" onClick={() => setSelectedPackage(selectedPackage?.name === pkg.name ? null : pkg)}>
+                                    {selectedPackage?.name === pkg.name ?"Ausgewählt ✓": pkg.price === null 
+                                    ?"Angebot anfragen":"Paket auswählen"}</button>
+                        </div>
+                        ))} 
+                        </div>    
                     </div>
                     <div className="prices-addons-heading">
                         <h3>Deine Website. Deine Extras.</h3>
@@ -305,11 +337,13 @@ function Prices() {
                                 <h2>1. Ausgewähltes Paket: </h2>
                                 <div className="prices-selected-package-name-price">
                                     <h3>{selectedPackage?.name}</h3>
-                                    <h3>+{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(selectedPackage?.price || 0)}</h3>
+                                    <h3>{selectedPackage?.price === null
+                                        ? "Preis auf Anfrage"
+                                        : new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(selectedPackage?.price ?? 0)}</h3>
                                 </div>
                             </div>
                             <div className="prices-selected-addon">
-                                <h2>2. Ausgewählte Zusatzleistungen: </h2>
+                                <h2>2. Gewünschte Zusatzleistungen: </h2>
                                 {addOn.filter((item) => (addonQuantities[item.name] || 0) > 0).map((item) => (
                                     <div key={item.name} className="prices-selected-package-quantity-name-price">
                                             <h3>{item.name} x {addonQuantities[item.name]}</h3>
@@ -328,10 +362,17 @@ function Prices() {
                                 {selectedPackage === null &&(<h2>Bitte zuerst ein Paket auswählen!</h2>) }
                             </div>
                             <div className="prices-calculator-sum-body">
-                                {selectedPackage &&(<h3>ca. {new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(total)}</h3>)}
+                                {selectedPackage && (
+                                <h3>{selectedPackage.price === null
+                                    ? "Individuelles Angebot erforderlich"
+                                    : `ca. ${new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(total)}`}
+                                </h3>)}
                             </div>
                             <button className="prices-calculator-cta" onClick={() => navigate("/kontakt", {state: {selectedPackage, selectedAddons, addonQuantities, total}})}>
-                                Auswahl ins Kontaktformular übernehmen</button>
+                                {selectedPackage?.price === null
+                                ? "Individuelles Angebot anfragen"
+                                : "Auswahl ins Kontaktformular übernehmen"}
+                            </button>
                         </div>
                     </div>
         </>

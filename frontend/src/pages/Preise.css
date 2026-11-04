@@ -120,6 +120,14 @@
     width: 100%;
     align-items: center;
 }
+.prices-redesign-packages-grid{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 30px;
+        max-width: 1100px;
+        width: 100%;
+        margin: 0 auto;
+    }
 .prices-redesign-package{
     border: 2px solid rgb(103, 212, 103);
     border-radius: 30px;
@@ -362,6 +370,9 @@
     .prices-calculator-sum-body{
         text-align: center;
     }
+    .prices-redesign-packages-grid {
+    grid-template-columns: 1fr;
+  }
 }
 @media(max-width: 550px){
     .prices-packages{
@@ -415,7 +426,8 @@
         align-self: center;
     }
     .prices-redesign-package{
-        width: 70%;
+        width: 100%;
+        min-width: 0;
         padding: 20px;
         min-width: 350px;
     }

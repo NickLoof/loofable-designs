@@ -120,9 +120,19 @@ function Contact () {
         if(hasErrors){
             return;
         }
-        
+        const quickFormData = {
+            ...contactForm,
+            selectedPackage: calculatorSelection?.selectedPackage?.name ?? null,
+            selectedAddons: calculatorSelection?.selectedAddons ?? [],
+            addonQuantities: calculatorSelection?.addonQuantities ?? {},
+            total:
+                calculatorSelection?.selectedPackage?.price == null
+                ? null
+                : calculatorSelection.total
+            };
+
         const url = "/api/inquiries/quick";
-        const response = await fetch(url, {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(contactForm)})
+        const response = await fetch(url, {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(quickFormData)})
         if (response.ok){
             setContactForm({
                 firstName: "",
@@ -224,6 +234,28 @@ function Contact () {
         if(!projectForm.privacyAccepted){
             newErrors.privacyAccepted = "Bitte akzeptiere die Datenschutzerklärung."
         }
+        if (calculatorSelection?.selectedPackage) {
+            formData.append(
+                "selectedPackage",
+                calculatorSelection.selectedPackage.name
+            );
+            }
+        if (calculatorSelection) {
+            formData.append(
+                "selectedAddons",
+                JSON.stringify(calculatorSelection.selectedAddons)
+            );
+            formData.append(
+                "addonQuantities",
+                JSON.stringify(calculatorSelection.addonQuantities)
+                );
+            }
+        if (
+            calculatorSelection &&
+            calculatorSelection.selectedPackage?.price != null
+            ) {
+            formData.append("total", calculatorSelection.total.toString());
+            }
         setProjectErrors(newErrors);
         const hasErrors = Object.values(newErrors).some(item => item !== "");
         if(hasErrors){

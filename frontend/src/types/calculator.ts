@@ -1,7 +1,7 @@
 
 export type Package = {
         name: string,
-        price: number,
+        price: number | null,
         startingAt: boolean,
         description: string,
         features: string[]
