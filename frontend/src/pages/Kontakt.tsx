@@ -326,7 +326,6 @@ function Contact () {
     }
 
     const location = useLocation();
-    console.log(location.state);
     const [calculatorSelection, setCalculatorSelection] =
     useState<CalculatorSelection | null>(
         location.state as CalculatorSelection | null

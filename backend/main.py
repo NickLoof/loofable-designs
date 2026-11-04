@@ -15,9 +15,13 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from slowapi import _rate_limit_exceeded_handler
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
+MAX_EMAIL_ATTACHMENTS_SIZE = 10 * 1024 * 1024
 
 ALLOWED_TEXT_EXTENSIONS = {".pdf", ".doc", ".docx", ".txt"}
 ALLOWED_LOGO_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".svg"}
@@ -113,7 +117,7 @@ def validate_upload(file: UploadFile, allowed_extensions: set[str], allowed_type
             detail="Die Datei darf maximal 10 MB groß sein."
         )
 
-def send_email(subject: str, body: str, reply_to: str):
+def send_email(subject: str, body: str, reply_to: str, attachments: list[tuple[Path, str]] | None = None):
     message = EmailMessage()
 
     message["From"] = EMAIL_ADDRESS
@@ -122,6 +126,38 @@ def send_email(subject: str, body: str, reply_to: str):
     message["Reply-To"] = reply_to
 
     message.set_content(body)
+    total_attachment_size = 0
+    skipped_attachments = []
+
+    if attachments:
+        for file_path, original_name in attachments:
+            if file_path.is_file():
+                file_size = file_path.stat().st_size
+
+                if total_attachment_size + file_size > MAX_EMAIL_ATTACHMENTS_SIZE:
+                    skipped_attachments.append(Path(original_name).name)
+                    continue
+
+                with file_path.open("rb") as file:
+                    file_data = file.read()
+
+                message.add_attachment(
+                    file_data,
+                    maintype="application",
+                    subtype="octet-stream",
+                    filename=Path(original_name).name
+                )
+
+                total_attachment_size += file_size
+
+    if skipped_attachments:
+        message.set_content(
+            body
+            + "\n\nNICHT ANGEHÄNGTE DATEIEN (E-Mail-Größenlimit):\n"
+            + "\n".join(skipped_attachments)
+            + "\n\nDie Dateien wurden auf dem Server gespeichert."
+        )
+
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30) as smtp:
         smtp.starttls()
         smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
@@ -322,8 +358,8 @@ def create_quick_inquiry(request: Request, inquiry: QuickInquiry):
 
     try:
         send_email(subject, body, inquiry.email)
-    except Exception as error:
-        print(f"E-mail could not be sent: {error}")
+    except Exception:
+        logger.exception("Quick inquiry email failed")
 
     return {"message": "Inquiry saved successfully"}
 
@@ -561,12 +597,41 @@ def create_project_inquiry(
     Nachricht: 
     {message}
     """
+
+    attachments = []
+
+    if text_file_stored_name:
+        attachments.append((
+            UPLOAD_DIR / "texts" / text_file_stored_name,
+            text_file_original_name
+        ))
+
+    if logo_stored_name:
+        attachments.append((
+            UPLOAD_DIR / "logos" / logo_stored_name,
+            logo_original_name
+        ))
+
+    if branding_stored_name:
+        attachments.append((
+            UPLOAD_DIR / "branding" / branding_stored_name,
+            branding_original_name
+        ))
+
+    for stored_name, original_name in zip(
+        image_stored_names, image_original_names
+    ):
+        attachments.append((
+            UPLOAD_DIR / "images" / stored_name,
+            original_name
+        ))
+
     subject = f"Neue Projektanfrage - {firstName} {lastName}"
 
     try:
-        send_email(subject, body, email)
-    except Exception as error:
-        print(f"E-mail could not be sent: {error}")
+        send_email(subject, body, email, attachments)
+    except Exception:
+        logger.exception("Project inquiry email failed")
 
     return {"message": "Inquiry saved successfully"}
 
