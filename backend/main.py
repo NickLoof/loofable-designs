@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Form, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 import sqlite3
 import json
 from pathlib import Path
@@ -10,6 +10,11 @@ from dotenv import load_dotenv
 import os
 import smtplib
 from email.message import EmailMessage
+from fastapi import Request
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from slowapi import _rate_limit_exceeded_handler
 
 
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
@@ -68,6 +73,10 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 (UPLOAD_DIR / "images").mkdir(exist_ok=True)
 
 app = FastAPI()
+
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 origins = ["http://localhost:5173"]
 
@@ -211,13 +220,13 @@ def create_tables():
 create_tables()
 
 class BaseInquiry(BaseModel):
-    firstName: str
-    lastName: str
-    companyName: str | None = None
-    email: str
-    phone: str | None = None
+    firstName: str = Field(min_length=1, max_length=100)
+    lastName: str = Field(min_length=1, max_length=100)
+    companyName: str | None = Field(default=None, max_length=150)
+    email: EmailStr
+    phone: str | None = Field(default=None, max_length=30)
     privacyAccepted: bool
-    message: str
+    message: str = Field(min_length=1, max_length=5000)
     selectedPackage: str | None = None
     selectedAddons: list[dict] = Field(default_factory=list)
     addonQuantities: dict[str, int] = Field(default_factory=dict)
@@ -253,7 +262,13 @@ class ProjectInquiry(BaseInquiry):
 def home():
     return{"message": "Loofable backend is running"}
 @app.post("/inquiries/quick")
-def create_quick_inquiry(inquiry: QuickInquiry):
+@limiter.limit("5/15minutes")
+def create_quick_inquiry(request: Request, inquiry: QuickInquiry):
+    if not inquiry.privacyAccepted:
+        raise HTTPException(
+            status_code=400,
+            detail="Bitte stimme der Datenschutzerklärung zu."
+        )
     connection = get_db_connection()
     connection.execute("""INSERT INTO quick_inquiries
     (firstName, lastName, companyName, email, phone, privacyAccepted, message, selectedPackage, selectedAddons, addonQuantities, total)
@@ -313,14 +328,16 @@ def create_quick_inquiry(inquiry: QuickInquiry):
     return {"message": "Inquiry saved successfully"}
 
 @app.post("/inquiries/project")
+@limiter.limit("5/15minutes")
 def create_project_inquiry(
-    firstName: str = Form(),
-    lastName: str = Form(),
-    email: str = Form(),
-    companyName: str | None = Form(None),
-    phone: str | None = Form(None),
+    request: Request,
+    firstName: str = Form(min_length=1, max_length=100),
+    lastName: str = Form(min_length=1, max_length=100),
+    email: EmailStr = Form(),
+    companyName: str | None = Form(None, max_length=150),
+    phone: str | None = Form(None, max_length=30),
     privacyAccepted: bool = Form(),
-    message: str = Form(),
+    message: str = Form(min_length=1, max_length=5000),
     projectType: str = Form(),
     industry: str | None = Form(None),
     companyDescription: str = Form(),
@@ -350,6 +367,11 @@ def create_project_inquiry(
     addonQuantities: str = Form("{}"),
     total: float | None = Form(None),
     ):
+    if not privacyAccepted:
+        raise HTTPException(
+            status_code=400,
+            detail="Bitte stimme der Datenschutzerklärung zu."
+        )
     connection = get_db_connection()
 
     text_file_original_name = None
