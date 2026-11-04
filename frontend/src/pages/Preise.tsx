@@ -245,7 +245,7 @@ function Prices() {
                                         <h2>{item.name}</h2>
                                         {item.name === "Business Website"&&(<p className="bestseller-p">Bestseller</p>)}
                                     </div>
-                                    <h2>{item.startingAt && "ab "}{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(item.price)}</h2>  
+                                    <h2>{item.startingAt && "ab "}{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(item.price ?? 0)}</h2>  
                                 </div>
                                 <div className="prices-package-info">
                                     <p>{item.description}</p>

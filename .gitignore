@@ -30,6 +30,10 @@ dist-ssr
 #Database
 backend/loofable.db
 backend/venv/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
 #Customer uploads
 backend/uploads/
 # Python cache

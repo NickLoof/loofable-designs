@@ -254,7 +254,12 @@ function Contact () {
             calculatorSelection &&
             calculatorSelection.selectedPackage?.price != null
             ) {
-            formData.append("total", calculatorSelection.total.toString());
+            formData.append(
+                "total",
+                calculatorSelection.selectedPackage?.price == null
+                    ? ""
+                    : calculatorSelection.total?.toString() ?? ""
+                );
             }
         setProjectErrors(newErrors);
         const hasErrors = Object.values(newErrors).some(item => item !== "");
@@ -355,7 +360,7 @@ function Contact () {
                                 <h2>Paket</h2>
                                 <div className="contact-calculator-package-name-price">
                                     <h3>{calculatorSelection.selectedPackage.name}</h3>
-                                    <h3>{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(calculatorSelection.selectedPackage.price)}</h3>
+                                    <h3>{new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR",}).format(calculatorSelection.selectedPackage.price ?? 0)}</h3>
                                 </div>
                             </div>
                             <div className="contact-calculator-addons">
