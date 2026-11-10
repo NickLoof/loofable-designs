@@ -6,7 +6,7 @@ function Services() {
     return(
         <section className="services" id="leistungen">
             <div className="services-headline">
-                <h1>Alles, was dein Unternehmen für den Online-Erfolg braucht</h1>
+                <h2 className="services-headline-h2">Alles, was dein Unternehmen für den Online-Erfolg braucht</h2>
             </div>
             <div className="services-support-text">
                 <p>Individuelles Webdesign für Selbstständige und kleine Unternehmen in Kiel und Umgebung – 
@@ -15,7 +15,7 @@ function Services() {
             <div className="services-cards">
                 <div className="services-card">
                     <GlobeCode className="services-icon"/>
-                    <h1>Unternehmen-Websites</h1>
+                    <h3 className="services-card-h3">Unternehmen-Websites</h3>
                     <p className="services-card-p">Moderne, individuelle Websites für Handwerksbetriebe, Salons, Fotografen und lokale Dienstleister – entwickelt, 
                         um dein Unternehmen professionell zu präsentieren und Besucher in Anfragen zu verwandeln.
                     </p>
@@ -27,7 +27,7 @@ function Services() {
                 </div>
                 <div className="services-card">
                     <WandSparkles className="services-icon"/>
-                    <h1>Website-Redesigns</h1>
+                    <h3 className="services-card-h3">Website-Redesigns</h3>
                     <p className="services-card-p">Deine bestehende Website wirkt veraltet, langsam oder funktioniert auf dem Smartphone nicht richtig? 
                        Ich bringe sie technisch und optisch auf einen modernen Stand.
                     </p>
@@ -39,7 +39,7 @@ function Services() {
                 </div>
                 <div className="services-card">
                     <Store className="services-icon"/>
-                    <h1>Online-Shops</h1>
+                    <h3 className="services-card-h3">Online-Shops</h3>
                     <p className="services-card-p">Vom ersten Produkt bis zum sicheren Checkout: individuelle Online-Shops für digitale und physische Produkte, passend zu deinem Unternehmen.
                     </p>
                     <ul>
@@ -51,7 +51,7 @@ function Services() {
                 </div>
                 <div className="services-card">
                     <ShieldHalf className="services-icon"/>
-                    <h1>Wartung & Support</h1>
+                    <h3 className="services-card-h3">Wartung & Support</h3>
                     <p className="services-card-p">Eine Website ist nach dem Launch nicht plötzlich „fertig“. 
                         Ich unterstütze dich auch danach bei Updates, Änderungen und technischen Problemen.
                     </p>

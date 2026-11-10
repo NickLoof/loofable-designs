@@ -137,7 +137,7 @@ function HandwerkDemo({demoScreenRef}: TradeDemoProps) {
                 <div className="trade-hero-content">
                     <div className="trade-hero-content-header">
                         <p className="trade-hero-content-header-p1">Sanierung <span>•</span> Renovierung <span>•</span> Innenausbau</p>
-                        <h1 className="trade-hero-content-header-h1">Handwerk, das hält.</h1>
+                        <h2 className="trade-hero-content-header-h1">Handwerk, das hält.</h2>
                         <p className="trade-hero-content-header-p2">Von der ersten Planung bis zum letzten Handgriff. Zuverlässige Arbeit, klare Absprachen und saubere Ergebnisse in Kiel und Umgebung.</p>
                     </div>
                     <div className="trade-hero-content-ctas">
@@ -180,7 +180,7 @@ function HandwerkDemo({demoScreenRef}: TradeDemoProps) {
             </section>
             <section id="projects" className="trade-projects">
                 <div className="trade-projects-header">
-                    <h1 className="trade-projects-header-h1">Unsere Projekte</h1>
+                    <h2 className="trade-projects-header-h1">Unsere Projekte</h2>
                     <p className="trade-projects-header-p">Ergebnisse, die man sieht</p>
                 </div>
                 <div className="trade-projects-displays">

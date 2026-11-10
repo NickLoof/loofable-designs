@@ -160,8 +160,8 @@
     font-size: 20px;
     color: green;
 }
-.prices-packages-redesign-header h1{
-    font-size: 40px;
+.prices-packages-redesign-header h2{
+    font-size: 35px;
     flex-shrink: 1;
 }
 .prices-addon-packages{

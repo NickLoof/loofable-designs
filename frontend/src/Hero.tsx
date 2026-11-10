@@ -20,19 +20,19 @@ function Hero() {
                 </div>
                 <div className="hero-additional-info">
                     <div className="hero-info">
-                        <h1>1-zu-1</h1>
+                        <p className="hero-info-top">1-zu-1</p>
                         <p>Direkte Zusammenarbeit</p>
                     </div >
                     <div className="hero-info">
-                        <h1>100% individuell</h1>
+                        <p className="hero-info-top">100% individuell</p>
                         <p>Keine Baukastenlösung</p>
                     </div>
                     <div className="hero-info">
-                        <h1>Schnell</h1>
+                        <p className="hero-info-top">Schnell</p>
                         <p>Optimierte Ladezeiten</p>
                     </div>
                     <div className="hero-info">
-                        <h1>Fair</h1>
+                        <p className="hero-info-top">Fair</p>
                         <p>Transparente Preisgestaltung</p>
                     </div>
                 </div>

@@ -27,6 +27,9 @@ p {
     padding: 30px;
     padding-top: 50px;
 }
+.why-loofable-header h2{
+    font-size: 30px;
+}
 .why-loofable-columns{
     display: flex;
     justify-content: center;

@@ -642,7 +642,7 @@ border: none;
     display: flex;
     flex-direction: column;
 }
-.online-shop-hero-text-container h1{
+.online-shop-hero-text-container h2{
     font-size: 50px;
     color: rgb(199, 172, 136);
 }
@@ -693,7 +693,7 @@ border: none;
     padding: 80px 50px 50px 50px;
     background-color: rgb(46, 53, 21);
 }
-.online-shop-popular-header h1{
+.online-shop-popular-header h2{
     font-size: 40px;
 }
 .online-shop-popular-header p{
@@ -757,7 +757,7 @@ border: none;
     padding: 70px 30px 60px 30px;
     background-color: rgb(116, 54, 3);
 }
-.online-shop-bestseller-header h1{
+.online-shop-bestseller-header h2{
     font-size: 40px;
 }
 .online-shop-bestseller-header p{
@@ -987,6 +987,9 @@ font-size: 20px;
     padding: 20px;
     display: flex;
     justify-content: center;
+}
+.online-shop-shop-header h2{
+    font-size: 35px;
 }
 .online-shop-shop-content{
     display: grid;

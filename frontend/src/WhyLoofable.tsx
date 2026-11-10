@@ -9,7 +9,7 @@ function WhyLoofable() {
         <section id="warum-loofable" className="why-loofable">
             <div className="why-loofable-header">
                 <p>Persönlich. Direkt. Individuell.</p>
-                <h1>Warum Loofable Designs?</h1>
+                <h2>Warum Loofable Designs?</h2>
             </div>
             <div className="why-loofable-columns">
                 <div className="why-loofable-browser-mockup-container">

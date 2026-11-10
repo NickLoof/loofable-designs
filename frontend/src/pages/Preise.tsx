@@ -262,7 +262,7 @@ function Prices() {
                 <div className="prices-packages-redesign">
                         <div className="prices-packages-redesign-header">
                             <h3>Du hast bereits eine Website?</h3>
-                            <h1>Websites modernisieren & erweitern</h1>
+                            <h2>Websites modernisieren & erweitern</h2>
                             <p>Deine Website braucht einen neuen Look oder zusätzliche Funktionen? Ich modernisiere bestehende Websites 
                                 und entwickle individuelle Webanwendungen, die dein Unternehmen im Alltag unterstützen.</p>
                         </div>

@@ -25,8 +25,8 @@ p {
 .live-demo-header p{
     font-size: 22px;
 }
-.live-demo-header h1{
-    font-size: 38px;
+.live-demo-header h2{
+    font-size: 35px;
 }
 .live-demo-selectors{
     display: flex;

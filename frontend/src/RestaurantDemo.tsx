@@ -137,7 +137,7 @@ function RestaurantDemo({demoScreenRef}: RestaurantDemoProps) {
                     className={index == currentImage?"restaurant-hero-image restaurant-hero-image-active":"restaurant-hero-image"}/>)}
                     <div className="restaurant-hero-content">
                         <div className="restaurant-hero-text">
-                            <h1>Tradizione, servita con eleganza</h1>
+                            <h2>Tradizione, servita con eleganza</h2>
                             <p>Italienische Küche, handgemachte Pasta und ausgewählte Weine – inspiriert von den traditionellen Küchen Italiens.</p>
                         </div>
                         <div className="restaurant-hero-ctas">
@@ -201,7 +201,7 @@ function RestaurantDemo({demoScreenRef}: RestaurantDemoProps) {
             <section id="reservieren" className="restaurant-reservation">
                 <div className="restaurant-reservation-content">
                 <div className="restaurant-reservation-heading">
-                    <h1>Tisch reservieren</h1>
+                    <h3>Tisch reservieren</h3>
                     <h2>Ein Abend bei Antica Tavola</h2>
                     <p>Reserviere deinen Tisch und genieße einen Abend mit italienischer Küche und Gastfreundschaft.</p>
                 </div>

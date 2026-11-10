@@ -954,7 +954,7 @@ function resetLoginForm() {
             {shopOpen?
             <div className="online-shop-shop">
                 <div className="online-shop-shop-header">
-                    <h1>{selectedCategory === null ? "Alle Produkte": selectedCategory}</h1>
+                    <h2>{selectedCategory === null ? "Alle Produkte": selectedCategory}</h2>
                 </div>
                     {filtersOpen && demoScreenRef.current && createPortal(
                         <div className="online-shop-overlay">
@@ -990,11 +990,11 @@ function resetLoginForm() {
             </div>:
             <div className="online-shop-home">
                 <section className="online-shop-hero">
-                    <img className="online-shop-hero-image" src={hero} alt="man and dog viewing sunset" />
+                    <img className="online-shop-hero-image" src={hero} alt="Man and dog viewing sunset" />
                     <div className="online-shop-hero-content">
                         <div className="online-shop-hero-text-container">
-                            <h1>Rausgehen.</h1>
-                            <h1>Weitergehen.</h1>
+                            <h2>Rausgehen.</h2>
+                            <h2>Weitergehen.</h2>
                             <p>Ausrüstung für unterwegs, gemacht für kleine Auszeiten und große Abenteuer.</p>
                         </div>
                         <div className="online-shop-hero-cta-container">
@@ -1005,7 +1005,7 @@ function resetLoginForm() {
                 </section>
                 <section className="online-shop-popular" id="popular">
                     <div className="online-shop-popular-header">
-                        <h1>Beliebte Kategorien</h1>
+                        <h2>Beliebte Kategorien</h2>
                         <p>Finde die richtige Ausrüstung für dein nächstes Abenteuer.</p>
                     </div>
                     <div className="online-shop-popular-cards">
@@ -1037,7 +1037,7 @@ function resetLoginForm() {
                 </section>
                 <section className="online-shop-bestseller" id="bestseller">
                     <div className="online-shop-bestseller-header">
-                        <h1>Unsere Favoriten</h1>
+                        <h2>Unsere Favoriten</h2>
                         <p>Bestseller für dein nächstes Abenteuer.</p>
                         <p>Von unserer Community besonders beliebt.</p>
                     </div>

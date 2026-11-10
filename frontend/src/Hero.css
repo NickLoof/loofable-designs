@@ -50,6 +50,9 @@
     padding-bottom: 90px;
     width: 95%;
 }
+.hero-info-top{
+    font-size: 30px;
+}
 .hero-CTAs{
     display: flex;
     gap: 50px;
@@ -141,6 +144,9 @@
     .hero-primary{
         min-width: 250px;
     }
+    .hero-info-top{
+    font-size: 25px;
+}
 }
 @media (max-width: 400px){
     .hero-additional-info{

@@ -14,7 +14,7 @@ function LiveDemo() {
         <section className="live-demo" id="live-demo">
             <div className="live-demo-header">
                 <p><strong>Live-Demo</strong></p>
-                <h1>Sieh selbst, wie deine Webseite aussehen könnte!</h1>
+                <h2>Sieh selbst, wie deine Webseite aussehen könnte!</h2>
                 <p>Entdecke verschiedene Website-Designs und teste direkt, wie sie sich auf Desktop, Tablet und Smartphone anpassen.</p>
             </div>
             <div className="live-demo-selectors">
